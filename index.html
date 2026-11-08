@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KONOTOP STUDIO — Web Design & Development</title>
+
+  <style>
+    :root {
+      --bg: #0b0b0d;
+      --card: #141417;
+      --text: #f5f5f5;
+      --muted: #929298;
+      --line: #29292e;
+      --accent: #c8ff45;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1180px, 90%);
+      margin: auto;
+    }
+
+    header {
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    nav a {
+      color: var(--muted);
+      font-size: 14px;
+      transition: .3s;
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    .lang button {
+      border: 0;
+      background: none;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .lang button.active {
+      color: var(--accent);
+    }
+
+    .hero {
+      min-height: 720px;
+      display: flex;
+      align-items: center;
+      padding: 100px 0;
+    }
+
+    .label {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      margin-bottom: 25px;
+    }
+
+    h1 {
+      max-width: 850px;
+      font-size: clamp(48px, 8vw, 105px);
+      line-height: .95;
+      letter-spacing: -5px;
+      margin-bottom: 35px;
+    }
+
+    .hero-text {
+      max-width: 600px;
+      color: var(--muted);
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 16px 24px;
+      border: 1px solid var(--text);
+      transition: .3s;
+      font-size: 14px;
+    }
+
+    .button.primary {
+      background: var(--accent);
+      color: #111;
+      border-color: var(--accent);
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+      opacity: .85;
+    }
+
+    section {
+      padding: 120px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-title {
+      font-size: clamp(35px, 5vw, 65px);
+      line-height: 1;
+      letter-spacing: -3px;
+      margin-bottom: 35px;
+    }
+
+    .about-grid,
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+    }
+
+    .about-text,
+    .contact-text {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 570px;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .service {
+      background: var(--card);
+      padding: 35px;
+      min-height: 180px;
+    }
+
+    .service-number {
+      color: var(--accent);
+      margin-bottom: 35px;
+    }
+
+    .service h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .service p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .project {
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 45px;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 30px;
+    }
+
+    .project-name {
+      font-size: clamp(45px, 8vw, 100px);
+      font-weight: 800;
+      letter-spacing: -5px;
+      margin-bottom: 15px;
+    }
+
+    .project p {
+      color: var(--muted);
+      max-width: 500px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+    }
+
+    .step {
+      border-top: 1px solid var(--line);
+      padding-top: 20px;
+    }
+
+    .step-number {
+      color: var(--accent);
+      margin-bottom: 25px;
+    }
+
+    .step h3 {
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      font-size: 20px;
+    }
+
+    .contact-links a {
+      transition: .3s;
+    }
+
+    .contact-links a:hover {
+      color: var(--accent);
+    }
+
+    footer {
+      padding: 30px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 700px) {
+      header {
+        height: auto;
+        padding: 25px 0;
+        align-items: flex-start;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .hero {
+        min-height: 650px;
+        padding: 70px 0;
+      }
+
+      h1 {
+        letter-spacing: -3px;
+      }
+
+      .about-grid,
+      .contact-grid,
+      .services,
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .project {
+        display: block;
+        padding: 28px;
+      }
+
+      .project .button {
+        margin-top: 30px;
+      }
+
+      section {
+        padding: 80px 0;
+      }
+
+      footer {
+        display: block;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <header>
+      <a href="#" class="logo">KONOTOP STUDIO</a>
+
+      <nav>
+        <a href="#about" data-uk="Про студію" data-en="About">Про студію</a>
+        <a href="#services" data-uk="Послуги" data-en="Services">Послуги</a>
+        <a href="#work" data-uk="Робота" data-en="Work">Робота</a>
+        <a href="#contact" data-uk="Контакти" data-en="Contact">Контакти</a>
+      </nav>
+
+      <div class="lang">
+        <button class="active" onclick="setLanguage('uk')">UA</button>
+        /
+        <button onclick="setLanguage('en')">EN</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <div class="label">Design · Development · Digital</div>
+
+          <h1
+            data-uk="Сучасні сайти для бізнесу, який хоче розвиватися"
+            data-en="Modern websites for businesses ready to grow">
+            Сучасні сайти для бізнесу, який хоче розвиватися
+          </h1>
+
+          <p class="hero-text"
+             data-uk="Створюємо продумані цифрові рішення — від дизайну до розробки функціонального сайту."
+             data-en="We create thoughtful digital solutions — from design to development.">
+            Створюємо продумані цифрові рішення — від дизайну до розробки функціонального сайту.
+          </p>
+
+          <div class="buttons">
+            <a href="#work" class="button primary"
+               data-uk="Переглянути роботу"
+               data-en="View project">
+              Переглянути роботу
+            </a>
+
+            <a href="#contact" class="button"
+               data-uk="Обговорити проєкт"
+               data-en="Discuss a project">
+              Обговорити проєкт
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="about-grid">
+          <h2 class="section-title"
+              data-uk="Про студію"
+              data-en="About the studio">
+            Про студію
+          </h2>
+
+          <p class="about-text"
+             data-uk="KONOTOP STUDIO — студія дизайну та розробки сайтів, заснована Назаром. Ми створюємо сучасні, функціональні та зручні сайти для бізнесу. Кожен проєкт адаптуємо під цілі, аудиторію та побажання клієнта."
+             data-en="KONOTOP STUDIO is a web design and development studio founded by Nazar. We create modern, functional and user-friendly websites. Every project is tailored to the client's goals, audience and needs.">
+            KONOTOP STUDIO — студія дизайну та розробки сайтів, заснована Назаром. Ми створюємо сучасні, функціональні та зручні сайти для бізнесу. Кожен проєкт адаптуємо під цілі, аудиторію та побажання клієнта.
+          </p>
+        </div>
+      </section>
+
+      <section id="services">
+        <h2 class="section-title"
+            data-uk="Послуги"
+            data-en="Services">
+          Послуги
+        </h2>
+
+        <div class="services">
+          <div class="service">
+            <div class="service-number">01</div>
+            <h3 data-uk="Веб-дизайн" data-en="Web design">Веб-дизайн</h3>
+            <p data-uk="Створення сучасного та зрозумілого візуального стилю сайту."
+               data-en="Creating a modern and clear visual style for your website.">
+              Створення сучасного та зрозумілого візуального стилю сайту.
+            </p>
+          </div>
+
+          <div class="service">
+            <div class="service-number">02</div>
+            <h3 data-uk="Розробка сайтів" data-en="Website development">Розробка сайтів</h3>
+            <p data-uk="Функціональні сайти, адаптовані під комп’ютери та смартфони."
+               data-en="Functional websites adapted for computers and smartphones.">
+              Функціональні сайти, адаптовані під комп’ютери та смартфони.
+            </p>
+          </div>
+
+          <div class="service">
+            <div class="service-number">03</div>
+            <h3 data-uk="Редизайн" data-en="Redesign">Редизайн</h3>
+            <p data-uk="Оновлення зовнішнього вигляду та структури існуючого сайту."
+               data-en="Improving the visual style and structure of an existing website.">
+              Оновлення зовнішнього вигляду та структури існуючого сайту.
+            </p>
+          </div>
+
+          <div class="service">
+            <div class="service-number">04</div>
+            <h3 data-uk="Індивідуальні рішення" data-en="Custom solutions">Індивідуальні рішення</h3>
+            <p data-uk="Підбираємо рішення відповідно до завдань і потреб вашого бізнесу."
+               data-en="We choose solutions according to your business goals and needs.">
+              Підбираємо рішення відповідно до завдань і потреб вашого бізнесу.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="work">
+        <h2 class="section-title"
+            data-uk="Обраний проєкт"
+            data-en="Selected project">
+          Обраний проєкт
+        </h2>
+
+        <div class="project">
+          <div>
+            <div class="project-name">MAPIN</div>
+
+            <p data-uk="Участь у проєкті Mapin у сфері веб-дизайну та розробки."
+               data-en="Contribution to the Mapin project in web design and development.">
+              Участь у проєкті Mapin у сфері веб-дизайну та розробки.
+            </p>
+          </div>
+
+          <a class="button primary"
+             href="https://mapin.com.ua/en/about/"
+             target="_blank"
+             data-uk="Відкрити проєкт"
+             data-en="Open project">
+            Відкрити проєкт
+          </a>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title"
+            data-uk="Як ми працюємо"
+            data-en="How we work">
+          Як ми працюємо
+        </h2>
+
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">01</div>
+            <h3 data-uk="Обговорення" data-en="Discussion">Обговорення</h3>
+            <p data-uk="Визначаємо цілі та завдання проєкту."
+               data-en="We define the goals and tasks of the project.">
+              Визначаємо цілі та завдання проєкту.
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">02</div>
+            <h3 data-uk="Концепція" data-en="Concept">Концепція</h3>
+            <p data-uk="Формуємо структуру та напрям дизайну."
+               data-en="We create the structure and design direction.">
+              Формуємо структуру та напрям дизайну.
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">03</div>
+            <h3 data-uk="Розробка" data-en="Development">Розробка</h3>
+            <p data-uk="Реалізуємо дизайн і необхідні функції."
+               data-en="We develop the design and required features.">
+              Реалізуємо дизайн і необхідні функції.
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="step-number">04</div>
+            <h3 data-uk="Запуск" data-en="Launch">Запуск</h3>
+            <p data-uk="Перевіряємо сайт і готуємо його до роботи."
+               data-en="We test the website and prepare it for launch.">
+              Перевіряємо сайт і готуємо його до роботи.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="contact-grid">
+          <div>
+            <h2 class="section-title"
+                data-uk="Є ідея для сайту?"
+                data-en="Have an idea for a website?">
+              Є ідея для сайту?
+            </h2>
+
+            <p class="contact-text"
+               data-uk="Розкажіть про свій проєкт — обговоримо, як перетворити вашу ідею на сучасний сайт."
+               data-en="Tell us about your project — let's discuss how to turn your idea into a modern website.">
+              Розкажіть про свій проєкт — обговоримо, як перетворити вашу ідею на сучасний сайт.
+            </p>
+          </div>
+
+          <div class="contact-links">
+            <a href="https://t.me/m_konotop" target="_blank">Telegram ↗</a>
+            <a href="mailto:managerkonotop@gmail.com">managerkonotop@gmail.com ↗</a>
+            <a href="tel:+380668408046">066 840 8046 ↗</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© 2025 KONOTOP STUDIO</span>
+      <span data-uk="Дизайн та розробка сайтів" data-en="Web design and development">
+        Дизайн та розробка сайтів
+      </span>
+    </footer>
+  </div>
+
+  <script>
+    function setLanguage(language) {
+      document.documentElement.lang = language;
+
+      document.querySelectorAll("[data-uk]").forEach(element => {
+        element.textContent = element.dataset[language];
+      });
+
+      document.querySelectorAll(".lang button").forEach(button => {
+        button.classList.remove("active");
+      });
+
+      document
+        .querySelector(`.lang button[onclick="setLanguage('${language}')"]`)
+        .classList.add("active");
+    }
+  </script>
+
+</body>
+</html>
