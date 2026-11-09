@@ -843,7 +843,7 @@
   <div class="stage" id="stage">
     <header class="site" id="site">
       <div class="wrap bar">
-        <a href="/" class="logo">KONOTOP<span class="logo-more"> STUDIO</span></a>
+        <a href="/" class="logo notranslate" translate="no">KONOTOP<span class="logo-more"> STUDIO</span></a>
         <nav class="nav" aria-label="Основна навігація">
           <a href="#about">Про студію</a>
           <a href="#services">Послуги</a>
@@ -884,7 +884,7 @@
   </div>
   <div class="menu blueprint" id="menu" role="dialog" aria-modal="true" aria-label="Меню" hidden>
     <div class="wrap bar">
-      <a href="/" class="logo">KONOTOP STUDIO</a>
+      <a href="/" class="logo notranslate" translate="no">KONOTOP STUDIO</a>
       <button type="button" class="menu-btn" id="menu-close">Закрити</button>
     </div>
     <div class="wrap menu-links">
@@ -936,7 +936,7 @@
     <section id="work" class="work">
       <div class="work-text reveal">
         <h2>Обраний проєкт</h2>
-        <h3 class="project-title">MAPIN</h3>
+        <h3 class="project-title notranslate" translate="no">MAPIN</h3>
         <p>Брав участь у дизайні та розробці приблизно половини сайту Mapin: працював над візуальною частиною та кодом.</p>
         <a class="btn btn--solid" href="https://mapin.com.ua/pro-nas/" target="_blank" rel="noopener">Відкрити сайт Mapin</a>
       </div>
@@ -1147,7 +1147,8 @@
           var role = field(person.role);
           var card = el('article', 'person');
           var top = el('div', 'person-top');
-          var avatar = el('div', 'avatar');
+          var avatar = el('div', 'avatar notranslate');
+          avatar.setAttribute('translate', 'no');
           function fallback() {
             if (name) { avatar.textContent = name.charAt(0); } else { avatar.innerHTML = PERSON_ICON; }
           }
@@ -1162,7 +1163,9 @@
             fallback();
           }
           var titles = el('div');
-          titles.appendChild(el('h3', '', name || role));
+          var heading = el('h3', name ? 'notranslate' : '', name || role);
+          if (name) { heading.setAttribute('translate', 'no'); }
+          titles.appendChild(heading);
           if (name && role) { titles.appendChild(el('div', 'person-role', role)); }
           top.appendChild(avatar);
           top.appendChild(titles);

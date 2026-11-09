@@ -832,7 +832,7 @@
   <div class="stage" id="stage">
     <header class="site" id="site">
       <div class="wrap bar">
-        <a href="/en/" class="logo">KONOTOP<span class="logo-more"> STUDIO</span></a>
+        <a href="/en/" class="logo notranslate" translate="no">KONOTOP<span class="logo-more"> STUDIO</span></a>
         <nav class="nav" aria-label="Main navigation">
           <a href="#about">About</a>
           <a href="#services">Services</a>
@@ -873,7 +873,7 @@
   </div>
   <div class="menu blueprint" id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
     <div class="wrap bar">
-      <a href="/en/" class="logo">KONOTOP STUDIO</a>
+      <a href="/en/" class="logo notranslate" translate="no">KONOTOP STUDIO</a>
       <button type="button" class="menu-btn" id="menu-close">Close</button>
     </div>
     <div class="wrap menu-links">
@@ -925,7 +925,7 @@
     <section id="work" class="work">
       <div class="work-text reveal">
         <h2>Selected project</h2>
-        <h3 class="project-title">MAPIN</h3>
+        <h3 class="project-title notranslate" translate="no">MAPIN</h3>
         <p>Contributed to the design and development of roughly half of the Mapin website, working on the visual direction and code.</p>
         <a class="btn btn--solid" href="https://mapin.com.ua/en/about/" target="_blank" rel="noopener">Open the Mapin website</a>
       </div>
@@ -1136,7 +1136,8 @@
           var role = field(person.role);
           var card = el('article', 'person');
           var top = el('div', 'person-top');
-          var avatar = el('div', 'avatar');
+          var avatar = el('div', 'avatar notranslate');
+          avatar.setAttribute('translate', 'no');
           function fallback() {
             if (name) { avatar.textContent = name.charAt(0); } else { avatar.innerHTML = PERSON_ICON; }
           }
@@ -1151,7 +1152,9 @@
             fallback();
           }
           var titles = el('div');
-          titles.appendChild(el('h3', '', name || role));
+          var heading = el('h3', name ? 'notranslate' : '', name || role);
+          if (name) { heading.setAttribute('translate', 'no'); }
+          titles.appendChild(heading);
           if (name && role) { titles.appendChild(el('div', 'person-role', role)); }
           top.appendChild(avatar);
           top.appendChild(titles);
