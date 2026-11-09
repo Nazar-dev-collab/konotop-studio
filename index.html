@@ -181,6 +181,9 @@
       transition: background-color .3s, color .3s;
     }
     body.locked { overflow: hidden; }
+    html:has(#team[open]) { background: color-mix(in srgb, var(--paper) 45%, #080c0e); }
+    html:has(#viewer[open]) { background: #0a0e10; }
+    html:has(#menu:not([hidden])) { background: var(--a); }
     a { color: inherit; text-decoration: none; }
     button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
     ul, ol { list-style: none; }
@@ -435,6 +438,12 @@
     }
     .shot { min-width: 0; overflow: hidden; border: 1px solid var(--rule); border-radius: 8px; background: var(--paper); }
     .shot img { display: block; width: 100%; height: auto; }
+    .shot-open { display: block; cursor: zoom-in; }
+    .shot-open:focus-visible { outline-offset: -3px; }
+    @media (prefers-reduced-motion: no-preference) {
+      .shot img { transition: transform .35s cubic-bezier(.22, 1, .36, 1); }
+      .shot-open:hover img { transform: scale(1.02); }
+    }
     .shot--day { grid-area: 1 / 1 / 2 / 3; }
     .shot--phone {
       grid-area: 1 / 1 / 2 / 3;
@@ -655,6 +664,103 @@
     .swatch:hover { background: var(--surface); }
     .swatch i { flex: none; width: 20px; height: 20px; border-radius: 50%; }
     .swatch[aria-pressed="true"] { background: var(--surface); font-weight: 500; }
+    .viewer {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      max-height: none;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      overflow: hidden;
+      background: rgba(8, 12, 14, .95);
+      color: #fff;
+    }
+    .viewer::backdrop { background: rgba(8, 12, 14, .95); }
+    .viewer :focus-visible { outline-color: #fff; }
+    .viewer-stage {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .viewer-stage img {
+      display: block;
+      max-width: none;
+      border-radius: 4px;
+      cursor: zoom-in;
+      transform-origin: center;
+      will-change: transform;
+      -webkit-user-drag: none;
+    }
+    .viewer-stage.is-zoomed img { cursor: grab; }
+    .viewer-stage.is-dragging img { cursor: grabbing; }
+    @media (prefers-reduced-motion: no-preference) {
+      .viewer-stage img.is-animating { transition: transform .2s cubic-bezier(.22, 1, .36, 1); }
+    }
+    .viewer-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px clamp(10px, 2vw, 20px);
+      pointer-events: none;
+    }
+    .viewer-bar > * { pointer-events: auto; }
+    .viewer-count { font-size: .9375rem; font-weight: 400; font-variant-numeric: tabular-nums; }
+    .viewer-tools { display: flex; align-items: center; gap: 4px; }
+    .viewer-btn {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .12);
+      color: #fff;
+      transition: background-color .2s;
+    }
+    .viewer-btn, .viewer-zoom { touch-action: manipulation; }
+    .viewer-btn:hover:not(:disabled) { background: rgba(255, 255, 255, .24); }
+    .viewer-btn:disabled { opacity: .4; cursor: default; }
+    .viewer-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .viewer-zoom {
+      min-width: 58px;
+      min-height: 44px;
+      color: #fff;
+      font-size: .9375rem;
+      font-weight: 400;
+      font-variant-numeric: tabular-nums;
+    }
+    .viewer-nav { position: absolute; top: 50%; z-index: 1; margin-top: -22px; }
+    .viewer-nav--prev { left: clamp(10px, 2vw, 20px); }
+    .viewer-nav--next { right: clamp(10px, 2vw, 20px); }
+    .viewer-caption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      padding: 14px 72px;
+      font-size: .9375rem;
+      text-align: center;
+      text-wrap: balance;
+      pointer-events: none;
+    }
+    @media (max-width: 600px) {
+      .viewer-nav { top: auto; bottom: 10px; margin-top: 0; }
+      .viewer-caption { padding: 16px 64px; font-size: .875rem; }
+    }
     .menu {
       --fg: #fff;
       position: fixed;
@@ -835,10 +941,10 @@
         <a class="btn btn--solid" href="https://mapin.com.ua/pro-nas/" target="_blank" rel="noopener">Відкрити сайт Mapin</a>
       </div>
       <div class="work-shots">
-        <figure class="shot shot--day"><img src="/img/mapin-day.webp" width="1176" height="784" loading="lazy" decoding="async" alt="Перший екран сайту Mapin із денною картою міста"></figure>
-        <figure class="shot shot--phone"><img src="/img/mapin-phone.webp" width="390" height="844" loading="lazy" decoding="async" alt="Мобільна версія сайту Mapin"></figure>
-        <figure class="shot"><img src="/img/mapin-dusk.webp" width="1176" height="784" loading="lazy" decoding="async" alt="Секція сайту Mapin, де карта переходить у вечір"></figure>
-        <figure class="shot"><img src="/img/mapin-night.webp" width="1176" height="784" loading="lazy" decoding="async" alt="Нічний блок сайту Mapin із порівнянням профілю до і після"></figure>
+        <figure class="shot shot--day"><a class="shot-open" href="/img/mapin-day.webp"><img src="/img/mapin-day.webp" width="1176" height="784" loading="lazy" decoding="async" alt="Перший екран сайту Mapin із денною картою міста"></a></figure>
+        <figure class="shot shot--phone"><a class="shot-open" href="/img/mapin-phone.webp"><img src="/img/mapin-phone.webp" width="390" height="844" loading="lazy" decoding="async" alt="Мобільна версія сайту Mapin"></a></figure>
+        <figure class="shot"><a class="shot-open" href="/img/mapin-dusk.webp"><img src="/img/mapin-dusk.webp" width="1176" height="784" loading="lazy" decoding="async" alt="Секція сайту Mapin, де карта переходить у вечір"></a></figure>
+        <figure class="shot"><a class="shot-open" href="/img/mapin-night.webp"><img src="/img/mapin-night.webp" width="1176" height="784" loading="lazy" decoding="async" alt="Нічний блок сайту Mapin із порівнянням профілю до і після"></a></figure>
       </div>
     </section>
     <section class="sec process">
@@ -917,6 +1023,21 @@
       <button type="button" class="btn" id="team-close">Закрити</button>
     </div>
     <div class="team-grid" id="team-grid"></div>
+  </dialog>
+  <dialog class="viewer" id="viewer" aria-label="Перегляд фото">
+    <div class="viewer-stage" id="viewer-stage"><img id="viewer-img" alt="" draggable="false"></div>
+    <div class="viewer-bar">
+      <span class="viewer-count" id="viewer-count" aria-live="polite"></span>
+      <div class="viewer-tools">
+        <button type="button" class="viewer-btn" id="viewer-out" aria-label="Віддалити"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+        <button type="button" class="viewer-zoom" id="viewer-reset" aria-label="Скинути масштаб">100%</button>
+        <button type="button" class="viewer-btn" id="viewer-in" aria-label="Наблизити"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg></button>
+        <button type="button" class="viewer-btn" id="viewer-close" aria-label="Закрити"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      </div>
+    </div>
+    <button type="button" class="viewer-btn viewer-nav viewer-nav--prev" id="viewer-prev" aria-label="Попереднє фото"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <button type="button" class="viewer-btn viewer-nav viewer-nav--next" id="viewer-next" aria-label="Наступне фото"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+    <p class="viewer-caption" id="viewer-caption"></p>
   </dialog>
   <div class="palette" id="palette">
     <div class="palette-pop" id="palette-pop" hidden>
@@ -1265,6 +1386,223 @@
       var wide = window.matchMedia('(min-width: 901px)');
       var onWide = function (event) { if (event.matches && !menu.hidden) { setMenu(false); } };
       if (wide.addEventListener) { wide.addEventListener('change', onWide); } else { wide.addListener(onWide); }
+      var viewer = document.getElementById('viewer');
+      if (viewer.showModal) {
+        var vStage = document.getElementById('viewer-stage');
+        var vImg = document.getElementById('viewer-img');
+        var vCount = document.getElementById('viewer-count');
+        var vCaption = document.getElementById('viewer-caption');
+        var vReset = document.getElementById('viewer-reset');
+        var vIn = document.getElementById('viewer-in');
+        var vOut = document.getElementById('viewer-out');
+        var vShots = Array.prototype.slice.call(document.querySelectorAll('.shot-open'));
+        var V_MIN = 1, V_MAX = 4, V_PAD = 64;
+        var vIndex = 0, vScale = 1, vX = 0, vY = 0, vW = 0, vH = 0;
+        var vPointers = new Map();
+        var vDrag = null, vPinch = null, vMoved = false, vLastTap = 0;
+        var vClamp = function (value, min, max) { return Math.min(max, Math.max(min, value)); };
+        var vPan = function () {
+          var box = vStage.getBoundingClientRect();
+          var maxX = Math.max(0, (vW * vScale - box.width) / 2);
+          var maxY = Math.max(0, (vH * vScale - box.height) / 2);
+          vX = vClamp(vX, -maxX, maxX);
+          vY = vClamp(vY, -maxY, maxY);
+        };
+        var vApply = function (animate) {
+          vImg.classList.toggle('is-animating', !!animate);
+          vImg.style.transform = 'translate(' + vX + 'px,' + vY + 'px) scale(' + vScale + ')';
+          vReset.textContent = Math.round(vScale * 100) + '%';
+          vOut.disabled = vScale <= V_MIN;
+          vIn.disabled = vScale >= V_MAX;
+          vStage.classList.toggle('is-zoomed', vScale > 1);
+        };
+        var vCenter = function () {
+          var box = vStage.getBoundingClientRect();
+          return { x: box.left + box.width / 2, y: box.top + box.height / 2 };
+        };
+        var vZoomAt = function (next, x, y, animate) {
+          var c = vCenter();
+          var scale = vClamp(next, V_MIN, V_MAX);
+          var ratio = scale / vScale;
+          vX = (x - c.x) - ((x - c.x) - vX) * ratio;
+          vY = (y - c.y) - ((y - c.y) - vY) * ratio;
+          vScale = scale;
+          if (vScale === 1) { vX = 0; vY = 0; }
+          vPan();
+          vApply(animate);
+        };
+        var vFit = function () {
+          var source = vShots[vIndex].querySelector('img');
+          var nw = source.getAttribute('width');
+          var nh = source.getAttribute('height');
+          var box = vStage.getBoundingClientRect();
+          var ratio = Math.min((box.width - 32) / nw, (box.height - V_PAD * 2) / nh, 1.5);
+          vW = Math.round(nw * ratio);
+          vH = Math.round(nh * ratio);
+          vImg.style.width = vW + 'px';
+          vImg.style.height = vH + 'px';
+          vPan();
+          vApply(false);
+        };
+        var vShow = function (index) {
+          vIndex = (index + vShots.length) % vShots.length;
+          var link = vShots[vIndex];
+          var alt = link.querySelector('img').alt;
+          vScale = 1; vX = 0; vY = 0;
+          vImg.src = link.getAttribute('href');
+          vImg.alt = alt;
+          vCaption.textContent = alt;
+          vCount.textContent = (vIndex + 1) + ' / ' + vShots.length;
+          vFit();
+          [vIndex + 1, vIndex - 1].forEach(function (i) {
+            new Image().src = vShots[(i + vShots.length) % vShots.length].getAttribute('href');
+          });
+        };
+        vShots.forEach(function (link, index) {
+          link.addEventListener('click', function (event) {
+            if (event.ctrlKey || event.metaKey || event.shiftKey || event.button !== 0) { return; }
+            event.preventDefault();
+            viewer.showModal();
+            document.body.classList.add('locked');
+            vShow(index);
+            document.getElementById('viewer-close').focus({ preventScroll: true });
+          });
+        });
+        viewer.addEventListener('close', function () {
+          document.body.classList.remove('locked');
+          vPointers.clear();
+          vDrag = null;
+          vPinch = null;
+        });
+        var vButton = function (id, action) { document.getElementById(id).addEventListener('click', action); };
+        var vMiddle = function (factor) { var c = vCenter(); vZoomAt(vScale * factor, c.x, c.y, true); };
+        vButton('viewer-close', function () { viewer.close(); });
+        vButton('viewer-prev', function () { vShow(vIndex - 1); });
+        vButton('viewer-next', function () { vShow(vIndex + 1); });
+        vButton('viewer-in', function () { vMiddle(1.5); });
+        vButton('viewer-out', function () { vMiddle(1 / 1.5); });
+        vButton('viewer-reset', function () { var c = vCenter(); vZoomAt(1, c.x, c.y, true); });
+        document.addEventListener('keydown', function (event) {
+          if (!viewer.open) { return; }
+          if (event.key === 'ArrowLeft') { vShow(vIndex - 1); }
+          else if (event.key === 'ArrowRight') { vShow(vIndex + 1); }
+          else if (event.key === '+' || event.key === '=') { vMiddle(1.5); }
+          else if (event.key === '-') { vMiddle(1 / 1.5); }
+          else if (event.key === '0') { var c = vCenter(); vZoomAt(1, c.x, c.y, true); }
+          else { return; }
+          event.preventDefault();
+        });
+        vStage.addEventListener('wheel', function (event) {
+          event.preventDefault();
+          var unit = event.deltaMode === 1 ? 32 : event.deltaMode === 2 ? window.innerHeight : 1;
+          vZoomAt(vScale * Math.exp(-event.deltaY * unit * .0022), event.clientX, event.clientY, false);
+        }, { passive: false });
+        var vPinchInfo = function () {
+          var list = Array.from(vPointers.values());
+          return {
+            distance: Math.max(1, Math.hypot(list[0].x - list[1].x, list[0].y - list[1].y)),
+            x: (list[0].x + list[1].x) / 2,
+            y: (list[0].y + list[1].y) / 2
+          };
+        };
+        var vStartDrag = function (x, y) {
+          vDrag = { x: x, y: y, tx: vX, ty: vY };
+        };
+        vStage.addEventListener('pointerdown', function (event) {
+          if (event.pointerType === 'mouse' && event.button !== 0) { return; }
+          vStage.setPointerCapture(event.pointerId);
+          vPointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+          if (vPointers.size === 1) {
+            vMoved = false;
+            vStartDrag(event.clientX, event.clientY);
+          } else if (vPointers.size === 2) {
+            var info = vPinchInfo();
+            vPinch = { distance: info.distance, x: info.x, y: info.y, scale: vScale, tx: vX, ty: vY };
+            vDrag = null;
+            vMoved = true;
+          }
+          vStage.classList.add('is-dragging');
+          event.preventDefault();
+        });
+        vStage.addEventListener('pointermove', function (event) {
+          if (!vPointers.has(event.pointerId)) { return; }
+          vPointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
+          if (vPinch && vPointers.size >= 2) {
+            var info = vPinchInfo();
+            var c = vCenter();
+            var scale = vClamp(vPinch.scale * info.distance / vPinch.distance, V_MIN, V_MAX);
+            var ratio = scale / vPinch.scale;
+            vX = (info.x - c.x) - ((vPinch.x - c.x) - vPinch.tx) * ratio;
+            vY = (info.y - c.y) - ((vPinch.y - c.y) - vPinch.ty) * ratio;
+            vScale = scale;
+            if (vScale === 1) { vX = 0; vY = 0; }
+            vPan();
+            vApply(false);
+            return;
+          }
+          if (vDrag) {
+            var dx = event.clientX - vDrag.x;
+            var dy = event.clientY - vDrag.y;
+            if (Math.abs(dx) + Math.abs(dy) > 6) { vMoved = true; }
+            if (vScale > 1) {
+              vX = vDrag.tx + dx;
+              vY = vDrag.ty + dy;
+              vPan();
+              vApply(false);
+            } else if (vMoved) {
+              vX = dx;
+              vY = 0;
+              vApply(false);
+            }
+          }
+        });
+        var vRelease = function (event) {
+          if (!vPointers.has(event.pointerId)) { return; }
+          vPointers.delete(event.pointerId);
+          if (vPinch) {
+            if (vPointers.size === 1) {
+              var rest = Array.from(vPointers.values())[0];
+              vPinch = null;
+              vStartDrag(rest.x, rest.y);
+            } else if (vPointers.size === 0) {
+              vPinch = null;
+            }
+          }
+          if (vPointers.size > 0) { return; }
+          vStage.classList.remove('is-dragging');
+          if (vDrag && vMoved && vScale === 1) {
+            var travel = event.clientX - vDrag.x;
+            vDrag = null;
+            if (event.type !== 'pointercancel' && Math.abs(travel) > 60) {
+              vShow(vIndex + (travel < 0 ? 1 : -1));
+            } else {
+              vX = 0;
+              vApply(true);
+            }
+            return;
+          }
+          vDrag = null;
+          if (vMoved || event.type === 'pointercancel') { return; }
+          var box = vImg.getBoundingClientRect();
+          var onImage = event.clientX >= box.left && event.clientX <= box.right && event.clientY >= box.top && event.clientY <= box.bottom;
+          if (!onImage) {
+            viewer.close();
+            return;
+          }
+          var now = Date.now();
+          if (now - vLastTap < 320) {
+            vLastTap = 0;
+            vZoomAt(vScale > 1 ? 1 : 2.5, event.clientX, event.clientY, true);
+          } else {
+            vLastTap = now;
+          }
+        };
+        vStage.addEventListener('pointerup', vRelease);
+        vStage.addEventListener('pointercancel', vRelease);
+        window.addEventListener('resize', function () {
+          if (viewer.open) { vFit(); }
+        });
+      }
       var reveals = document.querySelectorAll('.reveal');
       if (reduced || !('IntersectionObserver' in window)) {
         reveals.forEach(function (node) { node.classList.add('is-in'); });
