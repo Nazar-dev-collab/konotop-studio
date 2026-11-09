@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>KONOTOP STUDIO — Web Design & Development</title>
 
   <style>
     :root {
-      --bg: #0b0b0d;
-      --card: #141417;
+      --bg: #080808;
+      --surface: #111;
+      --surface-2: #171717;
       --text: #f5f5f5;
-      --muted: #929298;
-      --line: #29292e;
-      --accent: #c8ff45;
+      --muted: #929292;
+      --line: #292929;
+      --accent: #fff;
+      --radius: 22px;
     }
 
     * {
@@ -26,10 +28,10 @@
     }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.5;
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x: hidden;
     }
 
     a {
@@ -51,20 +53,19 @@
     }
 
     .logo {
-      font-size: 20px;
+      font-size: 15px;
       font-weight: 800;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
     }
 
     nav {
       display: flex;
-      align-items: center;
       gap: 28px;
     }
 
     nav a {
       color: var(--muted);
-      font-size: 14px;
+      font-size: 13px;
       transition: .3s;
     }
 
@@ -72,71 +73,137 @@
       color: var(--text);
     }
 
-    .lang button {
+    .language button {
       border: 0;
-      background: none;
+      background: transparent;
       color: var(--muted);
       cursor: pointer;
-      font-size: 14px;
+      font-size: 12px;
     }
 
-    .lang button.active {
-      color: var(--accent);
+    .language button.active {
+      color: var(--text);
     }
 
     .hero {
-      min-height: 720px;
-      display: flex;
+      min-height: 760px;
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
       align-items: center;
-      padding: 100px 0;
+      gap: 50px;
+      padding: 90px 0;
     }
 
-    .label {
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 2px;
+    .eyebrow {
+      color: var(--muted);
       font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
       margin-bottom: 25px;
     }
 
     h1 {
       max-width: 850px;
-      font-size: clamp(48px, 8vw, 105px);
-      line-height: .95;
-      letter-spacing: -5px;
+      font-size: clamp(52px, 8vw, 105px);
+      line-height: .9;
+      letter-spacing: -6px;
       margin-bottom: 35px;
     }
 
-    .hero-text {
-      max-width: 600px;
+    .hero-description {
+      max-width: 520px;
       color: var(--muted);
       font-size: 18px;
-      margin-bottom: 40px;
+      line-height: 1.6;
+      margin-bottom: 35px;
     }
 
     .buttons {
       display: flex;
       flex-wrap: wrap;
-      gap: 14px;
+      gap: 12px;
     }
 
     .button {
-      display: inline-block;
-      padding: 16px 24px;
-      border: 1px solid var(--text);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      padding: 0 22px;
+      border: 1px solid var(--line);
+      border-radius: 100px;
+      font-size: 13px;
       transition: .3s;
-      font-size: 14px;
-    }
-
-    .button.primary {
-      background: var(--accent);
-      color: #111;
-      border-color: var(--accent);
     }
 
     .button:hover {
-      transform: translateY(-3px);
-      opacity: .85;
+      transform: translateY(-4px);
+      border-color: #777;
+    }
+
+    .button.primary {
+      background: var(--text);
+      color: #080808;
+      border-color: var(--text);
+    }
+
+    .hero-visual {
+      height: 470px;
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background:
+        linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px),
+        #0c0c0c;
+      background-size: 45px 45px;
+      animation: appear 1s ease both;
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: #fff;
+      filter: blur(80px);
+      opacity: .12;
+      left: 25%;
+      top: 20%;
+      animation: moveLight 7s ease-in-out infinite alternate;
+    }
+
+    .orb {
+      position: absolute;
+      width: 170px;
+      height: 170px;
+      border: 1px solid rgba(255,255,255,.7);
+      border-radius: 50%;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 70px rgba(255,255,255,.15);
+      animation: rotate 12s linear infinite;
+    }
+
+    .orb::after {
+      content: "";
+      position: absolute;
+      inset: 28px;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 50%;
+    }
+
+    .visual-label {
+      position: absolute;
+      left: 24px;
+      bottom: 22px;
+      color: var(--muted);
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
     section {
@@ -144,25 +211,25 @@
       border-top: 1px solid var(--line);
     }
 
-    .section-title {
-      font-size: clamp(35px, 5vw, 65px);
-      line-height: 1;
-      letter-spacing: -3px;
-      margin-bottom: 35px;
+    .section-heading {
+      max-width: 700px;
+      font-size: clamp(40px, 6vw, 75px);
+      line-height: .95;
+      letter-spacing: -4px;
+      margin-bottom: 55px;
     }
 
     .about-grid,
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 70px;
+      gap: 80px;
     }
 
-    .about-text,
-    .contact-text {
+    .muted {
       color: var(--muted);
       font-size: 18px;
-      max-width: 570px;
+      line-height: 1.65;
     }
 
     .services {
@@ -174,121 +241,170 @@
     }
 
     .service {
-      background: var(--card);
-      padding: 35px;
-      min-height: 180px;
+      min-height: 220px;
+      padding: 30px;
+      background: var(--surface);
+      transition: .3s;
+    }
+
+    .service:hover {
+      background: var(--surface-2);
     }
 
     .service-number {
-      color: var(--accent);
-      margin-bottom: 35px;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 60px;
     }
 
     .service h3 {
       font-size: 22px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .service p {
       color: var(--muted);
-      font-size: 15px;
+      font-size: 14px;
+      line-height: 1.5;
     }
 
     .project {
-      background: var(--card);
-      border: 1px solid var(--line);
-      padding: 45px;
       display: flex;
-      justify-content: space-between;
       align-items: end;
+      justify-content: space-between;
       gap: 30px;
+      padding: 45px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
     }
 
-    .project-name {
-      font-size: clamp(45px, 8vw, 100px);
-      font-weight: 800;
-      letter-spacing: -5px;
-      margin-bottom: 15px;
+    .project-title {
+      font-size: clamp(55px, 10vw, 130px);
+      line-height: .8;
+      letter-spacing: -7px;
+      margin-bottom: 30px;
     }
 
     .project p {
+      max-width: 520px;
       color: var(--muted);
-      max-width: 500px;
+      line-height: 1.6;
     }
 
-    .steps {
+    .process {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 25px;
     }
 
-    .step {
+    .process-item {
       border-top: 1px solid var(--line);
       padding-top: 20px;
     }
 
-    .step-number {
-      color: var(--accent);
-      margin-bottom: 25px;
+    .process-number {
+      color: var(--muted);
+      margin-bottom: 45px;
+      font-size: 13px;
     }
 
-    .step h3 {
-      margin-bottom: 10px;
+    .process-item h3 {
+      margin-bottom: 12px;
     }
 
-    .step p {
+    .process-item p {
       color: var(--muted);
       font-size: 14px;
+      line-height: 1.5;
     }
 
     .contact-links {
       display: flex;
       flex-direction: column;
-      gap: 18px;
-      font-size: 20px;
+      gap: 20px;
     }
 
     .contact-links a {
+      width: fit-content;
+      font-size: 21px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 8px;
       transition: .3s;
     }
 
     .contact-links a:hover {
-      color: var(--accent);
+      color: var(--muted);
+      border-color: var(--text);
     }
 
     footer {
-      padding: 30px 0;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 13px;
       display: flex;
       justify-content: space-between;
+      padding: 30px 0;
+      color: var(--muted);
+      font-size: 12px;
     }
 
-    @media (max-width: 700px) {
+    .reveal {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: .8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: scale(.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes rotate {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    @keyframes moveLight {
+      from { transform: translate(-30px, -20px); }
+      to { transform: translate(80px, 40px); }
+    }
+
+    @media (max-width: 760px) {
       header {
-        height: auto;
-        padding: 25px 0;
-        align-items: flex-start;
+        height: 75px;
       }
 
       nav {
         display: none;
       }
 
+      .hero,
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
       .hero {
-        min-height: 650px;
-        padding: 70px 0;
+        min-height: auto;
+        padding: 80px 0;
       }
 
       h1 {
         letter-spacing: -3px;
       }
 
-      .about-grid,
-      .contact-grid,
+      .hero-visual {
+        height: 360px;
+      }
+
+      section {
+        padding: 80px 0;
+      }
+
       .services,
-      .steps {
+      .process {
         grid-template-columns: 1fr;
       }
 
@@ -301,19 +417,19 @@
         margin-top: 30px;
       }
 
-      section {
-        padding: 80px 0;
+      .project-title {
+        letter-spacing: -4px;
       }
 
       footer {
         display: block;
+        line-height: 2;
       }
     }
   </style>
 </head>
 
 <body>
-
   <div class="container">
     <header>
       <a href="#" class="logo">KONOTOP STUDIO</a>
@@ -321,32 +437,34 @@
       <nav>
         <a href="#about" data-uk="Про студію" data-en="About">Про студію</a>
         <a href="#services" data-uk="Послуги" data-en="Services">Послуги</a>
-        <a href="#work" data-uk="Робота" data-en="Work">Робота</a>
+        <a href="#work" data-uk="Проєкт" data-en="Project">Проєкт</a>
         <a href="#contact" data-uk="Контакти" data-en="Contact">Контакти</a>
       </nav>
 
-      <div class="lang">
-        <button class="active" onclick="setLanguage('uk')">UA</button>
+      <div class="language">
+        <button class="active" onclick="changeLanguage('uk')">UA</button>
         /
-        <button onclick="setLanguage('en')">EN</button>
+        <button onclick="changeLanguage('en')">EN</button>
       </div>
     </header>
 
     <main>
       <section class="hero">
         <div>
-          <div class="label">Design · Development · Digital</div>
+          <div class="eyebrow" data-uk="Дизайн · Розробка · Анімація"
+               data-en="Design · Development · Motion">
+            Дизайн · Розробка · Анімація
+          </div>
 
-          <h1
-            data-uk="Сучасні сайти для бізнесу, який хоче розвиватися"
-            data-en="Modern websites for businesses ready to grow">
-            Сучасні сайти для бізнесу, який хоче розвиватися
+          <h1 data-uk="Сайти, які допомагають бізнесу розвиватися"
+              data-en="Websites that help businesses grow">
+            Сайти, які допомагають бізнесу розвиватися
           </h1>
 
-          <p class="hero-text"
-             data-uk="Створюємо продумані цифрові рішення — від дизайну до розробки функціонального сайту."
-             data-en="We create thoughtful digital solutions — from design to development.">
-            Створюємо продумані цифрові рішення — від дизайну до розробки функціонального сайту.
+          <p class="hero-description"
+             data-uk="Створюю сучасні цифрові рішення з продуманим дизайном, функціональністю та увагою до деталей."
+             data-en="I create modern digital solutions with thoughtful design, functionality and attention to detail.">
+            Створюю сучасні цифрові рішення з продуманим дизайном, функціональністю та увагою до деталей.
           </p>
 
           <div class="buttons">
@@ -363,72 +481,77 @@
             </a>
           </div>
         </div>
+
+        <div class="hero-visual">
+          <div class="orb"></div>
+          <div class="visual-label">KONOTOP / DIGITAL STUDIO</div>
+        </div>
       </section>
 
-      <section id="about">
+      <section id="about" class="reveal">
         <div class="about-grid">
-          <h2 class="section-title"
+          <h2 class="section-heading"
               data-uk="Про студію"
               data-en="About the studio">
             Про студію
           </h2>
 
-          <p class="about-text"
-             data-uk="KONOTOP STUDIO — студія дизайну та розробки сайтів, заснована Назаром. Ми створюємо сучасні, функціональні та зручні сайти для бізнесу. Кожен проєкт адаптуємо під цілі, аудиторію та побажання клієнта."
-             data-en="KONOTOP STUDIO is a web design and development studio founded by Nazar. We create modern, functional and user-friendly websites. Every project is tailored to the client's goals, audience and needs.">
-            KONOTOP STUDIO — студія дизайну та розробки сайтів, заснована Назаром. Ми створюємо сучасні, функціональні та зручні сайти для бізнесу. Кожен проєкт адаптуємо під цілі, аудиторію та побажання клієнта.
+          <p class="muted"
+             data-uk="Я — Назар, дизайнер і розробник сайтів із Кропивницького. Маю два роки досвіду у веброзробці та працюю разом із командою спеціалістів із понад п’ятирічним досвідом. Ми створюємо сучасні сайти під завдання, аудиторію та цілі кожного клієнта."
+             data-en="I’m Nazar, a web designer and developer from Kropyvnytskyi. I have two years of experience in web development and work with a team of specialists who have over five years of experience. We create modern websites tailored to each client's goals, audience and needs.">
+            Я — Назар, дизайнер і розробник сайтів із Кропивницького. Маю два роки досвіду у веброзробці та працюю разом із командою спеціалістів із понад п’ятирічним досвідом. Ми створюємо сучасні сайти під завдання, аудиторію та цілі кожного клієнта.
           </p>
         </div>
       </section>
 
-      <section id="services">
-        <h2 class="section-title"
-            data-uk="Послуги"
-            data-en="Services">
-          Послуги
+      <section id="services" class="reveal">
+        <h2 class="section-heading"
+            data-uk="Що ми робимо"
+            data-en="What we do">
+          Що ми робимо
         </h2>
 
         <div class="services">
-          <div class="service">
+          <article class="service">
             <div class="service-number">01</div>
             <h3 data-uk="Веб-дизайн" data-en="Web design">Веб-дизайн</h3>
-            <p data-uk="Створення сучасного та зрозумілого візуального стилю сайту."
-               data-en="Creating a modern and clear visual style for your website.">
-              Створення сучасного та зрозумілого візуального стилю сайту.
+            <p data-uk="Створюємо візуальний стиль, структуру та зручний користувацький досвід."
+               data-en="We create the visual style, structure and user experience.">
+              Створюємо візуальний стиль, структуру та зручний користувацький досвід.
             </p>
-          </div>
+          </article>
 
-          <div class="service">
+          <article class="service">
             <div class="service-number">02</div>
             <h3 data-uk="Розробка сайтів" data-en="Website development">Розробка сайтів</h3>
-            <p data-uk="Функціональні сайти, адаптовані під комп’ютери та смартфони."
-               data-en="Functional websites adapted for computers and smartphones.">
-              Функціональні сайти, адаптовані під комп’ютери та смартфони.
+            <p data-uk="Перетворюємо дизайн на швидкий, функціональний та адаптивний сайт."
+               data-en="We turn designs into fast, functional and responsive websites.">
+              Перетворюємо дизайн на швидкий, функціональний та адаптивний сайт.
             </p>
-          </div>
+          </article>
 
-          <div class="service">
+          <article class="service">
             <div class="service-number">03</div>
             <h3 data-uk="Редизайн" data-en="Redesign">Редизайн</h3>
-            <p data-uk="Оновлення зовнішнього вигляду та структури існуючого сайту."
-               data-en="Improving the visual style and structure of an existing website.">
-              Оновлення зовнішнього вигляду та структури існуючого сайту.
+            <p data-uk="Покращуємо готові сайти, не ламаючи їхню основну логіку."
+               data-en="We improve existing websites without breaking their core logic.">
+              Покращуємо готові сайти, не ламаючи їхню основну логіку.
             </p>
-          </div>
+          </article>
 
-          <div class="service">
+          <article class="service">
             <div class="service-number">04</div>
-            <h3 data-uk="Індивідуальні рішення" data-en="Custom solutions">Індивідуальні рішення</h3>
-            <p data-uk="Підбираємо рішення відповідно до завдань і потреб вашого бізнесу."
-               data-en="We choose solutions according to your business goals and needs.">
-              Підбираємо рішення відповідно до завдань і потреб вашого бізнесу.
+            <h3 data-uk="Анімації" data-en="Motion design">Анімації</h3>
+            <p data-uk="Додаємо плавні та доречні анімації, які підсилюють враження від сайту."
+               data-en="We add smooth and meaningful animations that improve the experience.">
+              Додаємо плавні та доречні анімації, які підсилюють враження від сайту.
             </p>
-          </div>
+          </article>
         </div>
       </section>
 
-      <section id="work">
-        <h2 class="section-title"
+      <section id="work" class="reveal">
+        <h2 class="section-heading"
             data-uk="Обраний проєкт"
             data-en="Selected project">
           Обраний проєкт
@@ -436,11 +559,11 @@
 
         <div class="project">
           <div>
-            <div class="project-name">MAPIN</div>
+            <div class="project-title">MAPIN</div>
 
-            <p data-uk="Участь у проєкті Mapin у сфері веб-дизайну та розробки."
-               data-en="Contribution to the Mapin project in web design and development.">
-              Участь у проєкті Mapin у сфері веб-дизайну та розробки.
+            <p data-uk="Участь у дизайні та розробці приблизно половини сайту Mapin. Працював над візуальною частиною та кодингом проєкту."
+               data-en="Contribution to the design and development of approximately half of the Mapin website. Worked on the visual direction and coding.">
+              Участь у дизайні та розробці приблизно половини сайту Mapin. Працював над візуальною частиною та кодингом проєкту.
             </p>
           </div>
 
@@ -454,72 +577,71 @@
         </div>
       </section>
 
-      <section>
-        <h2 class="section-title"
+      <section class="reveal">
+        <h2 class="section-heading"
             data-uk="Як ми працюємо"
             data-en="How we work">
           Як ми працюємо
         </h2>
 
-        <div class="steps">
-          <div class="step">
-            <div class="step-number">01</div>
-            <h3 data-uk="Обговорення" data-en="Discussion">Обговорення</h3>
-            <p data-uk="Визначаємо цілі та завдання проєкту."
-               data-en="We define the goals and tasks of the project.">
-              Визначаємо цілі та завдання проєкту.
+        <div class="process">
+          <div class="process-item">
+            <div class="process-number">01</div>
+            <h3 data-uk="Знайомство" data-en="Discovery">Знайомство</h3>
+            <p data-uk="Обговорюємо ідею, цілі та завдання."
+               data-en="We discuss your idea, goals and requirements.">
+              Обговорюємо ідею, цілі та завдання.
             </p>
           </div>
 
-          <div class="step">
-            <div class="step-number">02</div>
+          <div class="process-item">
+            <div class="process-number">02</div>
             <h3 data-uk="Концепція" data-en="Concept">Концепція</h3>
-            <p data-uk="Формуємо структуру та напрям дизайну."
-               data-en="We create the structure and design direction.">
-              Формуємо структуру та напрям дизайну.
+            <p data-uk="Формуємо структуру та напрям майбутнього сайту."
+               data-en="We define the structure and creative direction.">
+              Формуємо структуру та напрям майбутнього сайту.
             </p>
           </div>
 
-          <div class="step">
-            <div class="step-number">03</div>
+          <div class="process-item">
+            <div class="process-number">03</div>
             <h3 data-uk="Розробка" data-en="Development">Розробка</h3>
-            <p data-uk="Реалізуємо дизайн і необхідні функції."
-               data-en="We develop the design and required features.">
-              Реалізуємо дизайн і необхідні функції.
+            <p data-uk="Створюємо дизайн, код і потрібні функції."
+               data-en="We create the design, code and required features.">
+              Створюємо дизайн, код і потрібні функції.
             </p>
           </div>
 
-          <div class="step">
-            <div class="step-number">04</div>
+          <div class="process-item">
+            <div class="process-number">04</div>
             <h3 data-uk="Запуск" data-en="Launch">Запуск</h3>
-            <p data-uk="Перевіряємо сайт і готуємо його до роботи."
+            <p data-uk="Перевіряємо сайт і готуємо його до запуску."
                data-en="We test the website and prepare it for launch.">
-              Перевіряємо сайт і готуємо його до роботи.
+              Перевіряємо сайт і готуємо його до запуску.
             </p>
           </div>
         </div>
       </section>
 
-      <section id="contact">
+      <section id="contact" class="reveal">
         <div class="contact-grid">
           <div>
-            <h2 class="section-title"
-                data-uk="Є ідея для сайту?"
-                data-en="Have an idea for a website?">
-              Є ідея для сайту?
+            <h2 class="section-heading"
+                data-uk="Є ідея?"
+                data-en="Have an idea?">
+              Є ідея?
             </h2>
 
-            <p class="contact-text"
-               data-uk="Розкажіть про свій проєкт — обговоримо, як перетворити вашу ідею на сучасний сайт."
-               data-en="Tell us about your project — let's discuss how to turn your idea into a modern website.">
-              Розкажіть про свій проєкт — обговоримо, як перетворити вашу ідею на сучасний сайт.
+            <p class="muted"
+               data-uk="Розкажіть про свій проєкт. Вартість обговорюється індивідуально."
+               data-en="Tell us about your project. Pricing is discussed individually.">
+              Розкажіть про свій проєкт. Вартість обговорюється індивідуально.
             </p>
           </div>
 
           <div class="contact-links">
             <a href="https://t.me/m_konotop" target="_blank">Telegram ↗</a>
-            <a href="mailto:managerkonotop@gmail.com">managerkonotop@gmail.com ↗</a>
-            <a href="tel:+380668408046">066 840 8046 ↗</a>
+            <a href="mailto:managerkonotop@gmail.com">Email ↗</a>
           </div>
         </div>
       </section>
@@ -527,29 +649,41 @@
 
     <footer>
       <span>© 2025 KONOTOP STUDIO</span>
-      <span data-uk="Дизайн та розробка сайтів" data-en="Web design and development">
-        Дизайн та розробка сайтів
+      <span data-uk="Дизайн і розробка сайтів"
+            data-en="Web design and development">
+        Дизайн і розробка сайтів
       </span>
     </footer>
   </div>
 
   <script>
-    function setLanguage(language) {
+    function changeLanguage(language) {
       document.documentElement.lang = language;
 
       document.querySelectorAll("[data-uk]").forEach(element => {
         element.textContent = element.dataset[language];
       });
 
-      document.querySelectorAll(".lang button").forEach(button => {
+      document.querySelectorAll(".language button").forEach(button => {
         button.classList.remove("active");
       });
 
       document
-        .querySelector(`.lang button[onclick="setLanguage('${language}')"]`)
+        .querySelector(`[onclick="changeLanguage('${language}')"]`)
         .classList.add("active");
     }
-  </script>
 
+    const revealElements = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.15 });
+
+    revealElements.forEach(element => observer.observe(element));
+  </script>
 </body>
 </html>
