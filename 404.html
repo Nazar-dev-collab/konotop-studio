@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="uk" data-palette="sea">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Сторінку не знайдено | KONOTOP STUDIO</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#3E6F7E">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;500;600&display=swap">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;500;600&display=swap"></noscript>
+
+  <script>
+    (function () {
+      var root = document.documentElement, palette = null;
+      try { palette = localStorage.getItem('palette'); } catch (e) {}
+      if (/^(sea|sage|dusk|lavender|sand)$/.test(palette || '')) { root.setAttribute('data-palette', palette); }
+      if (/^\/en(\/|$)/.test(location.pathname)) { root.lang = 'en'; }
+    })();
+  </script>
+
+  <style>
+    html[data-palette="sea"]      { --a: #3E6F7E; }
+    html[data-palette="sage"]     { --a: #4C7564; }
+    html[data-palette="dusk"]     { --a: #4A6590; }
+    html[data-palette="lavender"] { --a: #6B628F; }
+    html[data-palette="sand"]     { --a: #7F6A4C; }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; padding: 0; }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      min-height: 100svh;
+      padding-inline: clamp(20px, 4vw, 56px);
+      background-color: var(--a);
+      background-image:
+        linear-gradient(rgba(255,255,255,.14) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.14) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+      background-size: 200px 200px, 200px 200px, 40px 40px, 40px 40px;
+      color: #fff;
+      font-family: "Geologica", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    :focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    ::selection { background: #fff; color: var(--a); }
+
+    html[lang="uk"] [lang="en"], html[lang="en"] [lang="uk"] { display: none; }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 72px;
+      font-size: .9375rem;
+      font-weight: 600;
+      letter-spacing: .02em;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      max-width: 1168px;
+      margin-inline: auto;
+      padding-block: 48px 96px;
+    }
+
+    .frame {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: min(100%, 420px);
+      min-height: 220px;
+      margin-bottom: 44px;
+      font-size: clamp(4rem, 12vw, 6rem);
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -.03em;
+    }
+    .frame::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 1px solid currentColor;
+      background-image:
+        linear-gradient(currentColor, currentColor),
+        linear-gradient(currentColor, currentColor),
+        linear-gradient(currentColor, currentColor),
+        linear-gradient(currentColor, currentColor);
+      background-size: 7px 7px;
+      background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+      background-repeat: no-repeat;
+      background-origin: border-box;
+    }
+
+    h1 {
+      margin-bottom: 12px;
+      font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -.02em;
+      text-wrap: balance;
+    }
+    p {
+      max-width: 34em;
+      margin-bottom: 32px;
+      color: rgba(255,255,255,.93);
+      font-size: clamp(1rem, 1.3vw, 1.125rem);
+      text-wrap: pretty;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      min-height: 48px;
+      padding-inline: 22px;
+      border: 1px solid #fff;
+      border-radius: 4px;
+      background: #fff;
+      color: var(--a);
+      font-size: .9375rem;
+      font-weight: 500;
+      transition: background-color .2s, color .2s;
+    }
+    .btn:hover { background: transparent; color: #fff; }
+    .btn:active { transform: translateY(1px); }
+  </style>
+</head>
+
+<body>
+  <a class="logo" href="/" id="logo">KONOTOP STUDIO</a>
+
+  <main>
+    <div class="frame" aria-hidden="true">404</div>
+
+    <h1 lang="uk">Цієї сторінки немає</h1>
+    <h1 lang="en">This page doesn’t exist</h1>
+
+    <p lang="uk">Можливо, посилання застаріло або в адресі є помилка.</p>
+    <p lang="en">The link may be out of date, or the address may contain a typo.</p>
+
+    <a class="btn" href="/" lang="uk">Перейти на головну</a>
+    <a class="btn" href="/en/" lang="en">Go to the homepage</a>
+  </main>
+
+  <script>
+    if (document.documentElement.lang === 'en') {
+      document.title = 'Page not found | KONOTOP STUDIO';
+      document.getElementById('logo').setAttribute('href', '/en/');
+    }
+  </script>
+</body>
+</html>
