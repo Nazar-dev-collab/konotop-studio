@@ -1,689 +1,871 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KONOTOP STUDIO — Web Design & Development</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KONOTOP STUDIO: дизайн і розробка сайтів</title>
+  <meta name="description" content="Дизайн, розробка, редизайн і анімація сайтів для бізнесу. Назар і команда, Кропивницький.">
+  <meta name="theme-color" content="#1836D8">
+  <link rel="canonical" href="https://konotop-site.vercel.app/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://konotop-site.vercel.app/">
+  <meta property="og:site_name" content="KONOTOP STUDIO">
+  <meta property="og:locale" content="uk_UA">
+  <meta property="og:title" content="KONOTOP STUDIO: дизайн і розробка сайтів">
+  <meta property="og:description" content="Сайти, які допомагають бізнесу розвиватися.">
+  <meta property="og:image" content="https://konotop-site.vercel.app/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231836D8'/%3E%3Cpath fill='%23fff' d='M8 6h4.5v8.2L19.6 6H25l-7.6 8.8L25.6 26h-5.5l-5.7-8-1.9 2.1V26H8z'/%3E%3C/svg%3E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #080808;
-      --surface: #111;
-      --surface-2: #171717;
-      --text: #f5f5f5;
-      --muted: #929292;
-      --line: #292929;
-      --accent: #fff;
-      --radius: 22px;
+      --blue: #1836D8;
+      --ink: #0B1547;
+      --ink-soft: #47507A;
+      --paper: #FFFFFF;
+      --tracing: #EEF2F9;
+      --rule: #D5DCEB;
+      --on-blue-soft: #D3DAFF;
+      --m: clamp(20px, 4vw, 56px);
+      --max: 1520px;
+      --font: "Geologica", system-ui, -apple-system, "Segoe UI", sans-serif;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; }
+    * { margin: 0; padding: 0; }
 
-    html {
-      scroll-behavior: smooth;
+    @media (prefers-reduced-motion: no-preference) {
+      html { scroll-behavior: smooth; }
     }
 
     body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: Arial, Helvetica, sans-serif;
-      overflow-x: hidden;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 1.125rem;
+      font-weight: 300;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+    ul, ol { list-style: none; }
+    h1, h2, h3 { font-weight: 500; text-wrap: balance; }
+    p { text-wrap: pretty; }
+    ::selection { background: var(--blue); color: #fff; }
+
+    :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+    .blueprint :focus-visible, .menu :focus-visible { outline-color: #fff; }
+
+    .wrap {
+      width: 100%;
+      max-width: var(--max);
+      margin-inline: auto;
+      padding-inline: var(--m);
     }
 
-    .container {
-      width: min(1180px, 90%);
-      margin: auto;
+    .skip {
+      position: absolute;
+      left: 12px;
+      top: -80px;
+      z-index: 60;
+      padding: 12px 16px;
+      background: var(--ink);
+      color: #fff;
+    }
+    .skip:focus { top: 12px; }
+
+    /* Креслярське тло: сітка 40/200px */
+    .blueprint {
+      background-color: var(--blue);
+      background-image:
+        linear-gradient(rgba(255,255,255,.2) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.2) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px);
+      background-size: 200px 200px, 200px 200px, 40px 40px, 40px 40px;
+      color: #fff;
     }
 
-    header {
-      height: 90px;
+    /* Рамка виділення, як у редакторі макетів. Розмір підставляє скрипт */
+    .sel { position: relative; }
+    .sel::before {
+      content: "";
+      position: absolute;
+      inset: -7px;
+      border: 1px solid currentColor;
+      background-image:
+        linear-gradient(currentColor, currentColor),
+        linear-gradient(currentColor, currentColor),
+        linear-gradient(currentColor, currentColor),
+        linear-gradient(currentColor, currentColor);
+      background-size: 8px 8px;
+      background-position: 0 0, 100% 0, 0 100%, 100% 100%;
+      background-repeat: no-repeat;
+      background-origin: border-box;
+      pointer-events: none;
+    }
+    .sel[data-size]::after {
+      content: attr(data-size);
+      position: absolute;
+      left: -7px;
+      top: -36px;
+      padding: 1px 7px;
+      background: #fff;
+      color: var(--blue);
+      font-size: .75rem;
+      font-weight: 400;
+      letter-spacing: 0;
+      line-height: 1.5;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    /* ---------- Перший екран ---------- */
+    .stage {
+      position: relative;
+      --x: 100%;
+      overflow: hidden;
+    }
+
+    .site {
+      --fg: var(--ink);
+      --fg-soft: var(--ink-soft);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      min-height: 100svh;
+      background-color: var(--paper);
+      color: var(--fg);
+    }
+
+    .plan {
+      position: absolute;
+      inset: 0;
+      clip-path: inset(0 calc(100% - var(--x)) 0 0);
+      pointer-events: none;
+    }
+    .plan .site {
+      --fg: #fff;
+      --fg-soft: var(--on-blue-soft);
+      height: 100%;
+      min-height: 100%;
+      background-color: var(--blue);
+    }
+
+    .bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid var(--line);
+      gap: 24px;
+      min-height: 80px;
+    }
+    .logo { font-weight: 600; font-size: 1rem; letter-spacing: .02em; white-space: nowrap; }
+
+    .nav { display: flex; gap: clamp(20px, 3vw, 44px); font-size: 1rem; font-weight: 400; }
+    .nav a { padding-block: 10px; }
+    .nav a:hover { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }
+
+    .bar-end { display: flex; align-items: center; gap: 12px; }
+    .lang { display: flex; font-size: .9375rem; font-weight: 400; }
+    .lang button {
+      min-width: 44px;
+      min-height: 44px;
+      color: var(--fg-soft);
+    }
+    html[lang="uk"] .lang [data-set="uk"],
+    html[lang="en"] .lang [data-set="en"] {
+      color: var(--fg);
+      font-weight: 600;
     }
 
-    .logo {
-      font-size: 15px;
-      font-weight: 800;
-      letter-spacing: 1.5px;
-    }
-
-    nav {
-      display: flex;
-      gap: 28px;
-    }
-
-    nav a {
-      color: var(--muted);
-      font-size: 13px;
-      transition: .3s;
-    }
-
-    nav a:hover {
-      color: var(--text);
-    }
-
-    .language button {
-      border: 0;
-      background: transparent;
-      color: var(--muted);
-      cursor: pointer;
-      font-size: 12px;
-    }
-
-    .language button.active {
-      color: var(--text);
+    .menu-btn {
+      display: none;
+      min-height: 44px;
+      padding-inline: 14px;
+      border: 1px solid var(--fg);
+      border-radius: 4px;
+      font-size: .9375rem;
+      font-weight: 400;
     }
 
     .hero {
-      min-height: 760px;
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      align-items: center;
-      gap: 50px;
-      padding: 90px 0;
+      margin-top: auto;
+      padding-top: 200px;
+      padding-bottom: clamp(40px, 7vh, 80px);
     }
-
-    .eyebrow {
-      color: var(--muted);
-      font-size: 12px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 25px;
+    .hero h1 {
+      max-width: 15.5ch;
+      margin-bottom: 48px;
+      font-size: clamp(2.25rem, 7.2vw, 7rem);
+      line-height: 1.04;
+      letter-spacing: -.025em;
     }
-
-    h1 {
-      max-width: 850px;
-      font-size: clamp(52px, 8vw, 105px);
-      line-height: .9;
-      letter-spacing: -6px;
-      margin-bottom: 35px;
+    .lede {
+      max-width: 33em;
+      margin-bottom: 48px;
+      color: var(--fg-soft);
+      font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+      line-height: 1.5;
     }
+    .actions { display: inline-flex; flex-wrap: wrap; gap: 12px; }
 
-    .hero-description {
-      max-width: 520px;
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.6;
-      margin-bottom: 35px;
-    }
-
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .button {
+    .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 52px;
-      padding: 0 22px;
-      border: 1px solid var(--line);
-      border-radius: 100px;
-      font-size: 13px;
-      transition: .3s;
+      min-height: 54px;
+      padding-inline: 26px;
+      border: 1px solid var(--fg, var(--ink));
+      border-radius: 4px;
+      color: var(--fg, var(--ink));
+      font-size: 1rem;
+      font-weight: 500;
+      transition: background-color .2s, color .2s, border-color .2s;
     }
+    .btn:hover { background: var(--ink); border-color: var(--ink); color: #fff; }
+    .btn:active { transform: translateY(1px); }
+    .btn--solid { background: var(--blue); border-color: var(--blue); color: #fff; }
 
-    .button:hover {
-      transform: translateY(-4px);
-      border-color: #777;
-    }
+    .plan .btn { border-color: #fff; color: #fff; }
+    .plan .btn--solid { background: #fff; color: var(--blue); }
 
-    .button.primary {
-      background: var(--text);
-      color: #080808;
-      border-color: var(--text);
-    }
-
-    .hero-visual {
-      height: 470px;
-      position: relative;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-      background:
-        linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px),
-        #0c0c0c;
-      background-size: 45px 45px;
-      animation: appear 1s ease both;
-    }
-
-    .hero-visual::before {
-      content: "";
+    .handle { position: absolute; inset-block: 0; left: var(--x); width: 0; z-index: 3; }
+    .handle[hidden] { display: none; }
+    .handle-line {
       position: absolute;
-      width: 260px;
-      height: 260px;
+      inset-block: 0;
+      left: -1px;
+      width: 2px;
+      background: var(--blue);
+    }
+    .grip {
+      position: absolute;
+      top: 128px;
+      left: -28px;
+      display: grid;
+      place-items: center;
+      width: 56px;
+      height: 56px;
+      border: 2px solid var(--blue);
       border-radius: 50%;
       background: #fff;
-      filter: blur(80px);
-      opacity: .12;
-      left: 25%;
-      top: 20%;
-      animation: moveLight 7s ease-in-out infinite alternate;
+      color: var(--blue);
+      cursor: ew-resize;
+      touch-action: none;
     }
-
-    .orb {
+    .grip:hover { background: var(--tracing); }
+    .side {
       position: absolute;
-      width: 170px;
-      height: 170px;
-      border: 1px solid rgba(255,255,255,.7);
-      border-radius: 50%;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 70px rgba(255,255,255,.15);
-      animation: rotate 12s linear infinite;
+      top: 142px;
+      font-size: .9375rem;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+    .side--plan { right: 42px; color: #fff; }
+    .side--site { left: 42px; color: var(--ink); }
+
+    /* ---------- Секції ---------- */
+    .sec { padding-block: clamp(72px, 10vw, 152px); }
+    .sec-title {
+      font-size: clamp(2.25rem, 5vw, 4.5rem);
+      line-height: 1.08;
+      letter-spacing: -.02em;
     }
 
-    .orb::after {
+    .about { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px; }
+    .about .sec-title { grid-column: 1 / span 4; }
+    .statement {
+      grid-column: 5 / -1;
+      max-width: 32em;
+      font-size: clamp(1.375rem, 2.4vw, 2.125rem);
+      line-height: 1.36;
+    }
+
+    .services { padding-top: 0; }
+    .services .sec-title { margin-bottom: clamp(40px, 5vw, 72px); }
+    .svc {
+      display: grid;
+      grid-template-columns: 64px minmax(0, 5fr) minmax(0, 6fr);
+      gap: 32px;
+      align-items: start;
+      padding-block: 36px;
+      border-top: 1px solid var(--rule);
+    }
+    .svc:last-child { border-bottom: 1px solid var(--rule); }
+    .svc svg { width: 48px; height: 48px; fill: none; stroke: var(--blue); stroke-width: 1.5; }
+    .svc h3 { font-size: clamp(1.5rem, 2.8vw, 2.5rem); line-height: 1.15; letter-spacing: -.015em; }
+    .svc p { max-width: 34em; padding-top: 6px; color: var(--ink-soft); }
+
+    .work { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); background: var(--tracing); }
+    .work-text {
+      padding-block: clamp(72px, 10vw, 152px);
+      padding-right: clamp(24px, 4vw, 64px);
+      padding-left: max(var(--m), calc((100vw - var(--max)) / 2 + var(--m)));
+    }
+    .work-text h2 { margin-bottom: 20px; color: var(--ink-soft); font-size: 1.25rem; font-weight: 400; }
+    .project-title {
+      margin-bottom: 36px;
+      color: var(--blue);
+      font-size: clamp(4.5rem, 10.5vw, 10.5rem);
+      line-height: 1;
+      letter-spacing: -.035em;
+    }
+    .work-text p { max-width: 30em; margin-bottom: 40px; }
+    .work-map { position: relative; min-height: 480px; }
+    .work-map svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+    .process .sec-title { margin-bottom: clamp(48px, 6vw, 88px); }
+    .steps {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-top: 1px solid var(--blue);
+      counter-reset: step;
+    }
+    .steps::after {
       content: "";
       position: absolute;
-      inset: 28px;
-      border: 1px solid rgba(255,255,255,.35);
-      border-radius: 50%;
+      top: -9px;
+      right: 0;
+      width: 1px;
+      height: 17px;
+      background: var(--blue);
     }
-
-    .visual-label {
+    .step { position: relative; padding: 28px 28px 0 0; counter-increment: step; }
+    .step::before {
+      content: "";
       position: absolute;
-      left: 24px;
-      bottom: 22px;
-      color: var(--muted);
-      font-size: 11px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      top: -9px;
+      left: 0;
+      width: 1px;
+      height: 17px;
+      background: var(--blue);
     }
-
-    section {
-      padding: 120px 0;
-      border-top: 1px solid var(--line);
+    .step-n::before {
+      content: counter(step, decimal-leading-zero);
+      display: block;
+      margin-bottom: 40px;
+      color: var(--blue);
+      font-size: 1rem;
+      font-weight: 400;
+      font-variant-numeric: tabular-nums;
     }
+    .step h3 { margin-bottom: 10px; font-size: 1.625rem; line-height: 1.2; letter-spacing: -.01em; }
+    .step p { color: var(--ink-soft); }
 
-    .section-heading {
-      max-width: 700px;
-      font-size: clamp(40px, 6vw, 75px);
-      line-height: .95;
-      letter-spacing: -4px;
-      margin-bottom: 55px;
-    }
-
-    .about-grid,
+    .contact { padding-top: clamp(72px, 10vw, 152px); }
     .contact-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-    }
-
-    .muted {
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.65;
-    }
-
-    .services {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1px;
-      background: var(--line);
-      border: 1px solid var(--line);
-    }
-
-    .service {
-      min-height: 220px;
-      padding: 30px;
-      background: var(--surface);
-      transition: .3s;
-    }
-
-    .service:hover {
-      background: var(--surface-2);
-    }
-
-    .service-number {
-      color: var(--muted);
-      font-size: 12px;
-      margin-bottom: 60px;
-    }
-
-    .service h3 {
-      font-size: 22px;
-      margin-bottom: 12px;
-    }
-
-    .service p {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .project {
-      display: flex;
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      gap: clamp(40px, 6vw, 96px);
       align-items: end;
-      justify-content: space-between;
-      gap: 30px;
-      padding: 45px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface);
     }
-
-    .project-title {
-      font-size: clamp(55px, 10vw, 130px);
-      line-height: .8;
-      letter-spacing: -7px;
-      margin-bottom: 30px;
+    .contact h2 {
+      margin-bottom: 28px;
+      font-size: clamp(4rem, 11vw, 11rem);
+      line-height: 1;
+      letter-spacing: -.035em;
     }
-
-    .project p {
-      max-width: 520px;
-      color: var(--muted);
-      line-height: 1.6;
+    .contact p { max-width: 28em; margin-bottom: 52px; color: var(--on-blue-soft); font-size: clamp(1.125rem, 1.6vw, 1.375rem); }
+    .links { display: grid; gap: 24px; }
+    .links a { display: block; width: fit-content; max-width: 100%; }
+    .links small { display: block; color: var(--on-blue-soft); font-size: 1rem; }
+    .links b {
+      display: block;
+      font-size: clamp(1.375rem, 3vw, 2.625rem);
+      font-weight: 500;
+      line-height: 1.25;
+      letter-spacing: -.01em;
+      overflow-wrap: anywhere;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 7px;
     }
+    .links a:hover b { text-decoration-thickness: 3px; }
 
-    .process {
+    .slot {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 25px;
+      place-items: center;
+      min-height: clamp(240px, 30vw, 420px);
+      padding: 24px;
+      text-align: center;
+      font-size: clamp(1.125rem, 1.8vw, 1.5rem);
+      font-weight: 400;
     }
 
-    .process-item {
-      border-top: 1px solid var(--line);
-      padding-top: 20px;
+    .foot {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 8px 32px;
+      margin-top: clamp(64px, 8vw, 120px);
+      padding-block: 28px;
+      border-top: 1px solid rgba(255,255,255,.4);
+      font-size: .9375rem;
+      color: var(--on-blue-soft);
     }
 
-    .process-number {
-      color: var(--muted);
-      margin-bottom: 45px;
-      font-size: 13px;
-    }
-
-    .process-item h3 {
-      margin-bottom: 12px;
-    }
-
-    .process-item p {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .contact-links {
+    /* ---------- Мобільне меню ---------- */
+    .menu {
+      --fg: #fff;
+      position: fixed;
+      inset: 0;
+      z-index: 50;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      overflow-y: auto;
+    }
+    .menu[hidden] { display: none; }
+    .menu .menu-btn { display: inline-block; }
+    .menu-links { display: grid; gap: 8px; margin-top: auto; padding-block: 48px; }
+    .menu-links a {
+      display: block;
+      font-size: clamp(2.25rem, 11vw, 3.5rem);
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: -.02em;
+    }
+    body.locked { overflow: hidden; }
+
+    /* ---------- Адаптив ---------- */
+    @media (max-width: 1040px) {
+      .steps { grid-template-columns: 1fr; border-top: 0; border-left: 1px solid var(--blue); }
+      .steps::after { top: auto; bottom: 0; left: -9px; right: auto; width: 17px; height: 1px; }
+      .step { padding: 0 0 44px 32px; }
+      .step:last-child { padding-bottom: 8px; }
+      .step::before { top: 0; left: -9px; width: 17px; height: 1px; }
+      .step-n::before { margin-bottom: 12px; }
     }
 
-    .contact-links a {
-      width: fit-content;
-      font-size: 21px;
-      border-bottom: 1px solid var(--line);
-      padding-bottom: 8px;
-      transition: .3s;
+    @media (max-width: 860px) {
+      .nav { display: none; }
+      .menu-btn { display: inline-block; }
+
+      .about { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+      .about .sec-title, .statement { grid-column: auto; }
+
+      .svc { grid-template-columns: 48px minmax(0, 1fr); gap: 12px 20px; padding-block: 28px; }
+      .svc p { grid-column: 2; padding-top: 0; }
+
+      .work { grid-template-columns: 1fr; }
+      .work-map { order: -1; min-height: 0; aspect-ratio: 3 / 2; }
+      .work-text { padding-inline: var(--m); padding-block: 48px 72px; }
+
+      .contact-grid { grid-template-columns: 1fr; }
+      .links b { font-size: clamp(1.125rem, 5.2vw, 2.25rem); }
+      .slot { min-height: 200px; }
     }
 
-    .contact-links a:hover {
-      color: var(--muted);
-      border-color: var(--text);
-    }
-
-    footer {
-      display: flex;
-      justify-content: space-between;
-      padding: 30px 0;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(25px);
-      transition: .8s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @keyframes appear {
-      from { opacity: 0; transform: scale(.96); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes rotate {
-      to { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-
-    @keyframes moveLight {
-      from { transform: translate(-30px, -20px); }
-      to { transform: translate(80px, 40px); }
-    }
-
-    @media (max-width: 760px) {
-      header {
-        height: 75px;
-      }
-
-      nav {
-        display: none;
-      }
-
-      .hero,
-      .about-grid,
-      .contact-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        min-height: auto;
-        padding: 80px 0;
-      }
-
-      h1 {
-        letter-spacing: -3px;
-      }
-
-      .hero-visual {
-        height: 360px;
-      }
-
-      section {
-        padding: 80px 0;
-      }
-
-      .services,
-      .process {
-        grid-template-columns: 1fr;
-      }
-
-      .project {
-        display: block;
-        padding: 28px;
-      }
-
-      .project .button {
-        margin-top: 30px;
-      }
-
-      .project-title {
-        letter-spacing: -4px;
-      }
-
-      footer {
-        display: block;
-        line-height: 2;
-      }
+    @media (max-width: 520px) {
+      .bar { min-height: 68px; gap: 8px; }
+      .logo { font-size: .875rem; }
+      .bar-end { gap: 4px; }
+      .lang button { min-width: 38px; }
+      .menu-btn { padding-inline: 10px; }
+      .grip { top: 112px; }
+      .side { top: 126px; font-size: .875rem; }
+      .hero { padding-top: 188px; }
+      .hero h1, .lede { margin-bottom: 44px; }
+      .actions, .actions .btn { width: 100%; }
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <header>
-      <a href="#" class="logo">KONOTOP STUDIO</a>
+  <a class="skip" href="#main" data-uk="Перейти до змісту" data-en="Skip to content">Перейти до змісту</a>
 
-      <nav>
-        <a href="#about" data-uk="Про студію" data-en="About">Про студію</a>
-        <a href="#services" data-uk="Послуги" data-en="Services">Послуги</a>
-        <a href="#work" data-uk="Проєкт" data-en="Project">Проєкт</a>
-        <a href="#contact" data-uk="Контакти" data-en="Contact">Контакти</a>
-      </nav>
+  <div class="stage" id="stage">
+    <header class="site" id="site">
+      <div class="wrap bar">
+        <a href="#" class="logo">KONOTOP STUDIO</a>
 
-      <div class="language">
-        <button class="active" onclick="changeLanguage('uk')">UA</button>
-        /
-        <button onclick="changeLanguage('en')">EN</button>
+        <nav class="nav" data-uk-label="Основна навігація" data-en-label="Main navigation" aria-label="Основна навігація">
+          <a href="#about" data-uk="Про студію" data-en="About">Про студію</a>
+          <a href="#services" data-uk="Послуги" data-en="Services">Послуги</a>
+          <a href="#work" data-uk="Проєкт" data-en="Project">Проєкт</a>
+          <a href="#contact" data-uk="Контакти" data-en="Contact">Контакти</a>
+        </nav>
+
+        <div class="bar-end">
+          <div class="lang" role="group" data-uk-label="Мова сайту" data-en-label="Site language" aria-label="Мова сайту">
+            <button type="button" data-set="uk" aria-pressed="true">UA</button>
+            <button type="button" data-set="en" aria-pressed="false">EN</button>
+          </div>
+          <button type="button" class="menu-btn" id="menu-open" aria-expanded="false" aria-controls="menu" data-uk="Меню" data-en="Menu">Меню</button>
+        </div>
+      </div>
+
+      <div class="wrap hero">
+        <h1 data-uk="Сайти, які допомагають бізнесу розвиватися"
+            data-en="Websites that help businesses grow">Сайти, які допомагають бізнесу розвиватися</h1>
+
+        <p class="lede"
+           data-uk="Створюємо сучасні цифрові рішення з продуманим дизайном, функціональністю та увагою до деталей."
+           data-en="We create modern digital solutions with thoughtful design, functionality and attention to detail.">Створюємо сучасні цифрові рішення з продуманим дизайном, функціональністю та увагою до деталей.</p>
+
+        <div class="actions">
+          <a href="#work" class="btn btn--solid" data-uk="Переглянути роботу" data-en="View project">Переглянути роботу</a>
+          <a href="#contact" class="btn" data-uk="Обговорити проєкт" data-en="Discuss a project">Обговорити проєкт</a>
+        </div>
       </div>
     </header>
 
-    <main>
-      <section class="hero">
-        <div>
-          <div class="eyebrow" data-uk="Дизайн · Розробка · Анімація"
-               data-en="Design · Development · Motion">
-            Дизайн · Розробка · Анімація
-          </div>
-
-          <h1 data-uk="Сайти, які допомагають бізнесу розвиватися"
-              data-en="Websites that help businesses grow">
-            Сайти, які допомагають бізнесу розвиватися
-          </h1>
-
-          <p class="hero-description"
-             data-uk="Створюю сучасні цифрові рішення з продуманим дизайном, функціональністю та увагою до деталей."
-             data-en="I create modern digital solutions with thoughtful design, functionality and attention to detail.">
-            Створюю сучасні цифрові рішення з продуманим дизайном, функціональністю та увагою до деталей.
-          </p>
-
-          <div class="buttons">
-            <a href="#work" class="button primary"
-               data-uk="Переглянути роботу"
-               data-en="View project">
-              Переглянути роботу
-            </a>
-
-            <a href="#contact" class="button"
-               data-uk="Обговорити проєкт"
-               data-en="Discuss a project">
-              Обговорити проєкт
-            </a>
-          </div>
-        </div>
-
-        <div class="hero-visual">
-          <div class="orb"></div>
-          <div class="visual-label">KONOTOP / DIGITAL STUDIO</div>
-        </div>
-      </section>
-
-      <section id="about" class="reveal">
-        <div class="about-grid">
-          <h2 class="section-heading"
-              data-uk="Про студію"
-              data-en="About the studio">
-            Про студію
-          </h2>
-
-          <p class="muted"
-             data-uk="Я — Назар, дизайнер і розробник сайтів із Кропивницького. Маю два роки досвіду у веброзробці та працюю разом із командою спеціалістів із понад п’ятирічним досвідом. Ми створюємо сучасні сайти під завдання, аудиторію та цілі кожного клієнта."
-             data-en="I’m Nazar, a web designer and developer from Kropyvnytskyi. I have two years of experience in web development and work with a team of specialists who have over five years of experience. We create modern websites tailored to each client's goals, audience and needs.">
-            Я — Назар, дизайнер і розробник сайтів із Кропивницького. Маю два роки досвіду у веброзробці та працюю разом із командою спеціалістів із понад п’ятирічним досвідом. Ми створюємо сучасні сайти під завдання, аудиторію та цілі кожного клієнта.
-          </p>
-        </div>
-      </section>
-
-      <section id="services" class="reveal">
-        <h2 class="section-heading"
-            data-uk="Що ми робимо"
-            data-en="What we do">
-          Що ми робимо
-        </h2>
-
-        <div class="services">
-          <article class="service">
-            <div class="service-number">01</div>
-            <h3 data-uk="Веб-дизайн" data-en="Web design">Веб-дизайн</h3>
-            <p data-uk="Створюємо візуальний стиль, структуру та зручний користувацький досвід."
-               data-en="We create the visual style, structure and user experience.">
-              Створюємо візуальний стиль, структуру та зручний користувацький досвід.
-            </p>
-          </article>
-
-          <article class="service">
-            <div class="service-number">02</div>
-            <h3 data-uk="Розробка сайтів" data-en="Website development">Розробка сайтів</h3>
-            <p data-uk="Перетворюємо дизайн на швидкий, функціональний та адаптивний сайт."
-               data-en="We turn designs into fast, functional and responsive websites.">
-              Перетворюємо дизайн на швидкий, функціональний та адаптивний сайт.
-            </p>
-          </article>
-
-          <article class="service">
-            <div class="service-number">03</div>
-            <h3 data-uk="Редизайн" data-en="Redesign">Редизайн</h3>
-            <p data-uk="Покращуємо готові сайти, не ламаючи їхню основну логіку."
-               data-en="We improve existing websites without breaking their core logic.">
-              Покращуємо готові сайти, не ламаючи їхню основну логіку.
-            </p>
-          </article>
-
-          <article class="service">
-            <div class="service-number">04</div>
-            <h3 data-uk="Анімації" data-en="Motion design">Анімації</h3>
-            <p data-uk="Додаємо плавні та доречні анімації, які підсилюють враження від сайту."
-               data-en="We add smooth and meaningful animations that improve the experience.">
-              Додаємо плавні та доречні анімації, які підсилюють враження від сайту.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section id="work" class="reveal">
-        <h2 class="section-heading"
-            data-uk="Обраний проєкт"
-            data-en="Selected project">
-          Обраний проєкт
-        </h2>
-
-        <div class="project">
-          <div>
-            <div class="project-title">MAPIN</div>
-
-            <p data-uk="Участь у дизайні та розробці приблизно половини сайту Mapin. Працював над візуальною частиною та кодингом проєкту."
-               data-en="Contribution to the design and development of approximately half of the Mapin website. Worked on the visual direction and coding.">
-              Участь у дизайні та розробці приблизно половини сайту Mapin. Працював над візуальною частиною та кодингом проєкту.
-            </p>
-          </div>
-
-          <a class="button primary"
-             href="https://mapin.com.ua/en/about/"
-             target="_blank"
-             data-uk="Відкрити проєкт"
-             data-en="Open project">
-            Відкрити проєкт
-          </a>
-        </div>
-      </section>
-
-      <section class="reveal">
-        <h2 class="section-heading"
-            data-uk="Як ми працюємо"
-            data-en="How we work">
-          Як ми працюємо
-        </h2>
-
-        <div class="process">
-          <div class="process-item">
-            <div class="process-number">01</div>
-            <h3 data-uk="Знайомство" data-en="Discovery">Знайомство</h3>
-            <p data-uk="Обговорюємо ідею, цілі та завдання."
-               data-en="We discuss your idea, goals and requirements.">
-              Обговорюємо ідею, цілі та завдання.
-            </p>
-          </div>
-
-          <div class="process-item">
-            <div class="process-number">02</div>
-            <h3 data-uk="Концепція" data-en="Concept">Концепція</h3>
-            <p data-uk="Формуємо структуру та напрям майбутнього сайту."
-               data-en="We define the structure and creative direction.">
-              Формуємо структуру та напрям майбутнього сайту.
-            </p>
-          </div>
-
-          <div class="process-item">
-            <div class="process-number">03</div>
-            <h3 data-uk="Розробка" data-en="Development">Розробка</h3>
-            <p data-uk="Створюємо дизайн, код і потрібні функції."
-               data-en="We create the design, code and required features.">
-              Створюємо дизайн, код і потрібні функції.
-            </p>
-          </div>
-
-          <div class="process-item">
-            <div class="process-number">04</div>
-            <h3 data-uk="Запуск" data-en="Launch">Запуск</h3>
-            <p data-uk="Перевіряємо сайт і готуємо його до запуску."
-               data-en="We test the website and prepare it for launch.">
-              Перевіряємо сайт і готуємо його до запуску.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" class="reveal">
-        <div class="contact-grid">
-          <div>
-            <h2 class="section-heading"
-                data-uk="Є ідея?"
-                data-en="Have an idea?">
-              Є ідея?
-            </h2>
-
-            <p class="muted"
-               data-uk="Розкажіть про свій проєкт. Вартість обговорюється індивідуально."
-               data-en="Tell us about your project. Pricing is discussed individually.">
-              Розкажіть про свій проєкт. Вартість обговорюється індивідуально.
-            </p>
-          </div>
-
-          <div class="contact-links">
-            <a href="https://t.me/m_konotop" target="_blank">Telegram ↗</a>
-            <a href="mailto:managerkonotop@gmail.com">Email ↗</a>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <span>© 2025 KONOTOP STUDIO</span>
-      <span data-uk="Дизайн і розробка сайтів"
-            data-en="Web design and development">
-        Дизайн і розробка сайтів
-      </span>
-    </footer>
+    <div class="handle" id="handle" hidden>
+      <div class="handle-line"></div>
+      <span class="side side--plan" aria-hidden="true" data-uk="Креслення" data-en="Blueprint">Креслення</span>
+      <span class="side side--site" aria-hidden="true" data-uk="Готовий сайт" data-en="Finished site">Готовий сайт</span>
+      <div class="grip" id="grip" role="slider" tabindex="0"
+           aria-orientation="horizontal" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"
+           data-uk-label="Порівняти креслення і готовий сайт"
+           data-en-label="Compare the blueprint and the finished site"
+           aria-label="Порівняти креслення і готовий сайт">
+        <svg width="26" height="14" viewBox="0 0 26 14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 1 1 7l6 6M19 1l6 6-6 6"/></svg>
+      </div>
+    </div>
   </div>
 
+  <div class="menu blueprint" id="menu" hidden>
+    <div class="wrap bar">
+      <a href="#" class="logo">KONOTOP STUDIO</a>
+      <button type="button" class="menu-btn" id="menu-close" data-uk="Закрити" data-en="Close">Закрити</button>
+    </div>
+    <div class="wrap menu-links">
+      <a href="#about" data-uk="Про студію" data-en="About">Про студію</a>
+      <a href="#services" data-uk="Послуги" data-en="Services">Послуги</a>
+      <a href="#work" data-uk="Проєкт" data-en="Project">Проєкт</a>
+      <a href="#contact" data-uk="Контакти" data-en="Contact">Контакти</a>
+    </div>
+  </div>
+
+  <main id="main">
+    <section id="about" class="sec">
+      <div class="wrap about">
+        <h2 class="sec-title" data-uk="Про студію" data-en="About the studio">Про студію</h2>
+        <p class="statement"
+           data-uk="Я — Назар, дизайнер і розробник сайтів із Кропивницького. Маю два роки досвіду у веброзробці та працюю разом із командою спеціалістів із понад п’ятирічним досвідом. Ми створюємо сучасні сайти під завдання, аудиторію та цілі кожного клієнта."
+           data-en="I’m Nazar, a web designer and developer from Kropyvnytskyi. I have two years of experience in web development and work with a team of specialists who have over five years of experience. We create modern websites tailored to each client’s goals, audience and needs.">Я — Назар, дизайнер і розробник сайтів із Кропивницького. Маю два роки досвіду у веброзробці та працюю разом із командою спеціалістів із понад п’ятирічним досвідом. Ми створюємо сучасні сайти під завдання, аудиторію та цілі кожного клієнта.</p>
+      </div>
+    </section>
+
+    <section id="services" class="sec services">
+      <div class="wrap">
+        <h2 class="sec-title" data-uk="Що ми робимо" data-en="What we do">Що ми робимо</h2>
+
+        <div>
+          <article class="svc">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="8" width="38" height="32"/><path d="M5 16h38M12 24h14M12 30h9"/><rect x="31" y="23" width="7" height="10"/></svg>
+            <h3 data-uk="Веб-дизайн" data-en="Web design">Веб-дизайн</h3>
+            <p data-uk="Створюємо візуальний стиль, структуру та зручний користувацький досвід."
+               data-en="We create the visual style, structure and user experience.">Створюємо візуальний стиль, структуру та зручний користувацький досвід.</p>
+          </article>
+
+          <article class="svc">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M16 12 5 24l11 12M32 12l11 12-11 12M27 8l-6 32"/></svg>
+            <h3 data-uk="Розробка сайтів" data-en="Website development">Розробка сайтів</h3>
+            <p data-uk="Перетворюємо дизайн на швидкий, функціональний та адаптивний сайт."
+               data-en="We turn designs into fast, functional and responsive websites.">Перетворюємо дизайн на швидкий, функціональний та адаптивний сайт.</p>
+          </article>
+
+          <article class="svc">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="6" width="26" height="26" stroke-dasharray="3 3"/><rect x="17" y="16" width="26" height="26"/></svg>
+            <h3 data-uk="Редизайн" data-en="Redesign">Редизайн</h3>
+            <p data-uk="Покращуємо готові сайти, не ламаючи їхню основну логіку."
+               data-en="We improve existing websites without breaking their core logic.">Покращуємо готові сайти, не ламаючи їхню основну логіку.</p>
+          </article>
+
+          <article class="svc">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 40C20 40 16 8 42 8"/><circle cx="6" cy="40" r="3"/><circle cx="42" cy="8" r="3"/><circle cx="23" cy="24" r="3"/></svg>
+            <h3 data-uk="Анімації" data-en="Motion design">Анімації</h3>
+            <p data-uk="Додаємо плавні та доречні анімації, які підсилюють враження від сайту."
+               data-en="We add smooth and meaningful animations that improve the experience.">Додаємо плавні та доречні анімації, які підсилюють враження від сайту.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="work" class="work">
+      <div class="work-text">
+        <h2 data-uk="Обраний проєкт" data-en="Selected project">Обраний проєкт</h2>
+        <h3 class="project-title">MAPIN</h3>
+        <p data-uk="Участь у дизайні та розробці приблизно половини сайту Mapin. Працював над візуальною частиною та кодингом проєкту."
+           data-en="Contribution to the design and development of approximately half of the Mapin website. Worked on the visual direction and coding.">Участь у дизайні та розробці приблизно половини сайту Mapin. Працював над візуальною частиною та кодингом проєкту.</p>
+        <a class="btn btn--solid" href="https://mapin.com.ua/en/about/" target="_blank" rel="noopener"
+           data-uk="Відкрити проєкт" data-en="Open project">Відкрити проєкт</a>
+      </div>
+
+      <!-- Сюди можна поставити справжній скриншот Mapin замість графіки:
+           <img src="mapin.jpg" alt="Сайт Mapin" style="width:100%;height:100%;object-fit:cover"> -->
+      <div class="work-map" aria-hidden="true">
+        <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" role="presentation">
+          <defs>
+            <path id="topo" d="M855 796l-16-28l-18-36l-18-40l-31-73l-16-34l-8-13l-4-4l-4-4l-4-2l-4 0l-4 2l-4 4l-4 6l-4 7l-8 18l-18 45l-11 24l-13 24l-14 24l-17 24l-17 20l-18 18l-21 18M1145 0l15 11l12 10l12 12l12 13M934 796l-10-7l-12-11l-9-10l-11-13l-10-15l-10-17l-10-19l-9-20l-13-32l-11-36l-12-44l-17-84l-8-25l-9-19l-7-12l-7-8l-9-8l-8-6l-12-6l-8-3l-8-2l-12-1l-12 1l-8 2l-8 3l-7 4l-5 4l-7 8l-5 8l-4 8l-4 13l-3 19l-1 16l-4 68l-3 24l-4 24l-6 24l-9 24l-11 24l-12 20l-12 16l-15 17l-16 15l-20 15l-20 12l-20 10l-24 9l-31 10M1196 652l-16 20l-20 23l-20 21l-24 23l-20 18l-20 15l-20 14l-18 10M1061 0l23 8l20 8l20 11l18 13l17 16l13 15l12 17l12 21M1196 605l-12 18l-13 17l-15 18l-17 18l-19 18l-16 14l-20 15l-16 11l-16 9l-16 7l-16 5l-12 3l-16 1l-12-1l-12-3l-12-5l-12-7l-12-9l-10-10l-10-11l-9-13l-10-16l-9-16l-7-16l-13-32l-11-36l-8-36l-13-68l-7-28l-4-12l-5-12l-7-12l-5-8l-12-15l-12-10l-16-10l-16-7l-20-6l-20-3l-20 0l-16 2l-12 3l-8 3l-8 4l-10 7l-8 8l-6 8l-4 8l-4 8l-4 16l-3 16l-1 20l0 56l-1 28l-3 28l-5 24l-4 16l-5 12l-5 12l-6 12l-7 12l-8 12l-8 9l-8 9l-11 10l-9 7l-20 13l-12 6l-12 5l-24 8l-24 6l-28 4l-24 2l-56 2l-20 2l-16 3l-12 4l-13 6l-11 8l-8 8l-9 12M944 0l72 16l20 5l20 6l20 8l16 7l16 10l12 9l16 14l12 13l12 16l8 13l9 19l8 20l6 20l5 23M1196 556l-10 20l-10 16l-11 16l-13 17l-16 18l-16 16l-16 14l-16 12l-16 11l-16 8l-16 7l-12 4l-16 2l-12 1l-16-3l-12-3l-12-6l-8-5l-11-9l-9-9l-8-10l-9-13l-10-16l-8-16l-11-28l-5-16l-6-20l-8-32l-13-68l-7-28l-6-16l-5-12l-7-12l-9-12l-7-8l-8-8l-17-12l-20-10l-20-8l-25-6l-27-3l-24 0l-12 1l-13 2l-14 4l-10 4l-11 6l-9 6l-8 8l-7 8l-5 8l-5 12l-5 16l-3 20l-1 24l1 52l0 28l-2 28l-5 24l-3 12l-5 12l-5 12l-6 12l-8 12l-6 8l-10 11l-8 8l-8 6l-12 8l-12 7l-12 5l-12 4l-16 4l-12 2l-16 2l-28 1l-28-2l-24-3l-56-9l-28-3l-12 0l-12 0l-12 2l-8 2l-12 5l-10 6l-9 8l-7 8l-11 16l-23 42l-11 18M375 0l13 10l8 4l8 4l16 4l8 1l12 1l20-2l24-3l24-6l47-13M861 0l127 32l28 7l24 8l24 10l20 11l20 14l15 14l14 16l13 20l6 12l6 12l8 24l8 28l6 32l9 52l7 55M1196 486l-5 22l-7 20l-8 20l-8 16l-12 20l-12 16l-13 16l-16 16l-19 16l-16 11l-16 9l-16 8l-16 4l-16 2l-16 0l-12-3l-12-4l-8-5l-12-8l-8-8l-8-8l-8-11l-8-12l-8-15l-6-12l-6-16l-10-32l-7-28l-14-72l-4-16l-5-15l-7-17l-8-16l-9-12l-10-12l-9-8l-9-7l-12-8l-10-5l-14-6l-12-5l-28-8l-16-3l-16-2l-16-2l-16 0l-16 0l-12 1l-12 2l-12 2l-12 4l-12 5l-12 7l-8 5l-8 8l-8 9l-7 11l-6 12l-3 8l-3 12l-2 12l-1 12l0 24l2 48l0 24l-1 24l-4 24l-3 12l-4 12l-4 10l-5 10l-7 11l-7 9l-7 8l-9 8l-9 7l-12 7l-8 4l-12 4l-12 4l-12 2l-24 3l-24 0l-28-3l-28-5l-60-12l-20-3l-16-1l-20-1l-16 1l-16 3l-12 4l-12 5l-9 5l-11 8l-8 8l-7 8l-8 12l-23 40l-14 20l-8 10l-10 10l-10 9l-10 7M328 0l8 14l8 11l11 11l10 8l11 6l16 6l12 2l16 1l12 0l12-2l24-4l28-9l60-21l28-9l32-9l30-5M775 0l25 4l28 5l56 14l96 27l29 10l23 9l16 7l16 9l12 8l15 11l12 12l9 10l10 14l7 12l11 24l9 24l8 32l7 36l10 56l5 44l3 40l0 32l-2 24l-4 24l-7 24l-8 20l-10 20l-12 20l-15 19l-16 17l-16 14l-16 11l-12 6l-8 4l-16 5l-16 3l-16-1l-8-1l-8-3l-8-3l-8-4l-8-6l-8-7l-12-14l-11-16l-10-20l-10-24l-7-24l-5-24l-13-64l-4-16l-5-16l-7-17l-8-16l-10-15l-11-12l-8-8l-11-8l-19-12l-13-6l-12-5l-28-9l-32-8l-36-5l-32-2l-16 0l-16 2l-20 3l-16 4l-14 6l-14 8l-12 8l-12 12l-9 12l-6 12l-5 12l-4 12l-2 12l-1 12l-1 28l3 52l1 20l-1 24l-3 20l-3 12l-4 12l-9 18l-7 10l-5 6l-8 8l-8 7l-8 5l-8 5l-8 4l-12 4l-20 4l-24 2l-20 0l-24-3l-24-3l-64-12l-20-3l-20-2l-20 0l-20 0l-20 2l-17 4l-15 5l-16 7l-14 8l-10 8l-9 8l-10 12l-25 35l-12 15l-12 12l-12 9M294 0l8 24l6 16l10 16l10 12l12 10l12 6l16 6l16 3l16 1l20 0l20-3l20-5l16-5l16-6l59-27l25-10l27-10l25-7l24-5l24-3l24-2l24 0l32 2l36 5l36 7l40 10l56 17l60 21l36 15l16 8l12 7l16 11l16 14l15 16l13 20l10 20l8 20l8 24l8 32l10 48l7 44l4 36l1 32l-1 28l-5 28l-6 24l-9 24l-7 14l-8 13l-8 12l-8 9l-11 12l-9 8l-10 8l-10 6l-11 6l-9 4l-12 3l-8 1l-12 1l-8-1l-12-3l-8-3l-8-5l-7-5l-12-12l-12-16l-9-16l-8-20l-8-24l-6-24l-15-68l-4-16l-5-16l-9-20l-9-16l-12-15l-12-12l-11-9l-9-6l-12-7l-12-6l-12-5l-16-6l-32-9l-40-8l-40-5l-36-3l-16 1l-16 1l-20 3l-16 4l-16 6l-15 8l-13 10l-11 10l-9 12l-10 16l-5 12l-5 16l-3 12l-2 16l0 28l4 52l1 20l-1 20l-3 20l-3 12l-3 8l-4 8l-6 10l-4 6l-8 9l-8 7l-8 5l-16 8l-16 5l-20 3l-20 1l-16 0l-20-2l-80-11l-36-4l-36-2l-20 1l-16 1l-28 4l-16 3l-16 4l-24 8l-44 18l-12 4M264 0l8 44l4 18l7 18l7 12l6 8l5 4l7 5l8 5l8 4l12 4l12 3l12 2l24 3l24 0l24-3l20-4l16-6l20-8l20-11l38-22l22-12l24-11l20-8l24-8l28-6l24-3l28-2l32 1l32 4l36 6l36 10l48 15l56 21l39 17l29 15l19 13l14 12l15 15l13 17l11 19l9 21l9 24l8 28l10 44l7 40l4 36l2 28l-1 28l-3 24l-6 24l-4 12l-5 12l-11 20l-7 11l-7 9l-9 9l-8 7l-8 6l-8 5l-9 5l-11 4l-8 2l-8 1l-8 0l-8-1l-8-3l-8-3l-12-8l-12-11l-9-13l-9-16l-7-16l-7-22l-6-22l-14-64l-5-20l-6-16l-9-20l-10-16l-14-16l-12-11l-8-6l-12-8l-12-6l-12-6l-30-11l-38-11l-48-9l-48-8l-40-3l-20-1l-16 1l-20 2l-16 4l-16 5l-16 8l-16 12l-12 12l-12 16l-8 14l-7 14l-5 16l-4 16l-1 16l-1 12l0 16l4 52l1 20l0 20l-3 16l-3 12l-3 8l-4 8l-5 8l-5 6l-5 6l-7 5l-8 6l-12 6l-16 5l-20 3l-20 1l-32-2l-80-8l-44-3l-24 0l-28 0l-76 5l-20 1l-12 0l-12-2l-8-1l-8-3M237 0l1 28l-1 52l0 16l2 16l4 12l5 7l4 5l8 6l8 5l8 3l12 4l16 4l16 3l48 6l48 3l28-1l12-1l12-3l8-3l8-4l12-7l12-9l34-30l21-16l21-15l20-11l24-11l12-4l16-5l28-5l28-3l28 0l32 3l32 5l36 9l38 13l40 16l44 20l30 16l20 12l20 15l13 13l14 16l11 16l10 18l9 22l9 24l10 36l8 37l6 35l3 32l0 28l-3 24l-2 12l-3 12l-8 20l-9 17l-11 15l-5 6l-8 7l-12 9l-8 4l-6 2l-6 1l-8 2l-8 0l-8-2l-12-4l-7-5l-5-4l-8-8l-6-8l-5-8l-8-16l-5-15l-5-17l-15-64l-5-20l-6-20l-9-20l-9-16l-9-12l-12-12l-14-12l-20-13l-12-6l-16-6l-28-10l-40-10l-76-16l-72-12l-48-6l-16-2l-16 0l-16 2l-12 3l-12 6l-12 8l-12 12l-12 15l-12 20l-10 19l-6 16l-5 16l-4 16l-2 20l-1 16l1 16l4 52l1 16l0 16l-2 16l-5 16l-4 8l-5 8l-6 8l-4 4l-12 8l-12 6l-16 5l-16 3l-20 1l-32 0l-104-6l-104-1l-28-2l-12-1l-12-3l-16-5l-8-4l-8-5M210 0l-1 20l-4 24l-5 20l-8 21l-10 19l-10 14l-12 12l-8 7l-8 5l-16 8l-12 4l-16 3l-20 0l-20-2l-20-5l-20-8l-20-9M1044 520l-8 1l-8-1l-8-3l-4-2l-5-3l-7-7l-4-5l-6-8l-7-16l-7-19l-5-17l-14-60l-4-16l-6-16l-7-16l-10-16l-10-13l-12-12l-14-11l-14-9l-20-9l-20-8l-20-6l-24-6l-99-22l-45-11l-36-11l-15-6l-9-4l-13-8l-9-8l-5-8l-1-8l0-8l4-12l4-8l9-12l8-8l9-8l17-12l21-11l23-9l25-6l24-3l28-1l28 2l28 5l30 7l30 10l33 14l33 16l36 20l30 20l21 16l16 16l7 8l9 12l13 20l11 24l11 28l12 40l8 35l5 33l1 24l-1 24l-3 20l-6 20l-8 16l-6 8l-6 7l-5 5l-7 5l-8 5l-8 2M0 245l20-10l24-9l28-7l28-6l36-4l76-5l40-2l36 0l28 2l24 4l20 4l16 6l8 5l4 3l6 6l3 4l2 4l2 8l1 12l-2 16l-8 52l-3 28l0 16l1 16l6 64l0 16l-2 12l-4 16l-5 12l-5 7l-4 5l-4 4l-8 6l-12 6l-16 5l-20 4l-20 2l-24 1l-28 0l-104-2l-36-2l-20-1l-16-2l-16-3l-12-4l-12-5l-10-5l-10-7l-8-8M183 0l-2 16l-4 16l-5 12l-8 15l-8 12l-8 9l-12 10l-12 8l-12 6l-16 5l-16 3l-16 1l-16-1l-16-3l-16-4l-16-6M1048 461l-4 2l-4 1l-4 0l-4-1l-4-2l-4-3l-4-4l-4-6l-6-12l-6-17l-15-63l-4-16l-6-16l-8-16l-10-16l-10-12l-11-10l-14-10l-14-8l-16-6l-16-6l-36-9l-77-15l-43-10l-36-10l-16-6l-15-6l-15-8l-10-8l-7-8l-4-8l-2-8l1-8l1-4l4-8l5-8l6-6l7-6l12-8l17-8l20-7l20-3l20-2l20 0l24 3l24 4l20 6l20 7l26 12l23 12l19 12l23 16l21 16l18 16l16 16l14 17l14 19l10 17l12 24l12 30l8 23l8 29l4 21l2 20l0 16l-2 13l-4 15l-4 8l-4 6l-4 4l-4 3M0 277l8-5l12-5l12-4l16-5l28-5l36-3l100-4l44 0l20 1l16 3l12 3l12 4l11 7l9 9l7 11l5 15l4 21l11 92l1 16l1 16l-1 20l-2 8l-2 8l-6 12l-6 8l-4 4l-5 4l-7 5l-8 4l-8 3l-20 5l-24 4l-20 2l-28 1l-64 0l-44-1l-20-2l-16-2l-12-3l-14-4l-11-4l-11-6l-8-5l-8-6l-8-8l-8-9M154 0l-2 8l-4 12l-6 12l-6 9l-8 10l-8 7l-9 6l-11 6l-12 5l-12 3l-12 2l-12 0l-12-1l-16-3l-12-3l-12-5M864 200l-16 1l-16 0l-20-1l-20-2l-36-7l-16-4l-20-6l-13-5l-8-4l-11-6l-7-6l-5-6l-4-6l-2-8l1-8l4-8l4-4l10-8l7-4l8-3l18-5l10-1l12-1l20 1l12 1l12 3l20 6l12 4l15 7l20 12l10 8l9 8l8 8l5 8l4 8l2 4l0 4l0 4l-2 4l-3 4l-7 4l-9 3l-8 1M0 306l8-7l8-5l12-6l12-4l24-6l16-3l16-1l24-1l24 0l28 0l24 2l20 2l20 2l16 4l12 4l16 7l8 6l5 4l11 12l8 14l4 10l4 12l8 28l5 28l2 24l-1 12l-1 8l-2 8l-2 8l-5 8l-4 6l-5 6l-7 5l-8 5l-8 4l-12 5l-12 3l-28 5l-32 3l-40 1l-40-1l-32-3l-16-4l-12-3l-12-4l-8-4l-12-7l-8-6l-8-7l-8-8l-6-8l-6-10M119 0l-3 8l-5 8l-7 8l-4 4l-12 9l-8 4l-8 3l-16 3l-8 0l-12 0l-12-2l-8-2l-16-7M0 340l5-8l6-8l9-8l8-5l8-4l12-5l12-4l16-3l16-2l16-1l20 0l20 0l20 2l20 3l16 3l16 4l20 7l16 9l8 6l6 6l10 12l6 8l6 12l7 20l3 12l2 12l1 12l0 8l-1 12l-2 8l-3 8l-4 8l-6 8l-5 4l-8 6l-10 6l-10 4l-12 4l-12 3l-16 3l-16 2l-20 1l-36 1l-28-2l-24-4l-12-3l-12-4l-18-9l-10-7l-6-5l-8-8l-6-7l-6-9l-5-8l-5-11l-4-10M60 0l-11 4l-9 1l-12-1l-11-4M168 492l-24 0l-20-1l-20-3l-16-4l-16-6l-12-6l-12-8l-12-12l-9-12l-9-16l-3-8l-3-12l-2-16l0-16l2-8l3-8l6-12l7-8l4-3l8-6l12-6l12-5l16-4l16-2l16-1l16 0l20 1l20 3l16 3l16 5l12 5l13 6l11 7l8 7l8 8l8 10l7 12l5 12l4 16l1 16l-1 12l-4 12l-4 8l-6 8l-9 8l-9 6l-12 6l-13 4l-15 4l-16 2l-20 2M172 477l-16 1l-20 0l-16-2l-16-3l-16-5l-12-5l-12-7l-9-8l-11-12l-7-12l-5-12l-2-8l-1-8l-1-12l3-12l5-12l8-10l7-6l9-6l8-3l12-4l12-3l12-1l12-1l16 1l14 1l14 2l12 3l12 4l12 5l11 6l9 6l8 7l7 7l6 8l4 8l5 12l3 12l0 8l-2 12l-2 8l-5 8l-6 8l-6 5l-8 5l-8 4l-12 5l-12 3l-16 3M164 460l-12 2l-16 0l-16-2l-12-2l-12-4l-12-6l-8-5l-8-7l-7-8l-5-8l-4-10l-2-10l0-12l2-8l4-8l6-8l4-4l6-4l8-4l8-3l8-2l12-2l20 0l20 2l20 6l16 7l8 5l8 7l4 4l6 8l5 8l3 8l1 8l0 8l-1 8l-2 4l-4 7l-4 5l-10 8l-7 4l-10 4l-17 4M148 440l-16 1l-8-1l-8-2l-8-2l-8-4l-6-4l-4-4l-6-7l-3-5l-2-4l-1-8l1-8l1-4l3-4l3-4l6-5l6-3l6-2l12-2l12-1l12 2l12 4l12 6l8 6l4 4l4 5l3 6l1 4l0 8l-2 8l-3 4l-3 4l-5 4l-11 5l-12 3"/>
+            <clipPath id="night"><path d="M560 0C500 180 690 330 610 520S520 720 560 800H0V0Z"/></clipPath>
+          </defs>
+          <rect width="1200" height="800" fill="#FFFFFF"/>
+          <use href="#topo" fill="none" stroke="#1836D8" stroke-width="1.1" stroke-linejoin="round"/>
+          <g clip-path="url(#night)">
+            <rect width="1200" height="800" fill="#1836D8"/>
+            <use href="#topo" fill="none" stroke="#FFFFFF" stroke-opacity=".7" stroke-width="1.1" stroke-linejoin="round"/>
+          </g>
+          <path d="M560 0C500 180 690 330 610 520S520 720 560 800" fill="none" stroke="#0B1547" stroke-width="1.5"/>
+        </svg>
+      </div>
+    </section>
+
+    <section class="sec process">
+      <div class="wrap">
+        <h2 class="sec-title" data-uk="Як ми працюємо" data-en="How we work">Як ми працюємо</h2>
+
+        <ol class="steps">
+          <li class="step">
+            <div class="step-n"></div>
+            <h3 data-uk="Знайомство" data-en="Discovery">Знайомство</h3>
+            <p data-uk="Обговорюємо ідею, цілі та завдання." data-en="We discuss your idea, goals and requirements.">Обговорюємо ідею, цілі та завдання.</p>
+          </li>
+          <li class="step">
+            <div class="step-n"></div>
+            <h3 data-uk="Концепція" data-en="Concept">Концепція</h3>
+            <p data-uk="Формуємо структуру та напрям майбутнього сайту." data-en="We define the structure and creative direction.">Формуємо структуру та напрям майбутнього сайту.</p>
+          </li>
+          <li class="step">
+            <div class="step-n"></div>
+            <h3 data-uk="Розробка" data-en="Development">Розробка</h3>
+            <p data-uk="Створюємо дизайн, код і потрібні функції." data-en="We create the design, code and required features.">Створюємо дизайн, код і потрібні функції.</p>
+          </li>
+          <li class="step">
+            <div class="step-n"></div>
+            <h3 data-uk="Запуск" data-en="Launch">Запуск</h3>
+            <p data-uk="Перевіряємо сайт і готуємо його до запуску." data-en="We test the website and prepare it for launch.">Перевіряємо сайт і готуємо його до запуску.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact" class="contact blueprint">
+    <div class="wrap">
+      <div class="contact-grid">
+        <div>
+          <h2 data-uk="Є ідея?" data-en="Have an idea?">Є ідея?</h2>
+          <p data-uk="Розкажіть про свій проєкт. Вартість обговорюється індивідуально."
+             data-en="Tell us about your project. Pricing is discussed individually.">Розкажіть про свій проєкт. Вартість обговорюється індивідуально.</p>
+          <div class="links">
+            <a href="https://t.me/m_konotop" target="_blank" rel="noopener"><small>Telegram</small><b>@m_konotop</b></a>
+            <a href="mailto:managerkonotop@gmail.com"><small>Email</small><b>managerkonotop@gmail.com</b></a>
+          </div>
+        </div>
+        <div class="slot sel" id="slot" data-uk="Тут буде ваш сайт" data-en="Your website goes here">Тут буде ваш сайт</div>
+      </div>
+
+      <div class="foot">
+        <span>© <span id="year">2026</span> KONOTOP STUDIO</span>
+        <span data-uk="Дизайн і розробка сайтів" data-en="Web design and development">Дизайн і розробка сайтів</span>
+      </div>
+    </div>
+  </footer>
+
   <script>
-    function changeLanguage(language) {
-      document.documentElement.lang = language;
+    (function () {
+      var root = document.documentElement;
+      var stage = document.getElementById('stage');
+      var site = document.getElementById('site');
+      var handle = document.getElementById('handle');
+      var grip = document.getElementById('grip');
+      var slot = document.getElementById('slot');
+      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      document.querySelectorAll("[data-uk]").forEach(element => {
-        element.textContent = element.dataset[language];
+      var META = {
+        uk: {
+          title: 'KONOTOP STUDIO: дизайн і розробка сайтів',
+          description: 'Дизайн, розробка, редизайн і анімація сайтів для бізнесу. Назар і команда, Кропивницький.'
+        },
+        en: {
+          title: 'KONOTOP STUDIO: web design and development',
+          description: 'Design, development, redesign and motion for business websites. Nazar and team, Kropyvnytskyi, Ukraine.'
+        }
+      };
+
+      /* Рік у футері */
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      /* Креслення: копія шапки поверх справжньої. Вона лише для вигляду */
+      var plan = document.createElement('div');
+      plan.className = 'plan';
+      plan.setAttribute('aria-hidden', 'true');
+      plan.inert = true;
+
+      var copy = site.cloneNode(true);
+      copy.removeAttribute('id');
+      copy.classList.add('blueprint');
+      copy.querySelectorAll('[id]').forEach(function (el) { el.removeAttribute('id'); });
+      plan.appendChild(copy);
+      stage.insertBefore(plan, handle);
+
+      var marked = ['h1', '.lede', '.actions'].map(function (selector) {
+        var target = copy.querySelector(selector);
+        target.classList.add('sel');
+        return { real: site.querySelector(selector), copy: target };
       });
 
-      document.querySelectorAll(".language button").forEach(button => {
-        button.classList.remove("active");
+      /* На кресленні показуємо справжні розміри блоків у пікселях */
+      function label(el, source) {
+        el.setAttribute('data-size', Math.round(source.offsetWidth) + ' × ' + Math.round(source.offsetHeight));
+      }
+      function measure() {
+        marked.forEach(function (pair) { label(pair.copy, pair.real); });
+        label(slot, slot);
+      }
+
+      if ('ResizeObserver' in window) {
+        var ro = new ResizeObserver(measure);
+        marked.forEach(function (pair) { ro.observe(pair.real); });
+        ro.observe(slot);
+      } else {
+        window.addEventListener('resize', measure);
+      }
+
+      /* Мова */
+      function setLanguage(lang) {
+        root.lang = lang;
+        document.querySelectorAll('[data-uk]').forEach(function (el) {
+          el.textContent = el.getAttribute('data-' + lang);
+        });
+        document.querySelectorAll('[data-uk-label]').forEach(function (el) {
+          el.setAttribute('aria-label', el.getAttribute('data-' + lang + '-label'));
+        });
+        document.querySelectorAll('[data-set]').forEach(function (button) {
+          button.setAttribute('aria-pressed', String(button.getAttribute('data-set') === lang));
+        });
+        document.title = META[lang].title;
+        document.querySelector('meta[name="description"]').setAttribute('content', META[lang].description);
+        measure();
+      }
+
+      function saved() {
+        try { return localStorage.getItem('lang'); } catch (e) { return null; }
+      }
+
+      document.querySelectorAll('#site [data-set]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          var lang = button.getAttribute('data-set');
+          setLanguage(lang);
+          try { localStorage.setItem('lang', lang); } catch (e) {}
+        });
       });
 
-      document
-        .querySelector(`[onclick="changeLanguage('${language}')"]`)
-        .classList.add("active");
-    }
+      setLanguage(saved() === 'en' ? 'en' : 'uk');
 
-    const revealElements = document.querySelectorAll(".reveal");
+      /* Повзунок: креслення і готовий сайт */
+      var rest = window.innerWidth < 700 ? 42 : 36;
+      var position = 100;
+      var raf = null;
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
+      function setX(value) {
+        position = Math.min(100, Math.max(0, value));
+        stage.style.setProperty('--x', position + '%');
+        grip.setAttribute('aria-valuenow', String(Math.round(position)));
+      }
+
+      function stopSweep() {
+        if (raf !== null) { cancelAnimationFrame(raf); raf = null; }
+      }
+
+      function sweep() {
+        var from = 100;
+        var started = null;
+        var duration = 1700;
+
+        function frame(now) {
+          if (started === null) { started = now; }
+          var t = Math.min(1, (now - started) / duration);
+          var eased = t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+          setX(from + (rest - from) * eased);
+          raf = t < 1 ? requestAnimationFrame(frame) : null;
+        }
+        raf = requestAnimationFrame(frame);
+      }
+
+      handle.hidden = false;
+      setX(100);
+
+      var fontsReady = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+      var timeout = new Promise(function (resolve) { setTimeout(resolve, 900); });
+
+      Promise.race([fontsReady, timeout]).then(function () {
+        measure();
+        if (reduced) {
+          setX(rest);
+        } else {
+          setTimeout(sweep, 350);
         }
       });
-    }, { threshold: 0.15 });
 
-    revealElements.forEach(element => observer.observe(element));
+      /* Під час роботи з клавіатури показуємо справжні кнопки з рамкою фокуса */
+      site.addEventListener('focusin', function (event) {
+        if (event.target.matches(':focus-visible')) {
+          stopSweep();
+          setX(0);
+        }
+      });
+
+      function fromPointer(event) {
+        var box = stage.getBoundingClientRect();
+        setX((event.clientX - box.left) / box.width * 100);
+      }
+
+      grip.addEventListener('pointerdown', function (event) {
+        stopSweep();
+        grip.setPointerCapture(event.pointerId);
+        event.preventDefault();
+      });
+      grip.addEventListener('pointermove', function (event) {
+        if (grip.hasPointerCapture(event.pointerId)) { fromPointer(event); }
+      });
+      grip.addEventListener('keydown', function (event) {
+        var moves = { ArrowLeft: position - 4, ArrowDown: position - 4, ArrowRight: position + 4, ArrowUp: position + 4, Home: 0, End: 100 };
+        if (event.key in moves) {
+          stopSweep();
+          setX(moves[event.key]);
+          event.preventDefault();
+        }
+      });
+
+      /* Мобільне меню */
+      var menu = document.getElementById('menu');
+      var openBtn = document.getElementById('menu-open');
+      var closeBtn = document.getElementById('menu-close');
+      var behind = [stage, document.getElementById('main'), document.getElementById('contact')];
+
+      function setMenu(open) {
+        menu.hidden = !open;
+        openBtn.setAttribute('aria-expanded', String(open));
+        document.body.classList.toggle('locked', open);
+        behind.forEach(function (el) { el.inert = open; });
+        (open ? closeBtn : openBtn).focus();
+      }
+
+      openBtn.addEventListener('click', function () { setMenu(true); });
+      closeBtn.addEventListener('click', function () { setMenu(false); });
+      menu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () { setMenu(false); });
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && !menu.hidden) { setMenu(false); }
+      });
+      window.matchMedia('(min-width: 861px)').addEventListener('change', function (event) {
+        if (event.matches && !menu.hidden) { setMenu(false); }
+      });
+    })();
   </script>
 </body>
 </html>
