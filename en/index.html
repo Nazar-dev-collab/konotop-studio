@@ -112,6 +112,12 @@
       if (theme !== 'light' && theme !== 'dark') { theme = 'dark'; }
       root.setAttribute('data-theme', theme);
       root.classList.add('js');
+      try {
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && !sessionStorage.getItem('intro')) {
+          root.classList.add('intro-on');
+          sessionStorage.setItem('intro', '1');
+        }
+      } catch (e) {}
     })();
   </script>
   <style>
@@ -195,7 +201,7 @@ html[data-theme="dark"] .i-moon,html[data-theme="light"] .i-sun{display:none}
 .menu-btn:active{transform:scale(.97)}
 
 /* buttons */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding-inline:24px;border:1px solid var(--line-2);border-radius:999px;color:var(--fg);font-size:15px;font-weight:600;white-space:nowrap;touch-action:manipulation;transition:transform 160ms var(--ease-out),background-color 200ms ease,color 200ms ease,border-color 200ms ease}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding-inline:24px;border:1px solid var(--line-2);border-radius:999px;color:var(--fg);font-size:15px;font-weight:600;white-space:nowrap;touch-action:manipulation;translate:var(--tx,0px) var(--ty,0px);transition:transform 160ms var(--ease-out),translate 450ms var(--ease-out),background-color 200ms ease,color 200ms ease,border-color 200ms ease}
 .btn:active{transform:scale(.97)}
 .btn--primary{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
 .btn--sm{min-height:44px;padding-inline:18px;font-size:14px}
@@ -245,7 +251,7 @@ html[data-theme="dark"] .i-moon,html[data-theme="light"] .i-sun{display:none}
 .t-big img{object-position:left center}
 .t-info{grid-column:span 5;display:flex;flex-direction:column;justify-content:space-between;gap:28px;padding:32px}
 .t-night{grid-column:span 5;min-height:250px}
-.t-big a,.t-night a{position:absolute;inset:0;display:block}
+.t-night > a{position:absolute;inset:0;display:block}
 .t-info h3{margin-bottom:14px;font-size:clamp(48px,5vw,76px);letter-spacing:-.04em}
 .t-info p{max-width:30em;color:var(--muted)}
 .tags{display:flex;flex-wrap:wrap;gap:8px}
@@ -382,7 +388,16 @@ html[data-theme="dark"] .i-moon,html[data-theme="light"] .i-sun{display:none}
 .menu-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-block:20px 28px}
 
 /* theme switch: circle wipe from the toggle */
-::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
+html.vt-theme::view-transition-old(root),html.vt-theme::view-transition-new(root){animation:none;mix-blend-mode:normal}
+html.vt-theme .top{view-transition-name:none}
+@media (prefers-reduced-motion:no-preference){
+  @view-transition{navigation:auto}
+  .top{view-transition-name:site-head}
+  ::view-transition-old(root){animation:vt-out 220ms var(--ease-out) both}
+  ::view-transition-new(root){animation:vt-in 420ms var(--ease-out) both}
+  @keyframes vt-out{to{opacity:0;transform:translateY(-12px)}}
+  @keyframes vt-in{from{opacity:0;transform:translateY(18px)}}
+}
 
 /* photo viewer (kept from the previous site) */
 .viewer{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;overflow:hidden;background:rgba(8,12,14,.95);color:#fff}
@@ -431,13 +446,13 @@ html[data-theme="dark"] .i-moon,html[data-theme="light"] .i-sun{display:none}
 .glow--b{animation:drift-b 19s ease-in-out infinite alternate}
 @keyframes drift-a{to{transform:translate(260px,90px) scale(1.18)}}
 @keyframes drift-b{to{transform:translate(-220px,-60px) scale(.9)}}
-.in{animation:in 600ms var(--ease-out) backwards;animation-delay:calc(120ms + var(--i,0) * 80ms)}
+.in{animation:in 600ms var(--ease-out) backwards;animation-delay:calc(120ms + var(--i,0) * 80ms + var(--intro,0ms))}
 @keyframes in{from{opacity:0;transform:translateY(16px)}}
-.in-show{animation:in-show 900ms var(--ease-out) 420ms backwards}
+.in-show{animation:in-show 900ms var(--ease-out) backwards;animation-delay:calc(420ms + var(--intro,0ms))}
 @keyframes in-show{from{opacity:0;transform:translateY(32px) scale(.98)}}
-.w{display:inline-block;animation:word 1000ms var(--ease-out) backwards;animation-delay:calc(180ms + var(--i) * 60ms)}
+.w{display:inline-block;animation:word 1000ms var(--ease-out) backwards;animation-delay:calc(180ms + var(--i) * 60ms + var(--intro,0ms))}
 @keyframes word{from{opacity:0;transform:translateY(42%);filter:blur(12px)}}
-.cnt{counter-reset:n var(--n);animation:count 1600ms var(--ease-out) 900ms backwards}
+.cnt{counter-reset:n var(--n);animation:count 1600ms var(--ease-out) backwards;animation-delay:calc(900ms + var(--intro,0ms))}
 .cnt::before{content:counter(n)}
 @keyframes count{from{--n:0}}
 .beam{border-color:transparent;background:linear-gradient(var(--bg),var(--bg)) padding-box,conic-gradient(from var(--beam),color-mix(in srgb,var(--fg) 14%,transparent) 0deg,color-mix(in srgb,var(--fg) 14%,transparent) 250deg,var(--accent) 300deg,var(--fg) 330deg,color-mix(in srgb,var(--fg) 14%,transparent) 360deg) border-box;animation:beam 3.6s linear infinite}
@@ -464,6 +479,7 @@ html[data-theme="dark"] .i-moon,html[data-theme="light"] .i-sun{display:none}
   .rv{animation:shutter linear both;animation-timeline:view();animation-range:entry calc(var(--d,0) * 12%) entry calc(70% + var(--d,0) * 15%)}
   @keyframes shutter{from{clip-path:inset(30% 0 0 0 round 22px);transform:translateY(90px);opacity:0}to{clip-path:inset(0 0 0 0 round 22px)}}
   .rv img{animation:drift-img linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
+  .rv.compare img{animation:none}
   @keyframes drift-img{from{transform:scale(1.22) translateY(-5%)}to{transform:scale(1.04) translateY(4%)}}
   .svc{animation:card-in linear both;animation-timeline:view();animation-range:entry calc(var(--i) * 14%) entry calc(48% + var(--i) * 17%)}
   @keyframes card-in{from{opacity:0;transform:translateY(120px) rotate(calc(var(--i) * 1.5deg - 2deg))}}
@@ -482,6 +498,7 @@ html[data-theme="dark"] .i-moon,html[data-theme="light"] .i-sun{display:none}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none !important;transition-duration:0s !important}
+  .cursor,.fx,.intro{display:none !important}
   .modal[open]{animation:fade 150ms ease !important}
 }
 
@@ -532,11 +549,56 @@ html[data-theme="dark"] .i-moon,html[data-theme="light"] .i-sun{display:none}
   .viewer-caption{padding:16px 64px;font-size:.875rem}
 }
 
+/* ================= EFFECTS ================= */
+/* 6. live WebGL light behind the hero (CSS glows stay as the fallback) */
+.fx{position:absolute;top:0;left:0;z-index:0;width:100%;height:1000px;pointer-events:none;opacity:0;transition:opacity 1.2s ease;-webkit-mask-image:linear-gradient(#000 55%,transparent);mask-image:linear-gradient(#000 55%,transparent)}
+html.fx-on .fx{opacity:1}
+html.fx-on .glow{display:none}
+
+/* 5. logo intro, once per visit */
+.intro{display:none}
+html.intro-on{--intro:1050ms}
+html.intro-on .intro{position:fixed;inset:0;z-index:95;display:grid;place-items:center;background:var(--bg);pointer-events:none;animation:intro-out 750ms var(--ease-in-out) 1100ms forwards}
+.intro-in{display:flex;align-items:center;gap:16px}
+.intro-mark{display:grid;place-items:center;width:58px;height:58px;border-radius:15px;background:var(--fg);color:var(--bg);font-family:"Inter Tight",system-ui,sans-serif;font-size:28px;font-weight:800;animation:intro-mark 750ms var(--ease-out) backwards}
+.intro-word{font-family:"Inter Tight",system-ui,sans-serif;font-size:22px;font-weight:700;letter-spacing:.04em;white-space:nowrap;clip-path:inset(0 100% 0 0);animation:intro-word 650ms var(--ease-out) 320ms forwards}
+@keyframes intro-mark{from{opacity:0;transform:scale(.55) rotate(-14deg);filter:blur(10px)}}
+@keyframes intro-word{to{clip-path:inset(0 0 0 0)}}
+@keyframes intro-out{to{clip-path:inset(0 0 100% 0);visibility:hidden}}
+
+/* 2. cursor follower + label */
+.cursor{position:fixed;left:0;top:0;z-index:90;display:grid;place-items:center;width:96px;height:96px;margin:-48px 0 0 -48px;border:1.5px solid #fff;border-radius:50%;pointer-events:none;opacity:0;mix-blend-mode:difference;transform:translate3d(-200px,-200px,0) scale(.36);transition:opacity 200ms ease,background-color 200ms ease,border-color 200ms ease;will-change:transform}
+.cursor.on{opacity:.7}
+.cursor.is-label{opacity:1;mix-blend-mode:normal;background:var(--fg);border-color:var(--fg)}
+.cursor-label{color:var(--bg);font-size:13px;font-weight:700;opacity:0;transition:opacity 150ms ease}
+.cursor.is-label .cursor-label{opacity:1}
+.has-cursor .shot-open,.has-cursor .cmp-range{cursor:none}
+
+/* 3. day / evening comparison on the Mapin tile */
+.compare{--pos:50%;user-select:none;-webkit-user-select:none}
+.compare img{position:absolute;inset:0}
+.cmp-b{clip-path:inset(0 calc(100% - var(--pos)) 0 0)}
+.cmp-handle{position:absolute;inset:0;z-index:2;pointer-events:none;transform:translateX(var(--pos))}
+.cmp-line{position:absolute;inset-block:0;left:-1px;width:2px;background:#fff;box-shadow:0 0 12px rgba(0,0,0,.35)}
+.cmp-grip{position:absolute;top:50%;left:-24px;display:grid;place-items:center;width:48px;height:48px;margin-top:-24px;border-radius:50%;background:#fff;color:#000;box-shadow:0 6px 20px rgba(0,0,0,.35)}
+.cmp-grip svg{width:22px;height:12px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cmp-range{position:absolute;inset:0;z-index:3;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize;touch-action:pan-y}
+.compare:has(.cmp-range:focus-visible){outline:2px solid var(--fg);outline-offset:3px}
+.cap--left{left:18px}
+.cap--right{left:auto;right:18px}
+.tile-zoom{position:absolute;right:16px;top:16px;z-index:4;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.6);color:#fff;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.tile-zoom svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+
+/* 4. cards tilt toward the pointer */
+.svc,.person,.t-info{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
+
   </style>
 </head>
 <body>
+  <div class="intro" aria-hidden="true"><div class="intro-in"><span class="intro-mark">K</span><span class="intro-word">KONOTOP STUDIO</span></div></div>
   <a class="skip" href="#main">Skip to content</a>
   <div class="progress" aria-hidden="true"></div>
+  <canvas class="fx" aria-hidden="true"></canvas>
   <div class="grid-bg" aria-hidden="true"></div>
   <div class="glow glow--a" aria-hidden="true"></div>
   <div class="glow glow--b" aria-hidden="true"></div>
@@ -547,7 +609,7 @@ html[data-theme="dark"] .i-moon,html[data-theme="light"] .i-sun{display:none}
     <div class="bar-end">
       <div class="lang" role="group" aria-label="Site language"><a href="/" lang="uk" hreflang="uk">UA</a><a href="/en/" aria-current="page">EN</a></div>
       <button type="button" class="icon-btn" data-theme-toggle aria-label=""><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3 7 7M17 17l1.7 1.7M18.7 5.3 17 7M7 17l-1.7 1.7"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z"/></svg></button>
-      <a href="#contact" class="btn btn--primary btn--sm">Discuss a project</a>
+      <a href="#contact" class="btn btn--primary btn--sm" data-magnetic>Discuss a project</a>
       <button type="button" class="menu-btn" id="menu-open" aria-expanded="false" aria-controls="menu">Menu</button>
     </div>
   </div></header>
@@ -574,14 +636,14 @@ html[data-theme="dark"] .i-moon,html[data-theme="light"] .i-sun{display:none}
         <div class="hero-row">
           <div class="in" style="--i: 6">
             <p class="lede">We create modern digital solutions with thoughtful design, functionality and attention to detail.</p>
-            <div class="actions"><a href="#work" class="btn btn--primary">View project <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a><a href="#contact" class="btn beam">Discuss a project</a></div>
+            <div class="actions"><a href="#work" class="btn btn--primary" data-magnetic>View project <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a><a href="#contact" class="btn beam" data-magnetic>Discuss a project</a></div>
           </div>
           <ul class="facts in" style="--i: 7"><li class="fact"><b><span class="cnt" style="--n: 2"></span> years</b><span>in web development</span></li><li class="fact"><b><span class="cnt" id="team-count" style="--n: 6"></span></b><span>specialists on the team</span></li><li class="fact"><b>2–6</b><span>years of experience on the team</span></li></ul>
         </div>
       </div>
       <div class="show in-show">
-        <a class="show-frame shot-open" href="/img/mapin-day.webp"><img src="/img/mapin-day.webp" width="1176" height="784" alt="Mapin website hero with a daytime city map" fetchpriority="high"><span class="show-tag mono"><span class="dot" aria-hidden="true"></span>Mapin · selected project</span></a>
-        <a class="show-phone shot-open" href="/img/mapin-phone.webp"><img src="/img/mapin-phone.webp" width="390" height="844" alt="Mobile version of the Mapin website"></a>
+        <a class="show-frame shot-open" href="/img/mapin-day.webp" data-cursor="View"><img src="/img/mapin-day.webp" width="1176" height="784" alt="Mapin website hero with a daytime city map" fetchpriority="high"><span class="show-tag mono"><span class="dot" aria-hidden="true"></span>Mapin · selected project</span></a>
+        <a class="show-phone shot-open" href="/img/mapin-phone.webp" data-cursor="View"><img src="/img/mapin-phone.webp" width="390" height="844" alt="Mobile version of the Mapin website"></a>
       </div>
     </div></section>
 
@@ -593,12 +655,12 @@ html[data-theme="dark"] .i-moon,html[data-theme="light"] .i-sun{display:none}
     <section id="work" class="sec" aria-labelledby="work-title"><div class="wrap">
       <div class="sec-head"><div><span class="mono">01 — Work</span><h2 class="hd" id="work-title">Selected project</h2></div><a class="link" href="https://mapin.com.ua/en/about/" target="_blank" rel="noopener">Open the Mapin website <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
       <div class="bento">
-        <figure class="tile t-big rv" style="--d: 0"><a class="shot-open" href="/img/mapin-dusk.webp"><img src="/img/mapin-dusk.webp" width="1176" height="784" alt="Mapin section where the map turns to evening" loading="lazy"></a><span class="cap mono">Evening map</span></figure>
+        <figure class="tile t-big rv compare" style="--d: 0"><img class="cmp-a" src="/img/mapin-dusk.webp" width="1176" height="784" alt="Mapin section where the map turns to evening" loading="lazy"><img class="cmp-b" src="/img/mapin-day.webp" width="1176" height="784" alt="" loading="lazy"><div class="cmp-handle" aria-hidden="true"><div class="cmp-line"></div><span class="cmp-grip"><svg viewBox="0 0 26 14"><path d="M7 1 1 7l6 6M19 1l6 6-6 6"/></svg></span></div><input class="cmp-range" type="range" min="0" max="100" value="50" aria-label="Compare the Mapin map by day and in the evening" data-cursor="Drag"><span class="cap mono cap--left">Day</span><span class="cap mono cap--right">Evening</span><a class="tile-zoom shot-open" href="/img/mapin-dusk.webp" aria-label="Open the Mapin evening screen full size" data-cursor="View"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-6.5 6.5M4 20l6.5-6.5"/></svg><img class="sr-only" src="/img/mapin-dusk.webp" width="1176" height="784" alt="Mapin section where the map turns to evening" loading="lazy"></a></figure>
         <article class="tile t-info rv" style="--d: 1">
           <div><h3 class="hd" translate="no">MAPIN</h3><p>Contributed to the design and development of roughly half of the Mapin website, working on the visual direction and code.</p></div>
           <div class="tags"><span>Web design</span><span>Development</span><span>Motion</span></div>
         </article>
-        <figure class="tile t-night rv" style="--d: 2"><a class="shot-open" href="/img/mapin-night.webp"><img src="/img/mapin-night.webp" width="1176" height="784" alt="Mapin night section comparing a profile before and after" loading="lazy"></a><span class="cap mono">Night mode</span></figure>
+        <figure class="tile t-night rv" style="--d: 2"><a class="shot-open" href="/img/mapin-night.webp" data-cursor="View"><img src="/img/mapin-night.webp" width="1176" height="784" alt="Mapin night section comparing a profile before and after" loading="lazy"></a><span class="cap mono">Night mode</span></figure>
       </div>
     </div></section>
 
@@ -657,7 +719,7 @@ html[data-theme="dark"] .i-moon,html[data-theme="light"] .i-sun{display:none}
           <p class="error" id="brief-error" role="alert" hidden>Add a few words about the project so we can understand the task.</p>
           <p class="hint" id="brief-hint"><kbd>Ctrl</kbd> + <kbd>Enter</kbd> to send</p>
         </div>
-        <div class="f-actions"><button type="submit" class="btn btn--c" data-via="telegram">Send via Telegram</button><button type="submit" class="btn btn--c-line" data-via="email">Send by email</button></div>
+        <div class="f-actions"><button type="submit" class="btn btn--c" data-via="telegram" data-magnetic>Send via Telegram</button><button type="submit" class="btn btn--c-line" data-via="email" data-magnetic>Send by email</button></div>
       </form>
     </div>
     <footer class="foot"><span>© <span id="year">2026</span> KONOTOP STUDIO</span><span>Web design and development. Kropyvnytskyi, Ukraine</span></footer>
@@ -689,6 +751,8 @@ html[data-theme="dark"] .i-moon,html[data-theme="light"] .i-sun{display:none}
     <button type="button" class="viewer-btn viewer-nav viewer-nav--next" id="viewer-next" aria-label="Next photo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
     <p class="viewer-caption" id="viewer-caption"></p>
   </dialog>
+
+  <div class="cursor" aria-hidden="true"><span class="cursor-label"></span></div>
 
   <script src="/team-data.js"></script>
   <script>
@@ -739,7 +803,9 @@ html[data-theme="dark"] .i-moon,html[data-theme="light"] .i-sun{display:none}
     root.setAttribute('data-theme', next);
     store('theme', next);
     paintTheme();
+    if (fxTheme) { fxTheme(); }
   }
+  var fxTheme = null;
   document.querySelectorAll('[data-theme-toggle]').forEach(function (button) {
     button.addEventListener('click', function () {
       var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
@@ -748,11 +814,13 @@ html[data-theme="dark"] .i-moon,html[data-theme="light"] .i-sun{display:none}
       var x = box.left + box.width / 2;
       var y = box.top + box.height / 2;
       var r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+      root.classList.add('vt-theme');
       var transition = document.startViewTransition(function () { setTheme(next); });
       transition.ready.then(function () {
         root.animate({ clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + r + 'px at ' + x + 'px ' + y + 'px)'] },
           { duration: 650, easing: 'cubic-bezier(.77,0,.175,1)', pseudoElement: '::view-transition-new(root)' });
       });
+      transition.finished.then(function () { root.classList.remove('vt-theme'); }, function () { root.classList.remove('vt-theme'); });
     });
   });
   paintTheme();
@@ -1007,6 +1075,201 @@ html[data-theme="dark"] .i-moon,html[data-theme="light"] .i-sun{display:none}
       window.open('https://t.me/m_konotop?text=' + encodeURIComponent(message), '_blank', 'noopener');
     }
   });
+
+
+  /* ================= EFFECTS ================= */
+  var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  /* 2. cursor follower with labels, and magnetic buttons */
+  if (finePointer && !reduced) {
+    var cursor = document.querySelector('.cursor');
+    var cursorLabel = cursor.querySelector('.cursor-label');
+    var cx = -200, cy = -200, tx = -200, ty = -200, cs = .36, ts = .36, cRaf = null;
+    document.documentElement.classList.add('has-cursor');
+    function cursorFrame() {
+      cx += (tx - cx) * .22;
+      cy += (ty - cy) * .22;
+      cs += (ts - cs) * .2;
+      cursor.style.transform = 'translate3d(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px,0) scale(' + cs.toFixed(3) + ')';
+      cRaf = (Math.abs(tx - cx) + Math.abs(ty - cy) + Math.abs(ts - cs) * 100 > .3) ? requestAnimationFrame(cursorFrame) : null;
+    }
+    function kick() { if (cRaf === null) { cRaf = requestAnimationFrame(cursorFrame); } }
+    document.addEventListener('pointermove', function (event) {
+      if (event.pointerType !== 'mouse') { return; }
+      tx = event.clientX; ty = event.clientY;
+      if (!cursor.classList.contains('on')) { cx = tx; cy = ty; cursor.classList.add('on'); }
+      var labelled = event.target.closest && event.target.closest('[data-cursor]');
+      var link = event.target.closest && event.target.closest('a, button, label, [data-info]');
+      if (labelled) {
+        cursorLabel.textContent = labelled.getAttribute('data-cursor');
+        cursor.classList.add('is-label');
+        ts = 1;
+      } else {
+        cursor.classList.remove('is-label');
+        ts = link ? .62 : .36;
+      }
+      kick();
+    }, { passive: true });
+    document.documentElement.addEventListener('mouseleave', function () { cursor.classList.remove('on'); });
+    document.addEventListener('pointerdown', function () { ts *= .8; kick(); });
+    document.addEventListener('pointerup', function () { ts /= .8; kick(); });
+
+    document.querySelectorAll('[data-magnetic]').forEach(function (node) {
+      node.addEventListener('pointermove', function (event) {
+        var box = node.getBoundingClientRect();
+        node.style.setProperty('--tx', ((event.clientX - box.left - box.width / 2) * .28).toFixed(1) + 'px');
+        node.style.setProperty('--ty', ((event.clientY - box.top - box.height / 2) * .4).toFixed(1) + 'px');
+      });
+      node.addEventListener('pointerleave', function () {
+        node.style.setProperty('--tx', '0px');
+        node.style.setProperty('--ty', '0px');
+      });
+    });
+
+    /* 4. cards tilt toward the pointer */
+    var tilted = null, rx = 0, ry = 0, trx = 0, try_ = 0, tRaf = null;
+    function tiltFrame() {
+      rx += (trx - rx) * .14;
+      ry += (try_ - ry) * .14;
+      if (tilted) {
+        tilted.style.setProperty('--rx', rx.toFixed(2) + 'deg');
+        tilted.style.setProperty('--ry', ry.toFixed(2) + 'deg');
+      }
+      if (Math.abs(trx - rx) + Math.abs(try_ - ry) > .02) { tRaf = requestAnimationFrame(tiltFrame); }
+      else {
+        tRaf = null;
+        if (tilted && trx === 0 && try_ === 0) { tilted.style.removeProperty('--rx'); tilted.style.removeProperty('--ry'); tilted = null; }
+      }
+    }
+    document.addEventListener('pointermove', function (event) {
+      var card = event.target.closest && event.target.closest('.svc, .person, .t-info');
+      if (card !== tilted && tilted) { tilted.style.removeProperty('--rx'); tilted.style.removeProperty('--ry'); rx = ry = 0; }
+      if (card) {
+        var box = card.getBoundingClientRect();
+        var px = (event.clientX - box.left) / box.width - .5;
+        var py = (event.clientY - box.top) / box.height - .5;
+        tilted = card;
+        trx = (-py * 8);
+        try_ = (px * 10);
+      } else {
+        trx = try_ = 0;
+      }
+      if (tRaf === null) { tRaf = requestAnimationFrame(tiltFrame); }
+    }, { passive: true });
+  }
+
+  /* 3. day / evening comparison */
+  document.querySelectorAll('.compare').forEach(function (box) {
+    var range = box.querySelector('.cmp-range');
+    var touched = false;
+    function set(v) { box.style.setProperty('--pos', v + '%'); }
+    range.addEventListener('input', function () { touched = true; set(range.value); });
+    set(range.value);
+    if (reduced || !('IntersectionObserver' in window)) { return; }
+    var seen = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) { return; }
+      seen.disconnect();
+      var start = null;
+      function frame(now) {
+        if (touched) { return; }
+        if (start === null) { start = now; }
+        var t = Math.min(1, (now - start) / 1600);
+        var e = t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+        var v = 50 + Math.sin(e * Math.PI * 2) * 28 * (1 - e * .35);
+        set(v.toFixed(2)); range.value = Math.round(v);
+        if (t < 1) { requestAnimationFrame(frame); } else { set(50); range.value = 50; }
+      }
+      setTimeout(function () { requestAnimationFrame(frame); }, 350);
+    }, { threshold: .55 });
+    seen.observe(box);
+  });
+
+  /* 6. live WebGL light behind the hero */
+  (function () {
+    var canvas = document.querySelector('.fx');
+    if (!canvas || reduced) { return; }
+    var lowPower = (navigator.connection && navigator.connection.saveData) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4);
+    if (lowPower) { return; }
+    var gl = canvas.getContext('webgl', { premultipliedAlpha: true, antialias: false, alpha: true, powerPreference: 'low-power' });
+    if (!gl) { return; }
+    var VS = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+    var FS = [
+      'precision mediump float;',
+      'uniform vec2 r;uniform float t;uniform vec2 m;uniform vec3 c1;uniform vec3 c2;uniform vec3 c3;uniform float a;',
+      'float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}',
+      'float n(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1.,0.)),u.x),mix(h(i+vec2(0.,1.)),h(i+vec2(1.,1.)),u.x),u.y);}',
+      'float fbm(vec2 p){float v=0.,w=.5;for(int i=0;i<5;i++){v+=w*n(p);p*=2.02;w*=.5;}return v;}',
+      'void main(){',
+      ' vec2 uv=gl_FragCoord.xy/r;vec2 p=uv;float k=r.x/r.y;p.x*=k;float s=t*.035;',
+      ' vec2 q=vec2(fbm(p*1.5+s),fbm(p*1.5-s+3.1));',
+      ' vec2 w=vec2(fbm(p*1.3+2.*q+vec2(1.7,9.2)+s*1.3),fbm(p*1.3+2.*q+vec2(8.3,2.8)-s));',
+      ' float f=fbm(p*1.1+2.4*w);',
+      ' vec2 mm=m;mm.x*=k;float g=smoothstep(.6,0.,distance(p,mm));',
+      ' vec3 col=mix(c1,c2,clamp(f*f*2.,0.,1.));',
+      ' col=mix(col,c3,clamp(length(q)*.5,0.,1.)*.45);',
+      ' col+=c3*g*.28;',
+      ' float o=a*smoothstep(0.,.6,uv.y);',
+      ' gl_FragColor=vec4(col*o,o);',
+      '}'
+    ].join('\n');
+    function sh(type, src) {
+      var o = gl.createShader(type); gl.shaderSource(o, src); gl.compileShader(o);
+      return gl.getShaderParameter(o, gl.COMPILE_STATUS) ? o : null;
+    }
+    var vs = sh(gl.VERTEX_SHADER, VS), fs = sh(gl.FRAGMENT_SHADER, FS);
+    if (!vs || !fs) { return; }
+    var pr = gl.createProgram(); gl.attachShader(pr, vs); gl.attachShader(pr, fs); gl.linkProgram(pr);
+    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) { return; }
+    gl.useProgram(pr);
+    var buf = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1]), gl.STATIC_DRAW);
+    var loc = gl.getAttribLocation(pr, 'p'); gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    var U = {}; ['r', 't', 'm', 'c1', 'c2', 'c3', 'a'].forEach(function (k) { U[k] = gl.getUniformLocation(pr, k); });
+    var PALETTE = {
+      dark: { c1: [0, 0, 0], c2: [.04, .16, .2], c3: [.545, .729, .784], a: .95 },
+      light: { c1: [.98, .98, .98], c2: [.82, .89, .92], c3: [.243, .435, .494], a: .7 }
+    };
+    fxTheme = function () {
+      var pal = PALETTE[root.getAttribute('data-theme') === 'light' ? 'light' : 'dark'];
+      gl.uniform3fv(U.c1, pal.c1); gl.uniform3fv(U.c2, pal.c2); gl.uniform3fv(U.c3, pal.c3); gl.uniform1f(U.a, pal.a);
+    };
+    fxTheme();
+    var scale = finePointer ? .5 : .35;
+    function size() {
+      var w = Math.max(1, Math.round(canvas.clientWidth * scale)), hgt = Math.max(1, Math.round(canvas.clientHeight * scale));
+      if (canvas.width !== w || canvas.height !== hgt) { canvas.width = w; canvas.height = hgt; gl.viewport(0, 0, w, hgt); }
+      gl.uniform2f(U.r, w, hgt);
+    }
+    size();
+    window.addEventListener('resize', size);
+    var mx = .65, my = .7, tmx = .65, tmy = .7;
+    window.addEventListener('pointermove', function (event) {
+      var box = canvas.getBoundingClientRect();
+      tmx = (event.clientX - box.left) / box.width;
+      tmy = 1 - (event.clientY - box.top) / box.height;
+    }, { passive: true });
+    var visible = true, running = false, t0 = performance.now(), last = 0;
+    var minGap = finePointer ? 0 : 1000 / 30;
+    function frame(now) {
+      if (!visible || document.hidden) { running = false; return; }
+      if (now - last >= minGap) {
+        last = now;
+        mx += (tmx - mx) * .05; my += (tmy - my) * .05;
+        gl.uniform1f(U.t, (now - t0) / 1000);
+        gl.uniform2f(U.m, mx, my);
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+      }
+      requestAnimationFrame(frame);
+    }
+    function start() { if (!running && visible && !document.hidden) { running = true; requestAnimationFrame(frame); } }
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) { visible = entries[0].isIntersecting; start(); }).observe(canvas);
+    }
+    document.addEventListener('visibilitychange', start);
+    canvas.addEventListener('webglcontextlost', function (event) { event.preventDefault(); root.classList.remove('fx-on'); visible = false; });
+    root.classList.add('fx-on');
+    start();
+  })();
 
       var viewer = document.getElementById('viewer');
       if (viewer.showModal) {
