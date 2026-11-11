@@ -10,19 +10,9 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Manrope:wght@400;600&display=swap">
+  <link rel="stylesheet" media="print" id="fonts" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Manrope:wght@400;600&display=swap">
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Manrope:wght@400;600&display=swap"></noscript>
-  <script>
-    (function () {
-      var root = document.documentElement, theme = null;
-      try { theme = localStorage.getItem('theme'); } catch (e) {}
-      if (theme === 'light' || theme === 'dark') { root.setAttribute('data-theme', theme); }
-      if (/^\/en(\/|$)/.test(location.pathname)) { root.lang = 'en'; }
-      if (root.getAttribute('data-theme') === 'light') {
-        document.querySelector('meta[name="theme-color"]').setAttribute('content', '#FAFAFA');
-      }
-    })();
-  </script>
+  <script src="/js/404.js"></script>
   <style>
     html[data-theme="dark"] { color-scheme: dark; --bg: #000000; --fg: #FAFAFA; --muted: #94A3B8; --line: #3F3F46; --stroke: #52525B; --grid: rgba(255,255,255,.045); }
     html[data-theme="light"] { color-scheme: light; --bg: #FAFAFA; --fg: #09090B; --muted: #52525B; --line: #D4D4D8; --stroke: #A1A1AA; --grid: rgba(9,9,11,.06); }
@@ -79,11 +69,5 @@
     <a class="btn" href="/en/" lang="en">Go to the homepage</a>
   </main>
 
-  <script>
-    if (document.documentElement.lang === 'en') {
-      document.title = 'Page not found | KONOTOP STUDIO';
-      document.getElementById('logo').setAttribute('href', '/en/');
-    }
-  </script>
 </body>
 </html>
