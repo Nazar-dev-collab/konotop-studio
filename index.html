@@ -1000,6 +1000,23 @@ html.lite .w{animation-name:word-lite}
 .t-night > a:focus-visible{outline:none}
 @media (forced-colors:active){.has-cursor .shot-open,.has-cursor .cmp-range{cursor:auto}.cursor{display:none}}
 
+/* ===== PROJECTS CAROUSEL ===== */
+.works-nav{display:flex;align-items:center;gap:8px}
+.works-count{margin-right:10px;color:var(--muted);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;letter-spacing:.08em}
+.works-count b{color:var(--fg);font-weight:400}
+.works-btn{border:1px solid var(--line-2)}
+.works{display:grid}
+.work-slide{grid-area:1 / 1;transition:opacity 450ms var(--ease-out),transform 450ms var(--ease-out)}
+.work-slide:not(.is-active){opacity:0;visibility:hidden;pointer-events:none;transform:translateX(var(--from,48px));transition:opacity 300ms ease,transform 450ms var(--ease-out),visibility 0s linear 450ms}
+.work-slide.no-anim{transition:none!important}
+.t-shot > a{position:absolute;inset:0;display:block}
+.t-shot img{object-position:center}
+.t-shot:has(> a:focus-visible){outline:2px solid var(--fg);outline-offset:3px}
+.t-shot > a:focus-visible{outline:none}
+.t-info-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px}
+@media (hover:hover) and (pointer:fine){.works-btn:hover{background:var(--fg);border-color:var(--fg);color:var(--bg)}}
+@media (prefers-reduced-motion:reduce){.work-slide,.work-slide:not(.is-active){transition:none;transform:none}}
+
   </style>
 </head>
 <body>
@@ -1061,15 +1078,42 @@ html.lite .w{animation-name:word-lite}
     </div>
 
     <section id="work" class="sec" aria-labelledby="work-title"><div class="wrap">
-      <div class="sec-head"><div><span class="mono">01 — Робота</span><h2 class="hd" id="work-title">Обраний проєкт</h2></div><a class="link" href="https://mapin.com.ua/pro-nas/" target="_blank" rel="noopener">Відкрити сайт Mapin <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
+      <div class="sec-head"><div><span class="mono">01 — Робота</span><h2 class="hd" id="work-title">Обрані проєкти</h2></div>
+        <div class="works-nav"><span class="works-count" aria-hidden="true"><b id="works-n">01</b> / 03</span><button type="button" class="icon-btn works-btn" id="works-prev" aria-label="Попередній проєкт" aria-controls="works"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" class="icon-btn works-btn" id="works-next" aria-label="Наступний проєкт" aria-controls="works"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></div>
+      </div>
+      <div class="works" id="works" role="region" aria-roledescription="carousel" aria-label="Проєкти">
+        <div class="work-slide is-active" role="group" aria-roledescription="slide" aria-label="1 з 3: Mapin">
       <div class="bento">
         <figure class="tile t-big rv compare" style="--d: 0"><img class="cmp-a" src="/img/mapin-dusk.webp" width="1176" height="784" alt="Секція сайту Mapin, де карта переходить у вечір" loading="lazy" decoding="async"><img class="cmp-b" src="/img/mapin-day.webp" width="1176" height="784" alt="" loading="lazy" decoding="async"><div class="cmp-handle" aria-hidden="true"><div class="cmp-line"></div><span class="cmp-grip"><svg viewBox="0 0 26 14"><path d="M7 1 1 7l6 6M19 1l6 6-6 6"/></svg></span></div><input class="cmp-range" type="range" min="0" max="100" value="50" aria-label="Порівняти денну й вечірню карту Mapin" data-cursor="Тягніть"><span class="cap mono cap--left">День</span><span class="cap mono cap--right">Вечір</span><a class="tile-zoom shot-open" href="/img/mapin-dusk.webp" aria-label="Відкрити вечірній екран Mapin на весь екран" data-cursor="Дивитися"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-6.5 6.5M4 20l6.5-6.5"/></svg><img class="sr-only" src="/img/mapin-dusk.webp" width="1176" height="784" alt="Секція сайту Mapin, де карта переходить у вечір" loading="lazy" decoding="async"></a></figure>
         <article class="tile t-info rv" style="--d: 1">
-          <div><h3 class="hd" translate="no">MAPIN</h3><p>Брав участь у дизайні та розробці приблизно половини сайту Mapin: працював над візуальною частиною та кодом.</p></div>
-          <div class="tags"><span>Вебдизайн</span><span>Розробка</span><span>Анімації</span></div>
+          <div><h3 class="hd" translate="no">MAPIN</h3><p>Агенція Google Карт, яка ставить бізнес на карту, щоб люди поруч знаходили саме його. Місто на сайті живе власним ритмом: денна карта переходить у вечір, а вечір — у ніч. Я працював над дизайном і кодом приблизно половини сайту.</p></div>
+          <div class="t-info-foot"><div class="tags"><span>Вебдизайн</span><span>Розробка</span><span>Анімації</span></div><a class="link" href="https://mapin.com.ua/pro-nas/" target="_blank" rel="noopener">Відкрити сайт Mapin <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
         </article>
         <figure class="tile t-night rv" style="--d: 2"><a class="shot-open" href="/img/mapin-night.webp" data-cursor="Дивитися"><img src="/img/mapin-night.webp" width="1176" height="784" alt="Нічний блок сайту Mapin із порівнянням профілю до і після" loading="lazy" decoding="async"></a><span class="cap mono">Нічний режим</span></figure>
       </div>
+        </div>
+        <div class="work-slide" role="group" aria-roledescription="slide" aria-label="2 з 3: VIN AVTO" inert>
+          <div class="bento">
+            <figure class="tile t-big t-shot rv" style="--d: 0"><a class="shot-open" href="/img/vin-hero.webp" data-cursor="Дивитися"><img src="/img/vin-mockup.webp" width="1600" height="1600" alt="Перший екран сайту VIN AVTO: чорний спорткар у 3D і заголовок «Ремонт і обслуговування автомобілів»" loading="lazy" decoding="async"></a></figure>
+            <article class="tile t-info rv" style="--d: 1">
+              <div><h3 class="hd" translate="no">VIN AVTO</h3><p>Сайт автосервісу з Кропивницького, який зустрічає, як автосалон: чорний спорткар повертається в 3D просто під час гортання, а біля послуг лінза наближає колесо. За цією естетикою — прості для клієнта речі: зрозумілі послуги, чотири кроки до ремонту й телефон власника завжди під рукою.</p></div>
+              <div class="t-info-foot"><div class="tags"><span>Дизайн</span><span>Розробка</span><span>3D і анімації</span></div><a class="link" href="https://vin-avto.vercel.app/" target="_blank" rel="noopener">Відкрити сайт VIN AVTO <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
+            </article>
+            <figure class="tile t-night rv" style="--d: 2"><a class="shot-open" href="/img/vin-services.webp" data-cursor="Дивитися"><img src="/img/vin-services.webp" width="1568" height="764" alt="Розділ послуг VIN AVTO: лінза наближає колесо автомобіля" loading="lazy" decoding="async"></a><span class="cap mono">Послуги під лінзою</span></figure>
+          </div>
+        </div>
+        <div class="work-slide" role="group" aria-roledescription="slide" aria-label="3 з 3: MENSWEAR" inert>
+          <div class="bento">
+            <figure class="tile t-big t-shot rv" style="--d: 0"><a class="shot-open" href="/img/mw-hero.webp" data-cursor="Дивитися"><img src="/img/mw-mockup.webp" width="1600" height="1600" alt="Перший екран концепту магазину чоловічого одягу: пальто на вішаку й заголовок «Перевіримо ваш розмір ще до приїзду»" loading="lazy" decoding="async"></a></figure>
+            <article class="tile t-info rv" style="--d: 1">
+              <div><h3 class="hd" translate="no">MENSWEAR</h3><p>Концепт сайту для магазину чоловічого одягу: речі намальовані кодом і висять на вішаку, який рухається разом із гортанням. Головна ідея — зняти страх помилитися з розміром: напишіть зріст і вагу, і магазин підкаже розмір та надішле фото ще до вашого приїзду.</p></div>
+              <div class="t-info-foot"><div class="tags"><span>Концепт</span><span>Дизайн</span><span>Анімації</span></div><a class="link" href="https://menswear-card.vercel.app/" target="_blank" rel="noopener">Відкрити концепт <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
+            </article>
+            <figure class="tile t-night rv" style="--d: 2"><a class="shot-open" href="/img/mw-jacket.webp" data-cursor="Дивитися"><img src="/img/mw-jacket.webp" width="1568" height="764" alt="Розділ асортименту: піджак на вішаку, який рухається під час гортання" loading="lazy" decoding="async"></a><span class="cap mono">Вішак із речами</span></figure>
+          </div>
+        </div>
+      </div>
+      <p class="sr-only" id="works-live" aria-live="polite"></p>
     </div></section>
 
     <section id="services" class="sec" aria-labelledby="services-title"><div class="wrap">

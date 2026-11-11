@@ -999,6 +999,23 @@ html.lite .w{animation-name:word-lite}
 .t-night > a:focus-visible{outline:none}
 @media (forced-colors:active){.has-cursor .shot-open,.has-cursor .cmp-range{cursor:auto}.cursor{display:none}}
 
+/* ===== PROJECTS CAROUSEL ===== */
+.works-nav{display:flex;align-items:center;gap:8px}
+.works-count{margin-right:10px;color:var(--muted);font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;letter-spacing:.08em}
+.works-count b{color:var(--fg);font-weight:400}
+.works-btn{border:1px solid var(--line-2)}
+.works{display:grid}
+.work-slide{grid-area:1 / 1;transition:opacity 450ms var(--ease-out),transform 450ms var(--ease-out)}
+.work-slide:not(.is-active){opacity:0;visibility:hidden;pointer-events:none;transform:translateX(var(--from,48px));transition:opacity 300ms ease,transform 450ms var(--ease-out),visibility 0s linear 450ms}
+.work-slide.no-anim{transition:none!important}
+.t-shot > a{position:absolute;inset:0;display:block}
+.t-shot img{object-position:center}
+.t-shot:has(> a:focus-visible){outline:2px solid var(--fg);outline-offset:3px}
+.t-shot > a:focus-visible{outline:none}
+.t-info-foot{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px}
+@media (hover:hover) and (pointer:fine){.works-btn:hover{background:var(--fg);border-color:var(--fg);color:var(--bg)}}
+@media (prefers-reduced-motion:reduce){.work-slide,.work-slide:not(.is-active){transition:none;transform:none}}
+
   </style>
 </head>
 <body>
@@ -1060,15 +1077,42 @@ html.lite .w{animation-name:word-lite}
     </div>
 
     <section id="work" class="sec" aria-labelledby="work-title"><div class="wrap">
-      <div class="sec-head"><div><span class="mono">01 — Work</span><h2 class="hd" id="work-title">Selected project</h2></div><a class="link" href="https://mapin.com.ua/en/about/" target="_blank" rel="noopener">Open the Mapin website <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
+      <div class="sec-head"><div><span class="mono">01 — Work</span><h2 class="hd" id="work-title">Selected work</h2></div>
+        <div class="works-nav"><span class="works-count" aria-hidden="true"><b id="works-n">01</b> / 03</span><button type="button" class="icon-btn works-btn" id="works-prev" aria-label="Previous project" aria-controls="works"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" class="icon-btn works-btn" id="works-next" aria-label="Next project" aria-controls="works"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></div>
+      </div>
+      <div class="works" id="works" role="region" aria-roledescription="carousel" aria-label="Projects">
+        <div class="work-slide is-active" role="group" aria-roledescription="slide" aria-label="1 of 3: Mapin">
       <div class="bento">
         <figure class="tile t-big rv compare" style="--d: 0"><img class="cmp-a" src="/img/mapin-dusk.webp" width="1176" height="784" alt="Mapin section where the map turns to evening" loading="lazy" decoding="async"><img class="cmp-b" src="/img/mapin-day.webp" width="1176" height="784" alt="" loading="lazy" decoding="async"><div class="cmp-handle" aria-hidden="true"><div class="cmp-line"></div><span class="cmp-grip"><svg viewBox="0 0 26 14"><path d="M7 1 1 7l6 6M19 1l6 6-6 6"/></svg></span></div><input class="cmp-range" type="range" min="0" max="100" value="50" aria-label="Compare the Mapin map by day and in the evening" data-cursor="Drag"><span class="cap mono cap--left">Day</span><span class="cap mono cap--right">Evening</span><a class="tile-zoom shot-open" href="/img/mapin-dusk.webp" aria-label="Open the Mapin evening screen full size" data-cursor="View"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-6.5 6.5M4 20l6.5-6.5"/></svg><img class="sr-only" src="/img/mapin-dusk.webp" width="1176" height="784" alt="Mapin section where the map turns to evening" loading="lazy" decoding="async"></a></figure>
         <article class="tile t-info rv" style="--d: 1">
-          <div><h3 class="hd" translate="no">MAPIN</h3><p>Contributed to the design and development of roughly half of the Mapin website, working on the visual direction and code.</p></div>
-          <div class="tags"><span>Web design</span><span>Development</span><span>Motion</span></div>
+          <div><h3 class="hd" translate="no">MAPIN</h3><p>A Google Maps agency that puts businesses on the map so people nearby find them. The city on the site keeps its own rhythm: the daytime map turns to evening, and evening to night. I worked on the design and code of roughly half of the site.</p></div>
+          <div class="t-info-foot"><div class="tags"><span>Web design</span><span>Development</span><span>Motion</span></div><a class="link" href="https://mapin.com.ua/en/about/" target="_blank" rel="noopener">Open the Mapin website <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
         </article>
         <figure class="tile t-night rv" style="--d: 2"><a class="shot-open" href="/img/mapin-night.webp" data-cursor="View"><img src="/img/mapin-night.webp" width="1176" height="784" alt="Mapin night section comparing a profile before and after" loading="lazy" decoding="async"></a><span class="cap mono">Night mode</span></figure>
       </div>
+        </div>
+        <div class="work-slide" role="group" aria-roledescription="slide" aria-label="2 of 3: VIN AVTO" inert>
+          <div class="bento">
+            <figure class="tile t-big t-shot rv" style="--d: 0"><a class="shot-open" href="/img/vin-hero.webp" data-cursor="View"><img src="/img/vin-mockup.webp" width="1600" height="1600" alt="VIN AVTO home screen: a black sports car in 3D and the headline “Car repair and maintenance”" loading="lazy" decoding="async"></a></figure>
+            <article class="tile t-info rv" style="--d: 1">
+              <div><h3 class="hd" translate="no">VIN AVTO</h3><p>A car service website from Kropyvnytskyi that greets you like a showroom: a black sports car turns in 3D as you scroll, and a lens zooms in on the wheel when you reach the services. Behind the look are the things customers need: clear services, four steps to a repair and the owner’s phone always at hand.</p></div>
+              <div class="t-info-foot"><div class="tags"><span>Design</span><span>Development</span><span>3D &amp; motion</span></div><a class="link" href="https://vin-avto.vercel.app/" target="_blank" rel="noopener">Open the VIN AVTO website <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
+            </article>
+            <figure class="tile t-night rv" style="--d: 2"><a class="shot-open" href="/img/vin-services.webp" data-cursor="View"><img src="/img/vin-services.webp" width="1568" height="764" alt="VIN AVTO services section: a lens zooms in on the car’s wheel" loading="lazy" decoding="async"></a><span class="cap mono">Services under the lens</span></figure>
+          </div>
+        </div>
+        <div class="work-slide" role="group" aria-roledescription="slide" aria-label="3 of 3: MENSWEAR" inert>
+          <div class="bento">
+            <figure class="tile t-big t-shot rv" style="--d: 0"><a class="shot-open" href="/img/mw-hero.webp" data-cursor="View"><img src="/img/mw-mockup.webp" width="1600" height="1600" alt="Home screen of the menswear shop concept: a coat on a hanger and the headline about checking your size before you visit" loading="lazy" decoding="async"></a></figure>
+            <article class="tile t-info rv" style="--d: 1">
+              <div><h3 class="hd" translate="no">MENSWEAR</h3><p>A concept site for a menswear shop, with garments drawn in code hanging on a rail that moves as you scroll. The idea is to take the worry out of sizing: send your height and weight, and the shop suggests a size and sends photos before you visit.</p></div>
+              <div class="t-info-foot"><div class="tags"><span>Concept</span><span>Design</span><span>Motion</span></div><a class="link" href="https://menswear-card.vercel.app/" target="_blank" rel="noopener">Open the concept <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
+            </article>
+            <figure class="tile t-night rv" style="--d: 2"><a class="shot-open" href="/img/mw-jacket.webp" data-cursor="View"><img src="/img/mw-jacket.webp" width="1568" height="764" alt="Range section: a jacket on a hanger that moves as you scroll" loading="lazy" decoding="async"></a><span class="cap mono">The clothes rail</span></figure>
+          </div>
+        </div>
+      </div>
+      <p class="sr-only" id="works-live" aria-live="polite"></p>
     </div></section>
 
     <section id="services" class="sec" aria-labelledby="services-title"><div class="wrap">

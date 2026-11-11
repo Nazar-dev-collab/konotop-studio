@@ -442,6 +442,45 @@ window.SITE_PRICES = {"uk": [{"chip": 0, "tier": "Лендінг (8 000–15 0
   });
 
 
+  /* ---------- projects carousel: arrows, swipe on touch screens ---------- */
+  var works = document.getElementById('works');
+  if (works) {
+    var slides = Array.prototype.slice.call(works.querySelectorAll('.work-slide'));
+    var worksN = document.getElementById('works-n');
+    var worksLive = document.getElementById('works-live');
+    var activeWork = 0;
+    var showWork = function (dir) {
+      var next = (activeWork + dir + slides.length) % slides.length;
+      var old = slides[activeWork], cur = slides[next];
+      cur.style.setProperty('--from', (dir > 0 ? 48 : -48) + 'px');
+      cur.classList.add('no-anim');
+      void cur.offsetWidth;
+      cur.classList.remove('no-anim');
+      old.style.setProperty('--from', (dir > 0 ? -48 : 48) + 'px');
+      old.classList.remove('is-active');
+      old.inert = true;
+      cur.classList.add('is-active');
+      cur.inert = false;
+      activeWork = next;
+      worksN.textContent = (next < 9 ? '0' : '') + (next + 1);
+      worksLive.textContent = cur.getAttribute('aria-label');
+    };
+    document.getElementById('works-prev').addEventListener('click', function () { showWork(-1); });
+    document.getElementById('works-next').addEventListener('click', function () { showWork(1); });
+    var touchX = null, touchY = 0;
+    works.addEventListener('touchstart', function (event) {
+      var t = event.touches[0];
+      touchX = (event.touches.length === 1 && !(event.target.closest && event.target.closest('.cmp-range'))) ? t.clientX : null;
+      touchY = t.clientY;
+    }, { passive: true });
+    works.addEventListener('touchend', function (event) {
+      if (touchX === null) { return; }
+      var t = event.changedTouches[0], dx = t.clientX - touchX, dy = t.clientY - touchY;
+      touchX = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) { showWork(dx < 0 ? 1 : -1); }
+    }, { passive: true });
+  }
+
   /* phones: a contact bar appears after the hero and hides near the form */
   var mbar = document.getElementById('mbar');
   var heroEl = document.querySelector('.hero');
