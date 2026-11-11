@@ -575,7 +575,7 @@ html.intro-on .intro{position:fixed;inset:0;z-index:95;display:grid;place-items:
 
 /* 2. cursor follower + label */
 .cursor{position:fixed;left:0;top:0;z-index:90;display:grid;place-items:center;width:96px;height:96px;margin:-48px 0 0 -48px;border:1.5px solid #fff;border-radius:50%;pointer-events:none;opacity:0;mix-blend-mode:difference;transform:translate3d(-200px,-200px,0) scale(.36);transition:opacity 200ms ease,background-color 200ms ease,border-color 200ms ease;will-change:transform}
-.cursor.on{opacity:.7}
+.cursor.on{opacity:0}
 .cursor.is-label{opacity:1;mix-blend-mode:normal;background:var(--fg);border-color:var(--fg)}
 .cursor-label{color:var(--bg);font-size:13px;font-weight:700;opacity:0;transition:opacity 150ms ease}
 .cursor.is-label .cursor-label{opacity:1}
