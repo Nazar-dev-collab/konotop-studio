@@ -112,6 +112,13 @@
       if (theme !== 'light' && theme !== 'dark') { theme = 'dark'; }
       root.setAttribute('data-theme', theme);
       root.classList.add('js');
+      var lite = false;
+      try { lite = sessionStorage.getItem('lite') === '1'; } catch (e) {}
+      if (window.matchMedia('(hover: none), (pointer: coarse), (max-width: 900px)').matches ||
+          (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
+          (navigator.deviceMemory && navigator.deviceMemory <= 4) ||
+          (navigator.connection && navigator.connection.saveData)) { lite = true; }
+      if (lite) { root.classList.add('lite'); }
       try {
         if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && !sessionStorage.getItem('intro')) {
           root.classList.add('intro-on');
@@ -592,6 +599,29 @@ html.intro-on .intro{position:fixed;inset:0;z-index:95;display:grid;place-items:
 /* 4. cards tilt toward the pointer */
 .svc,.person,.t-info{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg))}
 
+/* ================= LITE MODE: phones, tablets, weak devices ================= */
+/* set in <head> for touch screens, narrow screens, few CPU cores, low memory or data saver,
+   and at runtime if scrolling drops frames */
+html.lite .fx{display:none}
+html.lite .glow{filter:none;animation:none}
+html.lite .glow--a{background:radial-gradient(closest-side,var(--glow-a),transparent 100%)}
+html.lite .glow--b{background:radial-gradient(closest-side,var(--glow-b),transparent 100%)}
+html.lite .pill,html.lite .show-tag,html.lite .tile-zoom,html.lite .modal::backdrop{-webkit-backdrop-filter:none;backdrop-filter:none}
+html.lite .show-tag{background:rgba(0,0,0,.78)}
+html.lite .tile-zoom{background:rgba(0,0,0,.72)}
+html.lite .modal::backdrop{background:rgba(0,0,0,.72)}
+html.lite .beam{animation:none}
+html.lite .w{animation-name:word-lite}
+@keyframes word-lite{from{opacity:0;transform:translateY(32%)}}
+@supports (animation-timeline: view()){
+  html.lite .statement .sw{animation:none}
+  html.lite .rv{animation-name:rise-lite}
+  @keyframes rise-lite{from{opacity:0;transform:translateY(60px)}}
+  html.lite .contact{animation-name:panel-lite}
+  @keyframes panel-lite{from{transform:translateY(120px)}}
+  html.lite .grid-bg{animation:none}
+}
+
   </style>
 </head>
 <body>
@@ -655,12 +685,12 @@ html.intro-on .intro{position:fixed;inset:0;z-index:95;display:grid;place-items:
     <section id="work" class="sec" aria-labelledby="work-title"><div class="wrap">
       <div class="sec-head"><div><span class="mono">01 — Work</span><h2 class="hd" id="work-title">Selected project</h2></div><a class="link" href="https://mapin.com.ua/en/about/" target="_blank" rel="noopener">Open the Mapin website <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a></div>
       <div class="bento">
-        <figure class="tile t-big rv compare" style="--d: 0"><img class="cmp-a" src="/img/mapin-dusk.webp" width="1176" height="784" alt="Mapin section where the map turns to evening" loading="lazy"><img class="cmp-b" src="/img/mapin-day.webp" width="1176" height="784" alt="" loading="lazy"><div class="cmp-handle" aria-hidden="true"><div class="cmp-line"></div><span class="cmp-grip"><svg viewBox="0 0 26 14"><path d="M7 1 1 7l6 6M19 1l6 6-6 6"/></svg></span></div><input class="cmp-range" type="range" min="0" max="100" value="50" aria-label="Compare the Mapin map by day and in the evening" data-cursor="Drag"><span class="cap mono cap--left">Day</span><span class="cap mono cap--right">Evening</span><a class="tile-zoom shot-open" href="/img/mapin-dusk.webp" aria-label="Open the Mapin evening screen full size" data-cursor="View"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-6.5 6.5M4 20l6.5-6.5"/></svg><img class="sr-only" src="/img/mapin-dusk.webp" width="1176" height="784" alt="Mapin section where the map turns to evening" loading="lazy"></a></figure>
+        <figure class="tile t-big rv compare" style="--d: 0"><img class="cmp-a" src="/img/mapin-dusk.webp" width="1176" height="784" alt="Mapin section where the map turns to evening" loading="lazy" decoding="async"><img class="cmp-b" src="/img/mapin-day.webp" width="1176" height="784" alt="" loading="lazy" decoding="async"><div class="cmp-handle" aria-hidden="true"><div class="cmp-line"></div><span class="cmp-grip"><svg viewBox="0 0 26 14"><path d="M7 1 1 7l6 6M19 1l6 6-6 6"/></svg></span></div><input class="cmp-range" type="range" min="0" max="100" value="50" aria-label="Compare the Mapin map by day and in the evening" data-cursor="Drag"><span class="cap mono cap--left">Day</span><span class="cap mono cap--right">Evening</span><a class="tile-zoom shot-open" href="/img/mapin-dusk.webp" aria-label="Open the Mapin evening screen full size" data-cursor="View"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-6.5 6.5M4 20l6.5-6.5"/></svg><img class="sr-only" src="/img/mapin-dusk.webp" width="1176" height="784" alt="Mapin section where the map turns to evening" loading="lazy" decoding="async"></a></figure>
         <article class="tile t-info rv" style="--d: 1">
           <div><h3 class="hd" translate="no">MAPIN</h3><p>Contributed to the design and development of roughly half of the Mapin website, working on the visual direction and code.</p></div>
           <div class="tags"><span>Web design</span><span>Development</span><span>Motion</span></div>
         </article>
-        <figure class="tile t-night rv" style="--d: 2"><a class="shot-open" href="/img/mapin-night.webp" data-cursor="View"><img src="/img/mapin-night.webp" width="1176" height="784" alt="Mapin night section comparing a profile before and after" loading="lazy"></a><span class="cap mono">Night mode</span></figure>
+        <figure class="tile t-night rv" style="--d: 2"><a class="shot-open" href="/img/mapin-night.webp" data-cursor="View"><img src="/img/mapin-night.webp" width="1176" height="784" alt="Mapin night section comparing a profile before and after" loading="lazy" decoding="async"></a><span class="cap mono">Night mode</span></figure>
       </div>
     </div></section>
 
@@ -1079,6 +1109,7 @@ html.intro-on .intro{position:fixed;inset:0;z-index:95;display:grid;place-items:
 
   /* ================= EFFECTS ================= */
   var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var stopFx = null;
 
   /* 2. cursor follower with labels, and magnetic buttons */
   if (finePointer && !reduced) {
@@ -1187,7 +1218,7 @@ html.intro-on .intro{position:fixed;inset:0;z-index:95;display:grid;place-items:
   /* 6. live WebGL light behind the hero */
   (function () {
     var canvas = document.querySelector('.fx');
-    if (!canvas || reduced) { return; }
+    if (!canvas || reduced || root.classList.contains('lite')) { return; }
     var lowPower = (navigator.connection && navigator.connection.saveData) || (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4);
     if (lowPower) { return; }
     var gl = canvas.getContext('webgl', { premultipliedAlpha: true, antialias: false, alpha: true, powerPreference: 'low-power' });
@@ -1198,7 +1229,7 @@ html.intro-on .intro{position:fixed;inset:0;z-index:95;display:grid;place-items:
       'uniform vec2 r;uniform float t;uniform vec2 m;uniform vec3 c1;uniform vec3 c2;uniform vec3 c3;uniform float a;',
       'float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}',
       'float n(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1.,0.)),u.x),mix(h(i+vec2(0.,1.)),h(i+vec2(1.,1.)),u.x),u.y);}',
-      'float fbm(vec2 p){float v=0.,w=.5;for(int i=0;i<5;i++){v+=w*n(p);p*=2.02;w*=.5;}return v;}',
+      'float fbm(vec2 p){float v=0.,w=.5;for(int i=0;i<4;i++){v+=w*n(p);p*=2.02;w*=.5;}return v;}',
       'void main(){',
       ' vec2 uv=gl_FragCoord.xy/r;vec2 p=uv;float k=r.x/r.y;p.x*=k;float s=t*.035;',
       ' vec2 q=vec2(fbm(p*1.5+s),fbm(p*1.5-s+3.1));',
@@ -1268,8 +1299,30 @@ html.intro-on .intro{position:fixed;inset:0;z-index:95;display:grid;place-items:
     document.addEventListener('visibilitychange', start);
     canvas.addEventListener('webglcontextlost', function (event) { event.preventDefault(); root.classList.remove('fx-on'); visible = false; });
     root.classList.add('fx-on');
+    stopFx = function () { visible = false; root.classList.remove('fx-on'); };
     start();
   })();
+
+  /* if scrolling drops frames on this device, switch to lite mode for the rest of the visit */
+  if (!root.classList.contains('lite') && !reduced) {
+    var once = function () {
+      window.removeEventListener('scroll', once);
+      var deltas = [], prev = null;
+      function sample(now) {
+        if (prev !== null) { deltas.push(now - prev); }
+        prev = now;
+        if (deltas.length < 90) { requestAnimationFrame(sample); return; }
+        deltas.sort(function (x, y) { return x - y; });
+        if (deltas[Math.floor(deltas.length * .75)] > 24) {
+          root.classList.add('lite');
+          if (stopFx) { stopFx(); }
+          try { sessionStorage.setItem('lite', '1'); } catch (e) {}
+        }
+      }
+      requestAnimationFrame(sample);
+    };
+    window.addEventListener('scroll', once, { passive: true });
+  }
 
       var viewer = document.getElementById('viewer');
       if (viewer.showModal) {
