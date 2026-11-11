@@ -877,8 +877,11 @@ html.lite .w{animation-name:word-lite}
 }
 
 /* ===== REVIEWS (rendered from reviews-data.js; hidden while empty) ===== */
-.reviews{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.review{display:flex;flex-direction:column;gap:18px;min-height:280px;padding:28px}
+.reviews{--gap:14px;display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - var(--gap) * 2) / 3);gap:var(--gap);margin:-6px;padding:6px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:6px;scroll-behavior:smooth;scrollbar-width:none}
+.reviews::-webkit-scrollbar{display:none}
+.review{display:flex;flex-direction:column;gap:16px;min-height:250px;padding:28px;scroll-snap-align:start}
+.reviews-nav[hidden]{display:none}
+.reviews-nav .icon-btn[aria-disabled="true"]{opacity:.35;cursor:default;pointer-events:none}
 .review-mark{font-family:"Inter Tight",sans-serif;font-size:56px;font-weight:700;line-height:.6;color:var(--muted)}
 .review-text{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:6;overflow:hidden;color:var(--fg);font-size:16px;line-height:1.6}
 .review-foot{display:flex;align-items:center;gap:12px;margin-top:auto}
@@ -888,7 +891,8 @@ html.lite .w{animation-name:word-lite}
 .modal-quote{display:grid;gap:14px;margin:0;padding-left:20px;border-left:2px solid var(--line);font-size:18px;line-height:1.6}
 .modal-meta{color:var(--muted)}
 .modal-link{display:inline-flex;align-items:center;min-height:44px;color:var(--fg);text-decoration:underline;text-underline-offset:4px}
-@media (max-width:900px){.reviews{grid-template-columns:minmax(0,1fr)}.review{min-height:0}}
+@media (max-width:900px){.reviews{grid-auto-columns:min(84%,400px);margin-inline:calc(-1 * var(--m));padding-inline:var(--m);scroll-padding-inline:var(--m)}.review{min-height:0;padding:24px}}
+@media (prefers-reduced-motion:reduce){.reviews{scroll-behavior:auto}}
 
 /* ===== PRICES ===== */
 .sec-lead{max-width:30em;color:var(--muted);font-size:17px;line-height:1.55}
@@ -1204,7 +1208,9 @@ html.lite .w{animation-name:word-lite}
     </div></section>
 
     <section id="reviews" class="sec" aria-labelledby="reviews-title" hidden><div class="wrap">
-      <div class="sec-head"><div><span class="mono">Відгуки</span><h2 class="hd" id="reviews-title">Що кажуть клієнти</h2></div></div>
+      <div class="sec-head"><div><span class="mono">Відгуки</span><h2 class="hd" id="reviews-title">Що кажуть клієнти</h2></div>
+        <div class="works-nav reviews-nav" id="reviews-nav" hidden><button type="button" class="icon-btn works-btn" id="reviews-prev" aria-label="Попередні відгуки" aria-controls="reviews-grid"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><button type="button" class="icon-btn works-btn" id="reviews-next" aria-label="Наступні відгуки" aria-controls="reviews-grid"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></div>
+      </div>
       <div class="reviews" id="reviews-grid"></div>
     </div></section>
 
