@@ -1,3 +1,7 @@
+# KONOTOP STUDIO
+# Keep everything open: Google needs /js/, /img/, /team-data.js and the fonts to render the page.
+# The 404 page is not blocked here on purpose: it carries <meta name="robots" content="noindex">,
+# which crawlers can only see if they are allowed to fetch it.
 User-agent: *
 Allow: /
 
