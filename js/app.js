@@ -153,6 +153,29 @@ window.SITE_PRICES = {"uk": [{"chip": 0, "tier": "Лендінг (8 000–15 0
     });
     reviewsSection.hidden = false;
     document.querySelectorAll('[data-reviews-link]').forEach(function (link) { link.hidden = false; });
+
+    /* one row of cards; arrows appear only when there are more cards than fit */
+    var reviewsNav = document.getElementById('reviews-nav');
+    var reviewsPrev = document.getElementById('reviews-prev');
+    var reviewsNext = document.getElementById('reviews-next');
+    if (reviewsNav && reviewsPrev && reviewsNext) {
+      var reviewsStep = function () {
+        var first = reviewsGrid.firstElementChild;
+        var gap = parseFloat(getComputedStyle(reviewsGrid).columnGap) || 0;
+        return first ? first.getBoundingClientRect().width + gap : reviewsGrid.clientWidth;
+      };
+      var syncReviewsNav = function () {
+        var max = reviewsGrid.scrollWidth - reviewsGrid.clientWidth;
+        reviewsNav.hidden = max <= 2;
+        reviewsPrev.setAttribute('aria-disabled', String(reviewsGrid.scrollLeft <= 2));
+        reviewsNext.setAttribute('aria-disabled', String(reviewsGrid.scrollLeft >= max - 2));
+      };
+      reviewsPrev.addEventListener('click', function () { reviewsGrid.scrollBy({ left: -reviewsStep(), behavior: reduced ? 'auto' : 'smooth' }); });
+      reviewsNext.addEventListener('click', function () { reviewsGrid.scrollBy({ left: reviewsStep(), behavior: reduced ? 'auto' : 'smooth' }); });
+      reviewsGrid.addEventListener('scroll', syncReviewsNav, { passive: true });
+      window.addEventListener('resize', syncReviewsNav);
+      syncReviewsNav();
+    }
   }
 
   /* ---------- pointer spotlight on cards ---------- */
