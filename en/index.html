@@ -344,6 +344,9 @@ html[data-theme="dark"] .i-moon,html[data-theme="light"] .i-sun{display:none}
 .fact + .fact{padding-left:20px;border-left:1px solid var(--line)}
 .fact b{display:block;margin-bottom:6px;font-family:"Inter Tight",sans-serif;font-size:clamp(28px,2.6vw,40px);font-weight:600;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
 .fact > span{color:var(--muted);font-size:14px;line-height:1.4}
+.fact b small{margin-right:.28em;color:var(--muted);font-size:.4em;font-weight:500;letter-spacing:0}
+.fact b .cur{margin-right:.02em;color:var(--accent);font-weight:500}
+.fact .uah{display:block;margin-bottom:2px;color:var(--fg);font-size:15px;font-weight:500;font-variant-numeric:tabular-nums}
 
 .show{position:relative;z-index:1;margin-top:clamp(56px,6vw,88px)}
 .show-frame{position:relative;display:block;padding:10px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(180deg,var(--frame-a),var(--frame-b))}
@@ -656,6 +659,7 @@ html.vt-theme .top{view-transition-name:none}
   .fact{padding-right:8px}
   .fact + .fact{padding-left:12px}
   .fact > span{font-size:12px}
+  .fact .uah{font-size:13px}
   .show-frame{padding:6px;border-radius:20px}
   .show-frame img{border-radius:15px}
   .show-tag{left:14px;top:14px;min-height:30px;padding-inline:10px;font-size:12px}
@@ -932,7 +936,7 @@ html.lite .w{animation-name:word-lite}
             <p class="lede">We’re a small team of designers and developers. We make landing pages, small business sites, corporate websites and online stores, and see each one through to launch.</p>
             <div class="actions"><a href="#contact" class="btn btn--primary" data-magnetic>Get a quote <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg></a><a href="#work" class="btn beam" data-magnetic>See an example</a></div>
           </div>
-          <ul class="facts in" style="--i: 7"><li class="fact"><b>from $100</b><span>for a landing page</span></li><li class="fact"><b><span class="cnt" id="team-count" style="--n: 6"></span></b><span>specialists: design, code, testing</span></li><li class="fact"><b>2–6</b><span>years of experience on the team</span></li></ul>
+          <ul class="facts in" style="--i: 7"><li class="fact"><b><small>from</small><span class="cur">$</span>100</b><span>for a landing page</span></li><li class="fact"><b><span class="cnt" id="team-count" style="--n: 6"></span></b><span>specialists: design, code, testing</span></li><li class="fact"><b>2–6</b><span>years of experience on the team</span></li></ul>
         </div>
       </div>
       <div class="show in-show">
