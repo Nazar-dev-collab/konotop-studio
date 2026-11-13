@@ -213,7 +213,16 @@ html.js .cue { position: absolute; left: 50%; bottom: 22px; z-index: 5; display:
 .age { display: flex; align-items: center; gap: var(--space-md); }
 .age-label { font-size: var(--text-sm); color: var(--color-ink-2); }
 .slot-age { min-width: 132px; min-height: 56px; padding: var(--space-sm) 20px; border-radius: var(--radius-pill); font: 900 1.75rem/1 var(--font-display); color: var(--color-muted); }
-.slot-name { min-height: clamp(84px, 13svh, 132px); font-size: var(--text-md); }
+.slot-name { min-height: clamp(84px, 13svh, 132px); place-items: end start; align-content: end; padding: 0 0 var(--space-sm); border: 0; border-bottom: 2px solid var(--color-accent); border-radius: 0; background: none; text-align: left; font: italic 900 clamp(2rem, 3.4vw, 3.25rem)/0.95 var(--font-display); text-transform: uppercase; overflow: visible; }
+.slot-photo { border-style: solid; border-color: var(--color-rule); background: linear-gradient(to bottom, var(--color-paper-2), var(--color-paper)); }
+/* viewfinder corners: the frame waits for the coach, and stays on the photo once it arrives */
+.slot-photo::after { content: ""; position: absolute; inset: 12px; z-index: 2; pointer-events: none; --c: var(--color-accent); --l: 28px; --w: 3px;
+  background: linear-gradient(var(--c) 0 0) top left / var(--l) var(--w) no-repeat, linear-gradient(var(--c) 0 0) top left / var(--w) var(--l) no-repeat,
+    linear-gradient(var(--c) 0 0) top right / var(--l) var(--w) no-repeat, linear-gradient(var(--c) 0 0) top right / var(--w) var(--l) no-repeat,
+    linear-gradient(var(--c) 0 0) bottom left / var(--l) var(--w) no-repeat, linear-gradient(var(--c) 0 0) bottom left / var(--w) var(--l) no-repeat,
+    linear-gradient(var(--c) 0 0) bottom right / var(--l) var(--w) no-repeat, linear-gradient(var(--c) 0 0) bottom right / var(--w) var(--l) no-repeat; }
+/* the hero's giant name behind the fighter, repeated for the coach as an outline */
+.coach-word { position: absolute; left: -1.5vw; top: calc(var(--head-h) + 1svh); z-index: 1; margin: 0; font: italic 900 19vw/0.8 var(--font-display); text-transform: uppercase; white-space: nowrap; color: transparent; -webkit-text-stroke: 2px var(--color-accent); opacity: 0.38; pointer-events: none; }
 .slot-bio { min-height: clamp(96px, 20svh, 200px); }
 
 /* ---------- round 3: what is MMA, in the ring ---------- */
@@ -239,6 +248,15 @@ html.js .cue { position: absolute; left: 50%; bottom: 22px; z-index: 5; display:
 .smoke.s1 { left: 20%; top: 30%; }
 .smoke.s2 { left: 55%; top: 10%; animation-duration: 31s; animation-direction: alternate-reverse; }
 @keyframes drift { to { transform: translate(-12vw, 6svh) scale(1.2); } }
+/* ---------- arena light: the ring's spotlights carried into every round ---------- */
+.arena { position: absolute; inset: 0; z-index: 1; overflow: clip; pointer-events: none; }
+.arena .beam { left: var(--bx, 30%); }
+.arena .beam.b2 { left: var(--bx2, 78%); }
+.arena .smoke.s1 { left: var(--sx, 10%); top: 35%; }
+.arena-pool { position: absolute; inset: 0; background: radial-gradient(42% 36% at var(--px, 30%) 100%, var(--color-light), transparent 72%); }
+html.js .scene.is-on .arena { animation: lights-on 1200ms linear both; }
+html.js .scene:not(.is-on) .arena * { animation-play-state: paused; }
+@keyframes lights-on { 0% { opacity: 0; } 16% { opacity: 0.8; } 24% { opacity: 0.2; } 38% { opacity: 1; } 100% { opacity: 1; } }
 .mma-veil { position: absolute; inset: 0; background: linear-gradient(90deg, var(--color-paper) 0%, var(--color-veil) 40%, transparent 72%), linear-gradient(to top, var(--color-paper) 0%, transparent 38%); pointer-events: none; }
 .mma-inner { display: grid; gap: clamp(var(--space-lg), 5svh, 56px); }
 .mma-top { display: grid; gap: var(--space-md); max-width: 34rem; }
@@ -375,7 +393,8 @@ html:not(.js) .first-fig { display: none; }
   .coach-left, .coach-right { display: contents; }
   .coach-grid .h2 { grid-area: h; margin-bottom: var(--space-xs); }
   .slot-photo { grid-area: p; height: auto; width: 100%; }
-  .slot-name { grid-area: n; min-height: 0; }
+  .slot-name { grid-area: n; min-height: 0; font-size: clamp(1.35rem, 6vw, 2rem); }
+  .coach-word { top: calc(var(--head-h) + 6svh); font-size: 31vw; -webkit-text-stroke-width: 1.5px; }
   .age { grid-area: a; display: grid; gap: var(--space-xs); align-content: end; }
   .slot-age { min-width: 0; }
   .slot-bio { grid-area: b; min-height: 15svh; }
@@ -442,7 +461,7 @@ html:not(.js) .first-fig { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .sr.is-warn .sr-time { animation: none !important; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-  .glow, .ring-world, .beam, .smoke, .cue-mouse::after, .cue-swipe { animation: none !important; }
+  .glow, .ring-world, .beam, .smoke, .arena, .cue-mouse::after, .cue-swipe { animation: none !important; }
   html.js .giant-word { transition: none; }
 }
 </style>
@@ -491,6 +510,8 @@ html:not(.js) .first-fig { display: none; }
   </section>
 
   <section class="scene coach" id="coach" aria-labelledby="coach-h">
+    <div class="arena" aria-hidden="true" style="--bx:22%;--bx2:68%;--px:24%;--sx:-12%"><div class="arena-pool"></div><div class="smoke s1"></div><div class="beam"></div><div class="beam b2"></div></div>
+    <p class="coach-word" aria-hidden="true" data-i18n="coach_word">Тренер</p>
     <div class="scene-inner"><div class="container">
       <div class="coach-grid">
         <div class="coach-left">
@@ -535,6 +556,7 @@ html:not(.js) .first-fig { display: none; }
 
   <section class="scene first" id="first" aria-labelledby="first-h">
     <div class="first-fig" aria-hidden="true"></div>
+    <div class="arena" aria-hidden="true" style="--bx:24%;--bx2:82%;--px:80%;--sx:-6%"><div class="arena-pool"></div><div class="smoke s1"></div><div class="beam"></div><div class="beam b2"></div></div>
     <div class="scene-inner"><div class="container first-grid">
       <div class="first-col">
         <h2 class="h2" id="first-h" data-i18n="first_h" data-scramble data-rise>Перше тренування безкоштовно</h2>
@@ -564,6 +586,7 @@ html:not(.js) .first-fig { display: none; }
   </section>
 
   <section class="scene video" id="video" aria-labelledby="video-h">
+    <div class="arena" aria-hidden="true" style="--bx:74%;--bx2:26%;--px:74%;--sx:40%"><div class="arena-pool"></div><div class="smoke s1"></div><div class="beam"></div><div class="beam b2"></div></div>
     <div class="scene-inner"><div class="container video-grid">
       <div class="video-col">
         <h2 class="h2" id="video-h" data-i18n="video_h" data-scramble data-rise>Як ми тренуємось</h2>
@@ -598,6 +621,7 @@ html:not(.js) .first-fig { display: none; }
   </section>
 
   <section class="scene contact" id="contact" aria-labelledby="contact-h">
+    <div class="arena" aria-hidden="true" style="--bx:24%;--bx2:80%;--px:30%;--sx:-8%"><div class="arena-pool"></div><div class="smoke s1"></div><div class="beam"></div><div class="beam b2"></div></div>
     <div class="scene-inner"><div class="container">
       <div class="contact-grid">
         <div class="contact-col">
@@ -697,7 +721,7 @@ const I18N = {
     names: ['Старт', 'Тренер', 'Що таке ММА', 'Розклад і ціна', 'Відео', 'Запис'],
     hero_lead: 'Клуб змішаних єдиноборств у Кропивницькому. Перше тренування безкоштовно.',
     cta: 'Записатися', cue_wheel: 'Гортай, щоб почати бій', cue_touch: 'Свайпни вгору',
-    coach_h: 'Головний тренер', slot_photo: 'Фото тренера', slot_photo_hint: 'Вертикальне, 4:5', age: 'Вік',
+    coach_h: 'Головний тренер', coach_word: 'Тренер', slot_photo: 'Фото тренера', slot_photo_hint: 'Вертикальне, 4:5', age: 'Вік',
     slot_name: 'Прізвище, ім’я, по батькові', slot_bio: 'Коротко про тренера: досвід, бої, титули',
     mma_h: 'Що таке ММА',
     mma_p: 'Змішані єдиноборства: бій, у якому працює все. Удари руками й ногами, кидки, боротьба, больові та удушення. Перемагає той, хто готовий на будь-якій дистанції.',
@@ -719,7 +743,7 @@ const I18N = {
     names: ['Start', 'Coach', 'What is MMA', 'Schedule and price', 'Video', 'Sign up'],
     hero_lead: 'Mixed martial arts club in Kropyvnytskyi. Your first training is free.',
     cta: 'Sign up', cue_wheel: 'Scroll to start the fight', cue_touch: 'Swipe up',
-    coach_h: 'Head coach', slot_photo: 'Coach photo', slot_photo_hint: 'Portrait, 4:5', age: 'Age',
+    coach_h: 'Head coach', coach_word: 'Coach', slot_photo: 'Coach photo', slot_photo_hint: 'Portrait, 4:5', age: 'Age',
     slot_name: 'Full name', slot_bio: 'About the coach: experience, fights, titles',
     mma_h: 'What is MMA',
     mma_p: 'Mixed martial arts: a fight where everything works. Punches and kicks, throws, wrestling, joint locks and chokes. The winner is ready at any range.',
