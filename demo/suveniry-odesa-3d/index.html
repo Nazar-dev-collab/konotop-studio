@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0d1b26">
+<title>Сувеніри з Одеси, Дерибасівська, 16 (3D-демо)</title>
+<meta name="description" content="Демо-концепт сайту магазину «Сувеніри з Одеси»: футболки з одеськими фразами, магніти, тарілки, картини, кухлі та подарункові набори. Дерибасівська, 16, щодня з 10:00 до 22:00.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@900&family=Onest:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* Hallmark · shape: Descent (one continuous walk from Deribasivska down the stairs to the sea) · genre: atmospheric · theme: custom · job: visit · idea: "the page is the walk from the shop down the Potemkin Stairs to the sea, golden hour to night, and the shop's shelves stand on the landings" · vibe: "Odesa dusk, limestone steps, lighthouse lamp"
+ * paper: oklch(17% 0.035 238) (Black Sea after sunset) · accent: oklch(81% 0.15 72) (the lighthouse lamp) · display: Geologica · body: Onest · hero: a live WebGL sea at golden hour with the lighthouse, the headline over the water · nav: edge-aligned wordmark, four anchors, open-now status and one action · footer: one band, contacts and the demo note · imagery: the product built in 3D (sea, stairs, souvenirs, crates), no photographs · signature: the 3D descent of the Potemkin Stairs, ten landings for ten shelves, ending with the turn-around where only the steps are visible
+ * axes: dark/grotesk-heavy/warm · posture: one accent on a deep ground · contrast: pass · fold: pass · v2.0.0 */
+/* Hallmark · pre-emit critique: P4 H5 E4 S5 R4 V4 · weakest: E, the souvenirs are built objects, not photographs; each figcaption tells the owner real photos can replace them */
+/* waive 67: KONOTOP STUDIO is the studio's own wordmark, set in the display face · waive 2a: the blue-on-dark fills are the Black Sea itself, painted on the souvenir magnet and the seascape · answered 29: the glass nav sits over a live scene where a solid bar would cut the sea · dismissed 77: the bulk text shares its row with the 460px 3D crate stack · dismissed 23 and 41: the hint line and the stairs rail are 2px progress marks with no text · dismissed F20: the three bulk chips wrap by design */
+/* waive 47c/80: the 3D-built souvenirs are the material of a 3D site the client asked for, not decoration · waive scroll budget (one pattern): the user asked for many 3D animations and transitions; every one has a reduced-motion and no-script fallback */
+:root {
+  color-scheme: dark;
+  --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
+  --text-xs: 0.8125rem; --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.1875rem; --text-xl: 1.5rem; --text-2xl: 2rem;
+  --text-display: clamp(3rem, 7.2vw + 0.5rem, 7.5rem); --text-section: clamp(2.125rem, 3.6vw + 1rem, 4.25rem); --text-title: clamp(1.375rem, 1vw + 1rem, 2rem); --text-lead: clamp(1.0625rem, 0.4vw + 0.95rem, 1.3125rem);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1); --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1); --ease-drop: cubic-bezier(0.34, 1.32, 0.64, 1);
+  --dur-micro: 140ms; --dur-short: 240ms; --dur-long: 700ms;
+  --container: 1280px; --gutter: 56px; --gap-columns: 32px; --section-gap: 160px;
+  --z-base: 1; --z-raised: 10; --z-sticky-nav: 300; --z-toast: 500; --z-curtain: 900;
+
+  --color-paper: oklch(17% 0.035 238);
+  --color-paper-2: oklch(22% 0.04 235);
+  --color-paper-3: oklch(28% 0.045 232);
+  --color-ink: oklch(95% 0.028 86);
+  --color-ink-2: oklch(86% 0.035 84);
+  --color-muted: oklch(77% 0.03 222);
+  --color-rule: oklch(40% 0.04 230);
+  --color-accent: oklch(81% 0.15 72);
+  --color-accent-deep: oklch(74% 0.155 64);
+  --color-accent-ink: oklch(21% 0.04 62);
+  --color-focus: oklch(89% 0.14 82);
+  --color-scrim: oklch(14% 0.035 240 / 0.78);
+  --color-scrim-mid: oklch(14% 0.035 240 / 0.5);
+  --color-scrim-soft: oklch(14% 0.035 240 / 0.22);
+  --color-clear: oklch(14% 0.035 240 / 0);
+  --color-glass: oklch(22% 0.04 235 / 0.66);
+  --color-glass-line: oklch(95% 0.028 86 / 0.14);
+
+  --color-stone: oklch(84% 0.07 84);
+  --color-stone-lit: oklch(91% 0.06 87);
+  --color-stone-riser: oklch(70% 0.075 74);
+  --color-stone-wall: oklch(56% 0.06 70);
+  --color-stone-wall-2: oklch(47% 0.055 68);
+  --color-stone-paint: oklch(46% 0.07 62 / 0.55);
+  --color-lamp: oklch(93% 0.12 86);
+  --color-lamp-glow: oklch(88% 0.15 78 / 0.55);
+  --color-lamp-clear: oklch(88% 0.15 78 / 0);
+  --color-pole: oklch(26% 0.02 240);
+
+  --color-white: oklch(98% 0.006 90);
+  --color-china: oklch(97% 0.012 240);
+  --color-china-2: oklch(90% 0.02 240);
+  --color-cobalt: oklch(44% 0.17 262);
+  --color-cobalt-2: oklch(56% 0.14 255);
+  --color-kraft: oklch(70% 0.08 68);
+  --color-kraft-2: oklch(62% 0.08 64);
+  --color-kraft-3: oklch(55% 0.075 62);
+  --color-tape: oklch(80% 0.06 80 / 0.85);
+  --color-canvas: oklch(91% 0.03 88);
+  --color-canvas-2: oklch(83% 0.035 84);
+  --color-canvas-3: oklch(76% 0.04 82);
+  --color-wood: oklch(44% 0.07 55);
+  --color-wood-2: oklch(36% 0.06 52);
+  --color-ribbon: oklch(58% 0.19 25);
+  --color-tee: oklch(25% 0.035 245);
+  --color-tee-2: oklch(20% 0.03 245);
+  --color-foam: oklch(97% 0.02 90);
+  --color-beer: oklch(74% 0.14 72);
+  --color-sky-1: oklch(83% 0.1 70);
+  --color-sky-2: oklch(68% 0.13 40);
+  --color-sun: oklch(94% 0.1 90);
+  --color-sea-1: oklch(48% 0.075 248);
+  --color-sea-2: oklch(31% 0.06 255);
+  --color-sea-line: oklch(85% 0.06 80 / 0.5);
+  --color-shadow: oklch(10% 0.03 240 / 0.45);
+  --color-shadow-clear: oklch(10% 0.03 240 / 0);
+
+  --font-display: "Geologica", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Onest", ui-sans-serif, system-ui, sans-serif;
+  --radius-card: 22px; --radius-pill: 999px;
+  --tracking-display: -0.035em;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+html { scroll-padding-top: 88px; scrollbar-color: var(--color-rule) var(--color-paper); }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); font-size: var(--text-md); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+::selection { background: var(--color-accent); color: var(--color-accent-ink); }
+:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 1px; }
+h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 900; letter-spacing: var(--tracking-display); line-height: 0.98; overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
+p { margin: 0; text-wrap: pretty; }
+button { font: inherit; color: inherit; }
+svg { display: block; }
+.container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.skip { position: fixed; left: var(--space-md); top: var(--space-md); z-index: var(--z-toast); padding: var(--space-xs) var(--space-md); background: var(--color-accent); color: var(--color-accent-ink); border-radius: var(--radius-pill); transform: translateY(-200%); }
+.skip:focus-visible { transform: none; }
+
+/* ---------- the sea (fixed WebGL backdrop) ---------- */
+.sea, .sea-fallback { position: fixed; inset: 0; width: 100%; height: 100lvh; z-index: 0; pointer-events: none; }
+.sea-fallback { background: linear-gradient(180deg, var(--color-sky-2) 0%, var(--color-sky-1) 54%, var(--color-wood-2) 56%, var(--color-paper) 100%); }
+.sea { opacity: 0; transition: opacity 900ms var(--ease-out); }
+.webgl .sea { opacity: 1; }
+main, .footer { position: relative; z-index: var(--z-base); }
+
+/* ---------- buttons ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-xs); min-height: 52px; padding: 0 var(--space-lg); border-radius: var(--radius-pill); border: 0; font-weight: 700; font-size: var(--text-md); text-decoration: none; cursor: pointer; white-space: nowrap; transition: transform var(--dur-micro) var(--ease-out), background-color var(--dur-short) ease, box-shadow var(--dur-short) ease; }
+.btn:active { transform: scale(0.97); }
+.btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
+.btn--ghost { background: transparent; color: var(--color-ink); box-shadow: inset 0 0 0 1.5px var(--color-glass-line); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.btn--small { min-height: 44px; padding: 0 var(--space-md); font-size: var(--text-sm); }
+@media (hover: hover) and (pointer: fine) {
+  .btn--primary:hover { background: var(--color-lamp); }
+  .btn--ghost:hover { box-shadow: inset 0 0 0 1.5px var(--color-ink-2); }
+}
+.btn svg { width: 20px; height: 20px; flex: none; }
+
+/* ---------- nav ---------- */
+.nav { position: fixed; inset: 0 0 auto 0; z-index: var(--z-sticky-nav); transition: background-color var(--dur-short) ease, box-shadow var(--dur-short) ease; }
+.nav.is-solid { background: var(--color-scrim); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: 0 1px 0 var(--color-glass-line); }
+.nav__in { display: flex; align-items: center; gap: var(--space-lg); min-height: 72px; }
+.wordmark { font-family: var(--font-display); font-weight: 900; font-size: 1.125rem; letter-spacing: -0.02em; text-decoration: none; line-height: 1; }
+.nav__links { display: flex; gap: var(--space-lg); margin: 0 0 0 auto; padding: 0; list-style: none; }
+.nav__links a { text-decoration: none; font-weight: 400; color: var(--color-ink-2); padding: var(--space-xs) 0; }
+.nav__links a:hover { color: var(--color-ink); }
+.nav__status { font-size: var(--text-sm); color: var(--color-ink-2); white-space: nowrap; }
+.nav__status b { color: var(--color-accent); font-weight: 700; }
+@media (max-width: 60rem) { .nav__links { display: none; } .nav__status { margin-left: auto; } }
+@media (max-width: 30rem) { .nav__status { display: none; } .nav .btn { margin-left: auto; } }
+
+/* ---------- hero ---------- */
+.hero { position: relative; min-height: 100svh; display: grid; align-items: end; padding-block: 120px var(--space-2xl); }
+.hero::before { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, var(--color-scrim) 0%, var(--color-scrim-mid) 30%, var(--color-clear) 62%); pointer-events: none; }
+.hero__in { position: relative; display: grid; gap: var(--space-lg); }
+.hero h1 { font-size: var(--text-display); font-weight: 900; max-width: 11ch; }
+.hero h1 .ln { display: block; }
+.hero__lead { font-size: var(--text-lead); color: var(--color-ink-2); max-width: 34ch; }
+.hero__acts { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-xs); }
+.hero__hint { display: flex; align-items: center; gap: var(--space-sm); margin-top: var(--space-xl); font-size: var(--text-sm); color: var(--color-muted); }
+.hero__hint i { width: 1.5px; height: 36px; background: var(--color-rule); position: relative; overflow: hidden; }
+.hero__hint i::after { content: ""; position: absolute; inset: 0; background: var(--color-accent); transform: translateY(-100%); animation: hint 2.2s var(--ease-in-out) infinite; }
+@keyframes hint { 0% { transform: translateY(-100%); } 60%, 100% { transform: translateY(100%); } }
+
+/* load choreography (only with JS + motion) */
+.js.motion .hero h1 .ln, .js.motion .hero__lead, .js.motion .hero__acts, .js.motion .hero__hint { opacity: 0; transform: translateY(28px); filter: blur(8px); }
+.motion.is-ready .hero h1 .ln, .motion.is-ready .hero__lead, .motion.is-ready .hero__acts, .motion.is-ready .hero__hint { opacity: 1; transform: none; filter: none; transition: opacity 900ms var(--ease-out), transform 1100ms var(--ease-out), filter 900ms var(--ease-out); }
+.motion.is-ready .hero h1 .ln:nth-child(2) { transition-delay: 90ms; }
+.motion.is-ready .hero__lead { transition-delay: 220ms; }
+.motion.is-ready .hero__acts { transition-delay: 320ms; }
+.motion.is-ready .hero__hint { transition-delay: 520ms; }
+
+/* curtain */
+.curtain { position: fixed; inset: 0; z-index: var(--z-curtain); display: grid; place-items: center; background: var(--color-paper); transition: transform 1100ms var(--ease-in-out); }
+.curtain::after { content: ""; position: absolute; left: -5%; right: -5%; top: 100%; height: 14vh; background: var(--color-paper); border-radius: 0 0 50% 50% / 0 0 100% 100%; }
+.js .curtain__mark { font-family: var(--font-display); font-weight: 900; font-size: clamp(1.75rem, 4vw, 3rem); letter-spacing: -0.03em; opacity: 0; transform: translateY(12px); transition: opacity 500ms var(--ease-out), transform 700ms var(--ease-out); }
+.curtain__mark span { color: var(--color-accent); }
+.js .curtain.is-in .curtain__mark { opacity: 1; transform: none; }
+.curtain.is-out { transform: translateY(calc(-100% - 15vh)); }
+
+/* ---------- section scaffolding ---------- */
+.sec-head { display: grid; gap: var(--space-md); }
+.sec-head h2 { font-size: var(--text-section); max-width: 16ch; }
+.sec-head p { color: var(--color-ink-2); font-size: var(--text-lead); max-width: 46ch; }
+.js [data-reveal] { opacity: 0; transform: translateY(26px); filter: blur(6px); transition: opacity var(--dur-long) var(--ease-out), transform 900ms var(--ease-out), filter var(--dur-long) var(--ease-out); }
+.js [data-reveal].is-seen { opacity: 1; transform: none; filter: none; }
+
+/* ---------- stairs ---------- */
+.stairs { position: relative; }
+.stairs__intro { padding-block: var(--section-gap) var(--space-2xl); background: linear-gradient(180deg, var(--color-clear), var(--color-scrim-soft)); }
+.stairs__track { position: relative; }
+.stairs__pin { display: none; }
+.d3 .stairs__track { height: 620vh; }
+.d3 .stairs__pin { display: block; position: sticky; top: 0; height: 100svh; overflow: hidden; }
+.stairs__stage { position: absolute; inset: 0; perspective: 820px; perspective-origin: 50% 34%; }
+.stairs__world { position: absolute; left: 50%; top: 46%; width: 0; height: 0; transform-style: preserve-3d; will-change: transform; }
+.flight { position: absolute; left: 0; top: 0; transform-style: preserve-3d; --fog: 0; }
+.stairs__world { --haze: var(--color-sky-2); }
+.flight.is-off { visibility: hidden; }
+.st { position: absolute; left: 0; top: 0; transform-origin: 0 0; backface-visibility: hidden; }
+.st-tread { background: color-mix(in oklch, var(--color-stone) calc((1 - var(--fog)) * 100%), var(--haze)); box-shadow: inset 0 3px 0 var(--color-stone-lit); }
+.st-riser { background: color-mix(in oklch, var(--color-stone-riser) calc((1 - var(--fog)) * 100%), var(--haze)); }
+.st-landing { display: grid; place-content: center; text-align: center; gap: var(--space-xs); background: radial-gradient(60% 70% at 50% 55%, color-mix(in oklch, var(--color-stone-lit) calc((1 - var(--fog)) * 100%), var(--haze)), color-mix(in oklch, var(--color-stone) calc((1 - var(--fog)) * 100%), var(--haze))); }
+.st-top, .st-bottom { display: grid; place-content: center; text-align: center; background: repeating-linear-gradient(90deg, var(--color-stone-paint) 0 2px, var(--color-clear) 2px 64px), repeating-linear-gradient(0deg, var(--color-stone-paint) 0 2px, var(--color-clear) 2px 64px), color-mix(in oklch, var(--color-stone-riser) calc((1 - var(--fog)) * 100%), var(--haze)); }
+.st-paint { font-family: var(--font-display); font-weight: 900; color: var(--color-stone-paint); letter-spacing: -0.03em; line-height: 0.9; }
+.st-paint--n { font-size: 96px; }
+.st-paint--t { font-size: 30px; max-width: 14ch; }
+.st-paint--place { font-size: 44px; }
+.st-wall { background: linear-gradient(180deg, color-mix(in oklch, var(--color-stone-wall) calc((1 - var(--fog)) * 100%), var(--haze)) 0 18px, color-mix(in oklch, var(--color-stone-wall-2) calc((1 - var(--fog)) * 100%), var(--haze)) 18px); backface-visibility: visible; }
+.st-pole { background: var(--color-pole); backface-visibility: visible; border-radius: 3px; }
+.st-lamp { border-radius: 50%; backface-visibility: visible; background: radial-gradient(circle, var(--color-lamp) 0 18%, var(--color-lamp-glow) 34%, var(--color-lamp-clear) 70%); opacity: calc(1 - var(--fog) * 0.8); }
+.stairs__fade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, var(--color-scrim-mid) 0%, var(--color-clear) 26%, var(--color-clear) 64%, var(--color-scrim) 100%); }
+.stairs__count { position: absolute; top: 96px; right: var(--gutter); font-size: var(--text-sm); color: var(--color-ink-2); font-variant-numeric: tabular-nums; }
+.stairs__count b { font-family: var(--font-display); font-size: var(--text-2xl); color: var(--color-ink); font-weight: 900; letter-spacing: -0.03em; }
+.stairs__rail { position: absolute; top: 152px; right: var(--gutter); width: 2px; height: 160px; background: var(--color-rule); border-radius: 2px; overflow: hidden; }
+.stairs__rail i { position: absolute; inset: 0; background: var(--color-accent); transform-origin: top; transform: scaleY(var(--p, 0)); }
+.shelf { position: absolute; left: var(--gutter); bottom: max(var(--space-xl), env(safe-area-inset-bottom)); width: min(420px, calc(100% - 2 * var(--gutter))); display: grid; gap: var(--space-sm); padding: var(--space-lg); border-radius: var(--radius-card); background: var(--color-glass); box-shadow: inset 0 0 0 1px var(--color-glass-line); -webkit-backdrop-filter: blur(16px) saturate(1.2); backdrop-filter: blur(16px) saturate(1.2); transition: opacity var(--dur-short) ease, transform var(--dur-short) var(--ease-out), filter var(--dur-short) ease; }
+.shelf.is-swap { opacity: 0; transform: translateY(10px); filter: blur(6px); }
+.shelf.is-gone { opacity: 0; transform: translateY(24px); pointer-events: none; }
+.shelf__title { display: flex; align-items: baseline; gap: var(--space-sm); }
+.shelf__title h3 { font-size: var(--text-title); }
+.shelf__n { font-family: var(--font-display); font-weight: 900; font-size: var(--text-title); line-height: 1; letter-spacing: -0.03em; color: var(--color-accent); font-variant-numeric: tabular-nums; }
+.shelf p { color: var(--color-ink-2); }
+.shelf .btn { justify-self: start; margin-top: var(--space-2xs); }
+.js .turn-note { position: absolute; left: 50%; bottom: 9%; width: min(680px, calc(100% - 2 * var(--gutter))); transform: translate(-50%, 16px); text-align: center; opacity: 0; transition: opacity var(--dur-long) var(--ease-out), transform var(--dur-long) var(--ease-out); pointer-events: none; }
+.js .turn-note.is-on { opacity: 1; transform: translate(-50%, 0); }
+.turn-note h3 { font-size: var(--text-section); text-shadow: 0 2px 30px var(--color-shadow); }
+.turn-note p { margin-top: var(--space-sm); color: var(--color-ink-2); font-size: var(--text-lead); text-shadow: 0 1px 12px var(--color-shadow); }
+
+.shelves { padding-block: var(--space-2xl) var(--section-gap); }
+.shelves__list { list-style: none; margin: var(--space-xl) 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: var(--space-sm); counter-reset: sh; }
+.shelves__list li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-2xs) var(--space-md); align-items: baseline; padding: var(--space-md) var(--space-lg) var(--space-md) var(--space-md); border-radius: 18px; background: var(--color-glass); box-shadow: inset 0 0 0 1px var(--color-glass-line); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.shelves__list .n { font-family: var(--font-display); font-weight: 900; color: var(--color-accent); font-variant-numeric: tabular-nums; grid-row: span 2; font-size: var(--text-xl); letter-spacing: -0.03em; }
+.shelves__list b { font-weight: 700; }
+.shelves__list a { font-size: var(--text-sm); color: var(--color-ink-2); }
+.d3 .shelves__title { font-size: var(--text-title); }
+
+/* ---------- showcase ring ---------- */
+.showcase { padding-block: 120px var(--space-3xl); background: linear-gradient(180deg, var(--color-scrim-soft), var(--color-scrim-mid) 30%, var(--color-scrim-mid) 70%, var(--color-scrim-soft)); }
+.ring-wrap { position: relative; margin-top: var(--space-md); }
+.ring-stage { position: relative; display: none; height: 430px; perspective: 1200px; perspective-origin: 50% 30%; touch-action: pan-y; cursor: grab; user-select: none; -webkit-user-select: none; border-radius: var(--radius-card); }
+.ring-stage:active { cursor: grabbing; }
+.d3 .ring-stage { display: block; }
+.ring { position: absolute; left: 50%; top: 52%; transform-style: preserve-3d; will-change: transform; }
+.ring__item { position: absolute; left: 0; top: 0; transform-style: preserve-3d; }
+.ring__floor { position: absolute; left: -110px; top: 0; width: 220px; height: 220px; border-radius: 50%; transform: rotateX(90deg); background: radial-gradient(circle, var(--color-shadow) 0 30%, var(--color-shadow-clear) 70%); }
+.obj { position: absolute; left: 0; top: 0; transform-style: preserve-3d; animation: sway 5.2s var(--ease-in-out) infinite alternate; }
+@keyframes sway { from { transform: rotateY(-34deg) rotateX(4deg); } to { transform: rotateY(34deg) rotateX(-2deg); } }
+.g3 { position: absolute; left: 0; top: 0; transform-style: preserve-3d; }
+.face { position: absolute; left: 0; top: 0; backface-visibility: hidden; }
+
+/* tee */
+.tee { clip-path: polygon(31% 0%, 40% 4%, 50% 6.5%, 60% 4%, 69% 0%, 100% 17%, 90% 37%, 80% 32%, 80% 100%, 20% 100%, 20% 32%, 10% 37%, 0% 17%); background: linear-gradient(160deg, var(--color-tee), var(--color-tee-2)); display: grid; place-content: center; text-align: center; padding-top: 32px; }
+.tee span { font-family: var(--font-display); font-weight: 900; color: var(--color-stone-lit); font-size: 23px; line-height: 0.95; letter-spacing: -0.03em; }
+.tee-back span { font-size: 15px; color: var(--color-accent); font-weight: 700; }
+.tee-mid { background: var(--color-tee-2); }
+/* canvas shopper */
+.canvas { background: linear-gradient(170deg, var(--color-canvas), var(--color-canvas-2)); }
+.canvas.f-right, .canvas.f-left { background: var(--color-canvas-3); }
+.canvas.f-top, .canvas.f-bottom { background: var(--color-canvas-2); }
+.canvas.f-front, .canvas.f-back { display: grid; place-content: center; text-align: center; }
+.canvas span { font-family: var(--font-display); font-weight: 900; font-size: 26px; line-height: 0.95; color: var(--color-cobalt); letter-spacing: -0.03em; }
+.handle { border: 9px solid var(--color-canvas-3); border-bottom: 0; border-radius: 48px 48px 0 0; backface-visibility: visible; }
+/* plate */
+.plate-front, .plate-back, .plate-mid { border-radius: 50%; }
+.plate-front { background: radial-gradient(circle, var(--color-china) 0 50%, var(--color-cobalt) 50% 51.5%, var(--color-china) 51.5% 60%, var(--color-cobalt-2) 60% 61%, var(--color-china) 61% 81%, var(--color-cobalt) 81% 100%); display: grid; place-content: center; text-align: center; }
+.plate-front::before { content: ""; position: absolute; inset: 21%; border-radius: 50%; background: repeating-conic-gradient(var(--color-cobalt) 0 4deg, var(--color-clear) 4deg 15deg); -webkit-mask: radial-gradient(circle, transparent 0 72%, var(--color-ink) 72% 96%, transparent 96%); mask: radial-gradient(circle, transparent 0 72%, var(--color-ink) 72% 96%, transparent 96%); }
+.plate-front span { position: relative; font-family: var(--font-display); font-weight: 900; font-size: 30px; color: var(--color-cobalt); letter-spacing: -0.04em; line-height: 0.9; }
+.plate-front small { display: block; font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: 0; color: var(--color-cobalt-2); margin-top: var(--space-2xs); }
+.plate-mid { background: var(--color-china-2); }
+.plate-back { background: radial-gradient(circle, var(--color-china-2) 0 40%, var(--color-china) 40% 100%); display: grid; place-content: center; }
+.plate-back span { font-size: 11px; font-weight: 700; color: var(--color-cobalt-2); }
+/* mug */
+.mug-side { background: repeating-linear-gradient(180deg, var(--color-white) 0 13px, var(--color-cobalt) 13px 24px); }
+.mug-top { border-radius: 50%; background: radial-gradient(circle, var(--color-foam) 0 62%, var(--color-white) 62% 80%, var(--color-china-2) 80%); backface-visibility: visible; }
+.mug-bottom { border-radius: 50%; background: var(--color-china-2); }
+.mug-handle { border: 13px solid var(--color-white); border-left-color: var(--color-clear); border-radius: 46%; backface-visibility: visible; }
+/* magnet */
+.magnet { background: var(--color-white); }
+.magnet.f-front { background: linear-gradient(180deg, var(--color-sky-1) 0 46%, var(--color-sky-2) 46% 52%, var(--color-sea-1) 52% 76%, var(--color-sea-2) 76%); display: grid; place-content: center; border: 5px solid var(--color-white); }
+.magnet.f-front::before { content: ""; position: absolute; left: 50%; top: 22%; width: 34px; height: 34px; translate: -50% 0; border-radius: 50%; background: var(--color-sun); }
+.magnet span { position: relative; font-family: var(--font-display); font-weight: 900; font-size: 26px; color: var(--color-white); letter-spacing: -0.03em; margin-top: var(--space-lg); }
+/* painting */
+.frame { background: var(--color-wood-2); }
+.frame.f-front { background: var(--color-wood); padding: var(--space-sm); }
+.paint { width: 100%; height: 100%; background: radial-gradient(circle at 62% 46%, var(--color-sun) 0 9%, var(--color-clear) 10%), linear-gradient(180deg, var(--color-paper-3) 0%, var(--color-sky-2) 38%, var(--color-sky-1) 54%, var(--color-sea-line) 55% 56%, var(--color-sea-1) 57%, var(--color-sea-2) 100%); position: relative; overflow: hidden; }
+.paint::after { content: ""; position: absolute; left: 0; right: 0; top: 60%; bottom: 0; background: repeating-linear-gradient(180deg, var(--color-clear) 0 7px, var(--color-sea-line) 7px 8px); -webkit-mask: linear-gradient(90deg, transparent 38%, var(--color-ink) 54%, transparent 72%); mask: linear-gradient(90deg, transparent 38%, var(--color-ink) 54%, transparent 72%); }
+/* gift */
+.gift { background: linear-gradient(90deg, var(--color-clear) 44%, var(--color-ribbon) 44% 56%, var(--color-clear) 56%), var(--color-kraft); }
+.gift.f-right, .gift.f-left { background: linear-gradient(90deg, var(--color-clear) 44%, var(--color-ribbon) 44% 56%, var(--color-clear) 56%), var(--color-kraft-2); }
+.lid { background: linear-gradient(90deg, var(--color-clear) 45%, var(--color-ribbon) 45% 55%, var(--color-clear) 55%), var(--color-kraft-2); }
+.lid.f-top { background: linear-gradient(90deg, var(--color-clear) 45%, var(--color-ribbon) 45% 55%, var(--color-clear) 55%), linear-gradient(0deg, var(--color-clear) 45%, var(--color-ribbon) 45% 55%, var(--color-clear) 55%), var(--color-kraft); }
+.bow { border-radius: 50% 50% 8px 8px; border: 9px solid var(--color-ribbon); border-bottom: 0; backface-visibility: visible; }
+
+.showcase__info { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-lg); align-items: end; margin-top: var(--space-lg); padding-top: var(--space-lg); border-top: 1px solid var(--color-rule); }
+.showcase__name { font-size: var(--text-title); }
+.showcase__text { color: var(--color-ink-2); margin-top: var(--space-xs); max-width: 46ch; min-height: 3.1em; }
+.showcase__ctrl { display: flex; gap: var(--space-sm); align-items: center; }
+.icon-btn { width: 52px; height: 52px; display: grid; place-items: center; border-radius: 50%; border: 0; background: transparent; box-shadow: inset 0 0 0 1.5px var(--color-ink-2); cursor: pointer; transition: transform var(--dur-micro) var(--ease-out), box-shadow var(--dur-short) ease; }
+.icon-btn:active { transform: scale(0.94); }
+@media (hover: hover) and (pointer: fine) { .icon-btn:hover { box-shadow: inset 0 0 0 1.5px var(--color-ink-2); } }
+.icon-btn svg { width: 22px; height: 22px; }
+.swap { transition: opacity var(--dur-short) ease, filter var(--dur-short) ease, transform var(--dur-short) var(--ease-out); }
+.swap.is-swap { opacity: 0; filter: blur(4px); transform: translateY(6px); }
+.showcase__info { display: none; }
+.d3 .showcase__info { display: grid; }
+.ring-list { list-style: none; margin: var(--space-xl) 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: var(--space-sm); }
+.ring-list li { padding: var(--space-lg); border-radius: var(--radius-card); background: var(--color-glass); box-shadow: inset 0 0 0 1px var(--color-glass-line); display: grid; gap: var(--space-xs); }
+.ring-list h3 { font-size: var(--text-xl); }
+.ring-list p { color: var(--color-ink-2); }
+.ring-list .btn { justify-self: start; margin-top: var(--space-xs); }
+.d3 .ring-list { display: none; }
+.note { font-size: var(--text-sm); color: var(--color-muted); margin-top: var(--space-lg); }
+
+/* ---------- bulk ---------- */
+.bulk { padding-block: var(--section-gap); }
+.bulk__grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: var(--gap-columns); align-items: center; }
+.bulk__who { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin: var(--space-lg) 0 var(--space-xl); padding: 0; list-style: none; }
+.bulk__who li { padding: var(--space-xs) var(--space-md); border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1.5px var(--color-glass-line); background: var(--color-glass); font-weight: 400; }
+.crates-stage { position: relative; height: 460px; perspective: 1100px; perspective-origin: 50% 20%; }
+.crates { position: absolute; left: 50%; top: 66%; transform-style: preserve-3d; transform: rotateX(-16deg) rotateY(-32deg); transition: transform 1200ms var(--ease-out); }
+.crate { position: absolute; left: 0; top: 0; transform-style: preserve-3d; }
+.motion .crate { transition: transform 1000ms var(--ease-drop), opacity 400ms ease; }
+.motion .crates:not(.is-in) .crate { opacity: 0; }
+.kraft { background: linear-gradient(90deg, var(--color-clear) 0 40%, var(--color-tape) 40% 60%, var(--color-clear) 60%), var(--color-kraft); box-shadow: inset 0 0 0 1px var(--color-kraft-3); display: grid; place-content: center; }
+.kraft.f-right, .kraft.f-left { background: var(--color-kraft-2); }
+.kraft.f-top { background: linear-gradient(90deg, var(--color-clear) 0 40%, var(--color-tape) 40% 60%, var(--color-clear) 60%), var(--color-kraft); }
+.kraft span { font-family: var(--font-display); font-weight: 900; font-size: 13px; color: var(--color-kraft-3); letter-spacing: -0.02em; transform: rotate(-6deg); }
+.crates-floor { position: absolute; left: -260px; top: -260px; width: 520px; height: 520px; border-radius: 50%; transform: translateY(0) rotateX(90deg); background: radial-gradient(circle, var(--color-shadow) 0 26%, var(--color-shadow-clear) 66%); }
+.crates-fallback { display: grid; place-items: center; height: 100%; }
+.d3 .crates-fallback { display: none; }
+
+/* ---------- visit ---------- */
+.visit { min-height: 100svh; display: grid; align-items: center; padding-block: var(--section-gap); background: linear-gradient(180deg, var(--color-clear), var(--color-scrim-soft) 40%, var(--color-scrim-mid)); }
+.visit h2 { font-size: clamp(2.4rem, 4.6vw + 0.5rem, 4.75rem); font-weight: 900; max-width: 12ch; overflow-wrap: normal; }
+.visit__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--gap-columns); align-items: end; }
+.visit__facts { display: grid; gap: var(--space-lg); padding: var(--space-xl); border-radius: var(--radius-card); background: var(--color-glass); box-shadow: inset 0 0 0 1px var(--color-glass-line); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+.visit__facts dl { margin: 0; display: grid; gap: var(--space-md); }
+.visit__facts dt { font-size: var(--text-sm); color: var(--color-muted); }
+.visit__facts dd { margin: var(--space-3xs) 0 0; font-size: var(--text-xl); font-family: var(--font-display); font-weight: 900; letter-spacing: -0.02em; line-height: 1.15; }
+.visit__facts dd a { text-decoration: none; }
+.visit__facts dd a:hover { text-decoration: underline; }
+.visit__acts { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+.visit__lead { color: var(--color-ink-2); font-size: var(--text-lead); margin-top: var(--space-lg); max-width: 36ch; }
+
+/* ---------- footer ---------- */
+.footer { color: var(--color-ink); padding-block: var(--space-2xl) calc(var(--space-2xl) + env(safe-area-inset-bottom)); background: var(--color-paper); border-top: 1px solid var(--color-rule); }
+.footer__in { display: flex; flex-wrap: wrap; gap: var(--space-lg) var(--space-2xl); align-items: baseline; justify-content: space-between; }
+.footer p { color: var(--color-muted); font-size: var(--text-sm); max-width: 52ch; }
+.studio { font-family: var(--font-display); font-weight: 900; text-decoration: none; color: var(--color-ink); }
+.footer a { color: var(--color-ink-2); }
+
+/* ---------- toast ---------- */
+.toast { position: fixed; left: 50%; bottom: max(var(--space-lg), env(safe-area-inset-bottom)); z-index: var(--z-toast); max-width: calc(100% - 32px); padding: var(--space-sm) var(--space-lg); border-radius: var(--radius-pill); background: var(--color-ink); color: var(--color-paper); font-weight: 400; font-size: var(--text-sm); transform: translate(-50%, 140%); opacity: 0; transition: transform 400ms var(--ease-out), opacity 300ms ease; pointer-events: none; text-align: center; }
+.toast.is-on { transform: translate(-50%, 0); opacity: 1; }
+
+/* ---------- responsive ---------- */
+@media (max-width: 60rem) {
+  :root { --gutter: 24px; --section-gap: 112px; }
+  .bulk__grid, .visit__grid { grid-template-columns: minmax(0, 1fr); }
+  .crates-stage { height: 380px; }
+  .ring-stage { height: 440px; }
+}
+@media (max-width: 40rem) {
+  :root { --gutter: 18px; --section-gap: 88px; --gap-columns: 16px; }
+  .hero { padding-bottom: var(--space-xl); }
+  .hero::before { background: linear-gradient(0deg, var(--color-scrim) 0%, var(--color-scrim-mid) 48%, var(--color-scrim-soft) 72%, var(--color-clear) 90%); }
+  .hero h1, .hero__lead { text-shadow: 0 2px 24px var(--color-shadow); }
+  .hero__acts .btn { flex: 1 1 auto; }
+  .stairs__count { top: 84px; }
+  .stairs__rail { top: 136px; height: 110px; }
+  .shelf { padding: var(--space-md) var(--space-lg); }
+  .showcase__info { grid-template-columns: minmax(0, 1fr); }
+  .showcase__ctrl { justify-content: space-between; }
+  .visit__facts { padding: var(--space-lg); }
+  .ring-stage { height: 380px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Перейти до змісту</a>
+<div class="sea-fallback" aria-hidden="true"></div>
+<canvas class="sea" id="sea" aria-hidden="true"></canvas>
+
+<header class="nav" id="nav">
+  <div class="container nav__in">
+    <a class="wordmark" href="#top">Сувеніри з Одеси</a>
+    <ul class="nav__links">
+      <li><a href="#shody">Сходи</a></li>
+      <li><a href="#vitryna">Вітрина</a></li>
+      <li><a href="#gurt">Гуртом</a></li>
+      <li><a href="#de">Як знайти</a></li>
+    </ul>
+    <p class="nav__status" id="status">Щодня з <b>10:00</b> до <b>22:00</b></p>
+    <a class="btn btn--primary btn--small" href="viber://chat?number=%2B380669077267" data-order="Добрий день! Пишу з вашого сайту, маю питання про сувеніри.">Написати</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top" aria-labelledby="hero-h">
+    <div class="container hero__in">
+      <h1 id="hero-h"><span class="ln">Заберіть Одесу</span> <span class="ln">з собою</span></h1>
+      <p class="hero__lead">Сувеніри ручної роботи на Дерибасівській, 16, щодня з 10:00 до 22:00.</p>
+      <div class="hero__acts">
+        <a class="btn btn--primary" href="#shody">Спуститися до полиць</a>
+        <a class="btn btn--ghost" href="viber://chat?number=%2B380669077267" data-order="Добрий день! Хочу дізнатися про ваші сувеніри.">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18.5V7a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v7a3 3 0 0 1-3 3H8.5L4 20.5z"/></svg>
+          Написати у Viber</a>
+      </div>
+      <p class="hero__hint"><i aria-hidden="true"></i>Гортайте: спустимося Потьомкінськими сходами до моря</p>
+    </div>
+  </section>
+
+  <section class="stairs" id="shody" aria-labelledby="stairs-h">
+    <div class="stairs__intro">
+      <div class="container sec-head" data-reveal>
+        <h2 id="stairs-h">Десять маршів, десять полиць</h2>
+        <p>Потьомкінські сходи мають десять маршів. У нашому магазині на кожному майданчику стоїть своя полиця.</p>
+      </div>
+    </div>
+    <div class="stairs__track" id="stairsTrack">
+      <div class="stairs__pin" aria-hidden="true">
+        <div class="stairs__stage"><div class="stairs__world" id="world"></div></div>
+        <div class="stairs__fade"></div>
+        <p class="stairs__count">Марш <b id="flightNo">01</b> з 10</p>
+        <div class="stairs__rail"><i id="rail"></i></div>
+        <article class="shelf is-gone" id="shelf">
+          <div class="shelf__title"><span class="shelf__n" id="shelfN">01</span><h3 id="shelfT">Футболки</h3></div>
+          <p id="shelfP"></p>
+          <a class="btn btn--primary btn--small" id="shelfBtn" href="viber://chat?number=%2B380669077267" tabindex="-1">Запитати у Viber</a>
+        </article>
+        <div class="turn-note" id="turnNote">
+          <h3>Тепер озирніться</h3>
+          <p>Знизу видно лише сходинки, згори лише майданчики. Так задумали архітектори, і так виглядає наш магазин: щоразу трохи інакше.</p>
+        </div>
+      </div>
+    </div>
+    <div class="shelves">
+      <div class="container">
+        <h3 class="shelves__title" data-reveal>Усі полиці магазину</h3>
+        <ol class="shelves__list" id="shelvesList"></ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="showcase" id="vitryna" aria-labelledby="show-h">
+    <div class="container">
+      <div class="sec-head" data-reveal>
+        <h2 id="show-h">Вітрина, яку можна покрутити</h2>
+        <p>Потягніть вітрину вбік або натисніть стрілки. Сподобалося? Напишіть, і ми відкладемо.</p>
+      </div>
+      <div class="ring-wrap">
+        <div class="ring-stage" id="ringStage" tabindex="0" role="group" aria-roledescription="карусель" aria-label="Сувеніри на вітрині. Стрілки ліворуч і праворуч перемикають сувеніри.">
+          <div class="ring" id="ring"></div>
+        </div>
+        <div class="showcase__info">
+          <div class="swap" id="showSwap" aria-live="polite">
+            <h3 class="showcase__name" id="showName">Футболка з одеською фразою</h3>
+            <p class="showcase__text" id="showText"></p>
+          </div>
+          <div class="showcase__ctrl">
+            <button class="icon-btn" type="button" id="prev" aria-label="Попередній сувенір"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <button class="icon-btn" type="button" id="next" aria-label="Наступний сувенір"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+            <a class="btn btn--primary" id="showBtn" href="viber://chat?number=%2B380669077267">Замовити у Viber</a>
+          </div>
+        </div>
+        <ul class="ring-list" id="ringList"></ul>
+        <p class="note">Сувеніри на вітрині змодельовано для демо. На сайті тут будуть фото ваших товарів.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bulk" id="gurt" aria-labelledby="bulk-h">
+    <div class="container bulk__grid">
+      <div data-reveal>
+        <div class="sec-head">
+          <h2 id="bulk-h">Сувеніри гуртом</h2>
+          <p>Ми продаємо гуртом і вроздріб. Напишіть, що і скільки потрібно, і ми зберемо партію.</p>
+        </div>
+        <ul class="bulk__who">
+          <li>Магазинам і кіоскам</li>
+          <li>Готелям і хостелам</li>
+          <li>Подарунки колегам</li>
+        </ul>
+        <a class="btn btn--primary" href="viber://chat?number=%2B380669077267" data-order="Добрий день! Цікавить гуртове замовлення сувенірів. Потрібно: ... Кількість: ...">Запитати про гурт у Viber</a>
+      </div>
+      <div class="crates-stage" id="cratesStage" aria-hidden="true">
+        <div class="crates" id="crates"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="visit" id="de" aria-labelledby="visit-h">
+    <div class="container visit__grid">
+      <div data-reveal>
+        <h2 id="visit-h">Дерибасівська, 16</h2>
+        <p class="visit__lead">Самий центр Одеси, кілька хвилин пішки до Потьомкінських сходів. Заходьте, а якщо далеко, напишіть.</p>
+      </div>
+      <div class="visit__facts" data-reveal>
+        <dl>
+          <div><dt>Години роботи</dt><dd>Щодня з 10:00 до 22:00<br>без перерви</dd></div>
+          <div><dt>Телефон, Viber, Telegram</dt><dd><a href="tel:+380669077267">066 907 72 67</a></dd></div>
+        </dl>
+        <div class="visit__acts">
+          <a class="btn btn--primary" href="https://www.google.com/maps/search/?api=1&amp;query=%D0%94%D0%B5%D1%80%D0%B8%D0%B1%D0%B0%D1%81%D1%96%D0%B2%D1%81%D1%8C%D0%BA%D0%B0+16+%D0%9E%D0%B4%D0%B5%D1%81%D0%B0" target="_blank" rel="noopener">Прокласти маршрут</a>
+          <a class="btn btn--ghost" href="viber://chat?number=%2B380669077267" data-order="Добрий день! Пишу з вашого сайту.">Viber</a>
+          <a class="btn btn--ghost" href="https://t.me/+380669077267" target="_blank" rel="noopener" data-order="Добрий день! Пишу з вашого сайту." data-via="telegram">Telegram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__in">
+    <a class="wordmark" href="#top">Сувеніри з Одеси</a>
+    <p>Дерибасівська, 16, Одеса. <a href="tel:+380669077267">066 907 72 67</a>.</p>
+    <p>Демо-концепт сайту. Дизайн і розробка: <a class="studio" href="https://konotop-site.vercel.app" target="_blank" rel="noopener">KONOTOP STUDIO</a>. Тексти взято з опису магазину, товари на вітрині змодельовано.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/demo/suveniry-odesa-3d/app.js"></script>
+</body>
+</html>
