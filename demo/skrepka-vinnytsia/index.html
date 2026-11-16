@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#f8faf6">
+<title>Скрєпка, склад-магазин канцтоварів у Вінниці (демо)</title>
+<meta name="description" content="Демо-концепт сайту «Скрєпка»: канцелярія, офісне приладдя й побутові товари гуртом і в роздріб. Хмельницьке шосе, 2, Вінниця. Доставка двері-в-двері, обслуговування офісів.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Golos+Text:wght@400;500;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* Concept: a squared exercise-book sheet held by a steel paperclip.
+ * Palette: paper, grid blue, ballpoint ink, margin red, clip green (from the logo).
+ * Signature: the office order you fill in by hand on the clipped sheet and send to Viber. */
+:root {
+  color-scheme: light;
+  --paper: #f8faf6;
+  --sheet: #ffffff;
+  --grid: #d9e6ef;
+  --ink: #1d2a4d;          /* ballpoint blue-black, body text */
+  --ink-2: #3c4868;
+  --muted: #5d6781;
+  --pen: #2340a8;          /* ballpoint blue, handwriting + primary action */
+  --pen-deep: #1a3190;
+  --margin: #d8483f;       /* the red margin line */
+  --clip: #7fb33c;         /* logo green */
+  --clip-soft: #e7f2d6;
+  --steel: #9aa3ae;
+  --rule: #c9d6e0;
+
+  --font-display: "Unbounded", "Arial Black", sans-serif;
+  --font-body: "Golos Text", ui-sans-serif, system-ui, sans-serif;
+  --font-hand: "Caveat", "Segoe Print", cursive;
+
+  --text-sm: .9375rem; --text-md: 1.0625rem; --text-lead: clamp(1.125rem, .4vw + 1rem, 1.3125rem);
+  --text-display: clamp(2.1rem, 3.6vw + 1rem, 4rem);
+  --text-section: clamp(1.7rem, 2vw + 1rem, 2.6rem);
+  --cell: 24px;
+  --gutter: clamp(16px, 4vw, 56px);
+  --ease: cubic-bezier(.23, 1, .32, 1);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+html { scroll-padding-top: 88px; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  margin: 0; color: var(--ink); font-family: var(--font-body); font-size: var(--text-md); line-height: 1.55;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: var(--cell) var(--cell);
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--clip-soft); }
+:focus-visible { outline: 3px solid var(--pen); outline-offset: 3px; border-radius: 4px; }
+a { color: inherit; text-underline-offset: .2em; }
+h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 700; line-height: 1.08; letter-spacing: -.01em; text-wrap: balance; }
+h1 { font-size: var(--text-display); max-width: 15ch; }
+h2 { font-size: var(--text-section); max-width: 20ch; }
+h3 { font-size: 1.125rem; font-weight: 500; line-height: 1.25; }
+p { margin: 0; text-wrap: pretty; }
+button, input { font: inherit; color: inherit; }
+svg { display: block; }
+.wrap { max-width: 1240px; margin-inline: auto; padding-inline: var(--gutter); }
+.skip { position: absolute; left: 16px; top: 16px; z-index: 50; padding: 8px 16px; background: var(--ink); color: #fff; border-radius: 8px; transform: translateY(-200%); }
+.skip:focus-visible { transform: none; }
+.hand { font-family: var(--font-hand); font-weight: 700; color: var(--pen); }
+
+/* buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 22px; border: 2px solid var(--ink); border-radius: 10px; background: var(--sheet); font-weight: 600; text-decoration: none; cursor: pointer; white-space: nowrap; transition: background-color .2s ease, translate .12s var(--ease); }
+.btn:active { translate: 0 2px; }
+.btn svg { width: 20px; height: 20px; flex: none; }
+.btn--pen { background: var(--pen); border-color: var(--pen); color: #fff; }
+.btn--small { min-height: 44px; padding: 0 16px; font-size: var(--text-sm); }
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover { background: var(--clip-soft); }
+  .btn--pen:hover { background: var(--pen-deep); }
+}
+
+/* nav */
+.nav { position: sticky; top: 0; z-index: 30; background: color-mix(in srgb, var(--paper) 94%, transparent); backdrop-filter: blur(6px); border-bottom: 2px solid var(--ink); }
+.nav__in { display: flex; align-items: center; gap: 28px; min-height: 72px; }
+.logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--font-display); font-weight: 700; font-size: 1.25rem; }
+.logo svg { width: 34px; height: 34px; }
+.nav__links { display: flex; gap: 24px; margin: 0 0 0 auto; padding: 0; list-style: none; }
+.nav__links a { text-decoration: none; font-weight: 500; padding: 8px 0; }
+.nav__links a:hover { text-decoration: underline; text-decoration-color: var(--margin); text-decoration-thickness: 2px; }
+.nav__phone { font-weight: 600; white-space: nowrap; text-decoration: none; }
+@media (max-width: 62rem) { .nav__links { display: none; } .nav__phone { margin-left: auto; } }
+@media (max-width: 34rem) { .nav__phone { display: none; } .nav .btn { margin-left: auto; } }
+
+/* hero */
+.hero { padding-block: clamp(40px, 7vw, 96px) clamp(56px, 8vw, 120px); }
+.hero__grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+.hero__copy { display: grid; gap: 24px; justify-items: start; }
+.hero__where { display: inline-flex; align-items: center; gap: 10px; padding: 6px 14px 6px 8px; background: var(--sheet); border: 2px solid var(--ink); border-radius: 999px; font-size: var(--text-sm); font-weight: 600; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--steel); }
+.dot.is-open { background: var(--clip); box-shadow: 0 0 0 4px var(--clip-soft); }
+.hero__lead { font-size: var(--text-lead); color: var(--ink-2); max-width: 40ch; }
+.hero__acts { display: flex; flex-wrap: wrap; gap: 12px 16px; }
+.facts { display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 8px 0 0; padding: 0; list-style: none; color: var(--ink-2); font-size: var(--text-sm); }
+.facts li { display: flex; align-items: center; gap: 8px; }
+.facts svg { width: 18px; height: 18px; color: var(--clip); }
+
+/* the clipped sheet (hero + order) */
+.sheet { position: relative; background: var(--sheet); border: 2px solid var(--ink); border-radius: 4px 4px 14px 4px; box-shadow: 10px 12px 0 var(--ink); padding: 56px 28px 28px 64px;
+  background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: var(--cell) var(--cell); background-position: -1px -1px; }
+.sheet::before { content: ""; position: absolute; top: 0; bottom: 0; left: 44px; width: 2px; background: var(--margin); opacity: .85; }
+.clip { position: absolute; top: -34px; right: 40px; width: 46px; height: auto; rotate: 4deg; z-index: 2; filter: drop-shadow(2px 3px 0 rgba(29,42,77,.25)); }
+.hero__sheet { rotate: 1.5deg; max-width: 460px; justify-self: center; width: 100%; }
+.sheet__title { font-family: var(--font-hand); font-size: 2rem; line-height: var(--cell); color: var(--pen); margin-bottom: var(--cell); }
+.list { margin: 0; padding: 0; list-style: none; font-family: var(--font-hand); font-size: 1.6rem; color: var(--pen); line-height: calc(var(--cell) * 1.5); }
+.list li { display: flex; justify-content: space-between; gap: 12px; }
+.list s { text-decoration-thickness: 2px; text-decoration-color: var(--pen); opacity: .7; }
+.sheet__sign { margin-top: var(--cell); font-family: var(--font-hand); font-size: 1.5rem; color: var(--margin); rotate: -3deg; text-align: right; }
+
+/* sections */
+.sec { padding-block: clamp(64px, 9vw, 128px); }
+.sec--white { background: var(--sheet); border-block: 2px solid var(--ink); }
+.sec-head { display: grid; gap: 14px; margin-bottom: 44px; }
+.sec-head p { font-size: var(--text-lead); color: var(--ink-2); max-width: 52ch; }
+
+/* catalog: an index like the contents page of a notebook */
+.index { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 56px; }
+.index li { border-top: 2px solid var(--ink); }
+.index li:nth-last-child(-n+2) { border-bottom: 2px solid var(--ink); }
+.index a { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; gap: 16px; align-items: center; padding: 20px 4px; text-decoration: none; }
+.index svg.ic { width: 36px; height: 36px; color: var(--pen); }
+.index b { display: block; font-family: var(--font-display); font-weight: 500; font-size: 1.125rem; line-height: 1.25; }
+.index span { display: block; color: var(--muted); font-size: var(--text-sm); }
+.index .go { width: 22px; height: 22px; color: var(--ink); transition: translate .2s var(--ease); }
+@media (hover: hover) and (pointer: fine) { .index a:hover .go { translate: 4px 0; } .index a:hover b { color: var(--pen); } }
+@media (max-width: 48rem) { .index { grid-template-columns: 1fr; } .index li:nth-last-child(2) { border-bottom: 0; } }
+
+/* offices */
+.office { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 6vw, 88px); align-items: start; }
+.office__copy { display: grid; gap: 20px; position: sticky; top: 112px; }
+.office__copy p { color: var(--ink-2); font-size: var(--text-lead); max-width: 42ch; }
+.perks { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+.perks li { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 18px; padding: 26px 0; border-top: 2px dashed var(--rule); }
+.perks li:first-child { border-top: 0; padding-top: 0; }
+.perks svg { width: 40px; height: 40px; color: var(--pen); }
+.perks h3 { margin-bottom: 6px; }
+.perks p { color: var(--ink-2); }
+
+/* order builder */
+.order { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 4vw, 56px); align-items: start; }
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 20px; }
+.tab { min-height: 44px; padding: 0 16px; border: 2px solid var(--ink); border-radius: 999px; background: var(--sheet); font-weight: 600; font-size: var(--text-sm); cursor: pointer; }
+.tab[aria-selected="true"] { background: var(--ink); color: #fff; }
+.goods { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+.good { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center; padding: 14px 4px; border-bottom: 1px solid var(--rule); }
+.good b { font-weight: 600; display: block; }
+.good span { color: var(--muted); font-size: var(--text-sm); }
+.qty { display: inline-flex; align-items: center; border: 2px solid var(--ink); border-radius: 10px; background: var(--sheet); overflow: hidden; }
+.qty button { width: 44px; height: 44px; border: 0; background: transparent; font-size: 1.25rem; font-weight: 600; cursor: pointer; }
+.qty button:hover { background: var(--clip-soft); }
+.qty output { min-width: 32px; text-align: center; font-weight: 700; font-variant-numeric: tabular-nums; }
+.order__sheet { position: sticky; top: 112px; rotate: -.8deg; }
+.order__sheet .list { min-height: calc(var(--cell) * 6); }
+.order__empty { font-family: var(--font-hand); font-size: 1.5rem; color: var(--muted); line-height: calc(var(--cell) * 1.5); }
+.order__field { display: grid; gap: 4px; margin-top: var(--cell); }
+.order__field label { font-size: var(--text-sm); font-weight: 600; }
+.order__field input { min-height: 48px; padding: 0 14px; border: 2px solid var(--ink); border-radius: 10px; background: #fff; }
+.order__acts { display: grid; gap: 10px; margin-top: 18px; }
+.order__note { font-size: var(--text-sm); color: var(--muted); }
+.toast { position: fixed; left: 50%; bottom: 24px; z-index: 60; translate: -50% 140%; padding: 12px 20px; background: var(--ink); color: #fff; border-radius: 10px; font-weight: 600; visibility: hidden; transition: translate .35s var(--ease), visibility .35s; }
+.toast.is-on { translate: -50% 0; visibility: visible; }
+@media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
+
+/* steps: a real sequence */
+.steps { list-style: none; margin: 56px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; counter-reset: s; }
+.steps li { counter-increment: s; display: grid; gap: 8px; align-content: start; }
+.steps li::before { content: counter(s); font-family: var(--font-hand); font-size: 3rem; line-height: 1; color: var(--margin); }
+.steps p { color: var(--ink-2); }
+
+/* contacts */
+.visit { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: start; }
+.visit dl { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 16px 28px; margin: 0; }
+.visit dt { font-weight: 600; color: var(--muted); }
+.visit dd { margin: 0; }
+.visit dd a { font-weight: 600; }
+.mapcard { display: grid; gap: 16px; padding: 28px; background: var(--clip); border: 2px solid var(--ink); border-radius: 14px; box-shadow: 8px 10px 0 var(--ink); }
+.mapcard p { font-size: var(--text-lead); max-width: 34ch; }
+.mapcard .big { font-family: var(--font-display); font-size: clamp(1.5rem, 1.6vw + 1rem, 2.2rem); line-height: 1.1; }
+
+/* footer */
+.footer { padding-block: 40px calc(40px + env(safe-area-inset-bottom)); border-top: 2px solid var(--ink); background: var(--sheet); }
+.footer__in { display: flex; flex-wrap: wrap; gap: 16px 40px; justify-content: space-between; align-items: center; }
+.footer p { color: var(--muted); font-size: var(--text-sm); }
+
+/* page-load: the clip slides on once */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__sheet .clip { animation: clipOn .7s .25s var(--ease) both; }
+  .hero__sheet .list li { animation: write .45s var(--ease) both; animation-delay: calc(.55s + var(--i) * .12s); }
+  @keyframes clipOn { from { translate: 0 -40px; opacity: 0; } }
+  @keyframes write { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+}
+
+@media (max-width: 62rem) {
+  .hero__grid, .office, .order, .visit { grid-template-columns: 1fr; }
+  .office__copy, .order__sheet { position: static; }
+  .hero__sheet { max-width: 420px; margin-top: 24px; }
+}
+@media (max-width: 40rem) {
+  .steps { grid-template-columns: 1fr; }
+  .sheet { padding: 48px 18px 22px 52px; box-shadow: 6px 8px 0 var(--ink); }
+  .sheet::before { left: 36px; }
+  .clip { right: 24px; }
+  .visit dl { grid-template-columns: 1fr; gap: 4px; }
+  .visit dd { margin-bottom: 12px; }
+  .hero__acts .btn { flex: 1 1 100%; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Перейти до змісту</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-viber" viewBox="0 0 24 24"><path d="M12 3c5 0 8.5 2.6 8.5 7.6S17 18 12 18c-.8 0-1.6-.1-2.3-.2L6 21v-4.2C4.3 15.4 3.5 13.3 3.5 10.6 3.5 5.6 7 3 12 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9.5 8.5c.6 2.3 2 3.9 4.5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="paperclip" viewBox="0 0 40 110"><path d="M28 30V86a10 10 0 0 1-20 0V18a8 8 0 0 1 16 0v62a4 4 0 0 1-8 0V30" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/></symbol>
+    <!-- category icons, drawn as single-weight line art -->
+    <symbol id="c-pen" viewBox="0 0 36 36"><path d="M8 28l3-9L24 6l6 6-13 13-9 3Z M21 9l6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+    <symbol id="c-paper" viewBox="0 0 36 36"><path d="M9 5h13l6 6v20H9Z M22 5v6h6 M13 17h11 M13 22h11 M13 27h7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+    <symbol id="c-folder" viewBox="0 0 36 36"><path d="M4 10h11l3 3h14v16H4Z M4 16h28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+    <symbol id="c-school" viewBox="0 0 36 36"><path d="M8 6h18a2 2 0 0 1 2 2v22H10a2 2 0 0 1-2-2Z M12 6v24 M16 13h8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+    <symbol id="c-desk" viewBox="0 0 36 36"><path d="M6 20h16v8H6Z M8 20l3-8h8l3 8 M26 28V12 M23 12h6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+    <symbol id="c-home" viewBox="0 0 36 36"><path d="M13 5h10v5l3 4v17H10V14l3-4Z M10 19h16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+    <symbol id="c-gift" viewBox="0 0 36 36"><path d="M6 14h24v6H6Z M8 20h20v11H8Z M18 14v17 M18 14c-3-6-9-6-8-2s8 2 8 2c3-6 9-6 8-2s-8 2-8 2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+    <symbol id="c-bag" viewBox="0 0 36 36"><path d="M8 13h20l-1 18H9Z M13 13v-2a5 5 0 0 1 10 0v2" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+    <symbol id="p-truck" viewBox="0 0 40 40"><path d="M3 10h20v17H3Z M23 16h8l5 6v5H23 M10 31a3 3 0 1 0 0-.1 M29 31a3 3 0 1 0 0-.1" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+    <symbol id="p-boxes" viewBox="0 0 40 40"><path d="M5 20h14v14H5Z M21 20h14v14H21Z M13 6h14v14H13Z M10 20v4 M28 20v4 M20 6v4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+    <symbol id="p-calendar" viewBox="0 0 40 40"><path d="M6 9h28v25H6Z M6 16h28 M13 5v7 M27 5v7 M13 24l4 4 8-8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+    <symbol id="p-card" viewBox="0 0 40 40"><path d="M5 11h30v19H5Z M5 17h30 M10 25h8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<header class="nav">
+  <div class="wrap nav__in">
+    <a class="logo" href="#top" aria-label="Скрєпка, на початок">
+      <svg viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="16" fill="#7fb33c"/><use href="#paperclip" x="11" y="5" width="12" height="24" style="color:#1d2a4d"/></svg>
+      Скрєпка
+    </a>
+    <ul class="nav__links">
+      <li><a href="#catalog">Каталог</a></li>
+      <li><a href="#offices">Для офісів</a></li>
+      <li><a href="#order">Заявка</a></li>
+      <li><a href="#visit">Контакти</a></li>
+    </ul>
+    <a class="nav__phone" href="tel:+380977537144">097 753 71 44</a>
+    <a class="btn btn--pen btn--small" href="#order">Зібрати заявку</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top">
+    <div class="wrap hero__grid">
+      <div class="hero__copy">
+        <span class="hero__where"><span class="dot" id="dot"></span><span id="status">Пн–Пт, 9:00–18:00</span></span>
+        <h1>Канцтовари для офісу, школи й дому зі складу у Вінниці</h1>
+        <p class="hero__lead">Папір, ручки, папки, шкільне приладдя і побутова хімія. Продаємо гуртом і в роздріб, привозимо замовлення до дверей вашого офісу.</p>
+        <div class="hero__acts">
+          <a class="btn btn--pen" href="#order">Зібрати заявку для офісу</a>
+          <a class="btn" href="tel:+380977537144"><svg aria-hidden="true"><use href="#i-phone"/></svg>Подзвонити</a>
+        </div>
+        <ul class="facts">
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg>Гурт і роздріб</li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg>Доставка двері-в-двері</li>
+          <li><svg aria-hidden="true"><use href="#i-check"/></svg>Обслуговування офісів</li>
+        </ul>
+      </div>
+
+      <figure class="sheet hero__sheet" aria-label="Приклад заявки офісу на тиждень" style="margin:0">
+        <svg class="clip" viewBox="0 0 40 110" aria-hidden="true" style="color:#7a8590"><use href="#paperclip"/></svg>
+        <p class="sheet__title">Офіс, на понеділок</p>
+        <ul class="list">
+          <li style="--i:0"><s>Папір А4</s><span>5 пач.</span></li>
+          <li style="--i:1"><span>Ручки сині</span><span>2 уп.</span></li>
+          <li style="--i:2"><span>Файли А4</span><span>100 шт.</span></li>
+          <li style="--i:3"><span>Стікери жовті</span><span>6 бл.</span></li>
+          <li style="--i:4"><span>Скріпки 28 мм</span><span>3 уп.</span></li>
+          <li style="--i:5"><span>Рушники паперові</span><span>12 рул.</span></li>
+        </ul>
+        <p class="sheet__sign">привезуть до 12:00 ✓</p>
+      </figure>
+    </div>
+  </section>
+
+  <section class="sec sec--white" id="catalog" aria-labelledby="catalog-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="catalog-h">Що є на складі</h2>
+        <p>Усе для роботи й навчання в одному місці. Якщо потрібної позиції немає в наявності, привеземо під замовлення.</p>
+      </div>
+      <ul class="index">
+        <li><a href="#order" data-cat="write"><svg class="ic" aria-hidden="true"><use href="#c-pen"/></svg><span><b>Письмове приладдя</b><span>Ручки, олівці, маркери, коректори</span></span><svg class="go" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="#order" data-cat="paper"><svg class="ic" aria-hidden="true"><use href="#c-paper"/></svg><span><b>Папір і бланки</b><span>Офісний папір А4 і А3, стікери, блоки для нотаток</span></span><svg class="go" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="#order" data-cat="archive"><svg class="ic" aria-hidden="true"><use href="#c-folder"/></svg><span><b>Папки та архів</b><span>Реєстратори, файли, швидкозшивачі, короби</span></span><svg class="go" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="#order" data-cat="desk"><svg class="ic" aria-hidden="true"><use href="#c-desk"/></svg><span><b>Настільне приладдя</b><span>Степлери, скоби, скріпки, діркопробивачі, лотки</span></span><svg class="go" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="#order" data-cat="school"><svg class="ic" aria-hidden="true"><use href="#c-school"/></svg><span><b>Шкільне</b><span>Зошити, щоденники, пенали, фарби, обкладинки</span></span><svg class="go" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="#order" data-cat="home"><svg class="ic" aria-hidden="true"><use href="#c-home"/></svg><span><b>Побутові товари</b><span>Миючі засоби, паперові рушники, пакети для сміття</span></span><svg class="go" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="#order"><svg class="ic" aria-hidden="true"><use href="#c-bag"/></svg><span><b>Сумки й рюкзаки</b><span>Шкільні рюкзаки, папки-портфелі</span></span><svg class="go" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+        <li><a href="#visit"><svg class="ic" aria-hidden="true"><use href="#c-gift"/></svg><span><b>Подарункові сертифікати</b><span>Для колег, вчителів і першокласників</span></span><svg class="go" aria-hidden="true"><use href="#i-arrow"/></svg></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec" id="offices" aria-labelledby="offices-h">
+    <div class="wrap office">
+      <div class="office__copy">
+        <h2 id="offices-h">Офіс більше не бігає по магазинах</h2>
+        <p>Компаніям і установам Вінниці ми закриваємо всю канцелярію та побутові дрібниці. Надсилаєте список, отримуєте рахунок і доставку.</p>
+        <p class="hand" style="font-size:1.75rem;line-height:1.2">один постачальник замість п'яти</p>
+      </div>
+      <ul class="perks">
+        <li><svg aria-hidden="true"><use href="#p-truck"/></svg><div><h3>Доставка двері-в-двері</h3><p>Привозимо замовлення прямо в офіс по Вінниці, без вашої поїздки на склад.</p></div></li>
+        <li><svg aria-hidden="true"><use href="#p-boxes"/></svg><div><h3>Гуртові ціни</h3><p>Склад-магазин працює і з роздрібом, і з гуртом. Для великих партій ціну розраховуємо окремо.</p></div></li>
+        <li><svg aria-hidden="true"><use href="#p-calendar"/></svg><div><h3>Сервісне обслуговування офісів</h3><p>Регулярні поставки за вашим графіком: раз на тиждень чи раз на місяць, без нагадувань.</p></div></li>
+        <li><svg aria-hidden="true"><use href="#p-card"/></svg><div><h3>Оплата за рахунком</h3><p>Готуємо рахунок і документи для бухгалтерії разом із поставкою.</p></div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="sec sec--white" id="order" aria-labelledby="order-h">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 id="order-h">Зберіть заявку за хвилину</h2>
+        <p>Додайте потрібне на аркуш і надішліть нам у Viber. Менеджер уточнить наявність і ціну та підтвердить доставку.</p>
+      </div>
+      <div class="order">
+        <div>
+          <div class="tabs" role="tablist" aria-label="Категорії">
+            <button class="tab" role="tab" data-tab="paper" aria-selected="true">Папір</button>
+            <button class="tab" role="tab" data-tab="write" aria-selected="false">Письмове</button>
+            <button class="tab" role="tab" data-tab="archive" aria-selected="false">Папки</button>
+            <button class="tab" role="tab" data-tab="desk" aria-selected="false">Настільне</button>
+            <button class="tab" role="tab" data-tab="school" aria-selected="false">Шкільне</button>
+            <button class="tab" role="tab" data-tab="home" aria-selected="false">Побутове</button>
+          </div>
+          <ul class="goods" id="goods" role="tabpanel" aria-live="polite"></ul>
+        </div>
+
+        <aside class="sheet order__sheet" aria-labelledby="sheet-h">
+          <svg class="clip" viewBox="0 0 40 110" aria-hidden="true" style="color:#7a8590"><use href="#paperclip"/></svg>
+          <p class="sheet__title" id="sheet-h">Моя заявка</p>
+          <ul class="list" id="picked"></ul>
+          <p class="order__empty" id="empty">поки порожньо, додайте товари зліва</p>
+          <div class="order__field">
+            <label for="company">Компанія або ім'я</label>
+            <input id="company" autocomplete="organization" placeholder="ТОВ «Приклад»">
+          </div>
+          <div class="order__acts">
+            <a class="btn btn--pen" id="send" href="#"><svg aria-hidden="true"><use href="#i-viber"/></svg>Надіслати у Viber</a>
+            <button class="btn" id="copy" type="button"><svg aria-hidden="true"><use href="#i-copy"/></svg>Скопіювати заявку</button>
+            <p class="order__note">Або продиктуйте список телефоном: <a href="tel:+380678385661">067 838 56 61</a></p>
+          </div>
+        </aside>
+      </div>
+
+      <ol class="steps">
+        <li><h3>Надсилаєте заявку</h3><p>Списком з сайту, у Viber або телефоном.</p></li>
+        <li><h3>Отримуєте рахунок</h3><p>Підтверджуємо наявність і ціни, виставляємо рахунок.</p></li>
+        <li><h3>Приймаєте доставку</h3><p>Привозимо замовлення до дверей офісу.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="visit" aria-labelledby="visit-h">
+    <div class="wrap visit">
+      <div class="sec-head" style="margin:0">
+        <h2 id="visit-h">Склад-магазин на Хмельницькому шосе</h2>
+        <dl style="margin-top:24px">
+          <dt>Адреса</dt><dd>Вінниця, Хмельницьке шосе, 2, ліворуч від входу в готель «Профспілковий»</dd>
+          <dt>Графік</dt><dd>Понеділок – п'ятниця, 9:00–18:00<br>Субота й неділя вихідні</dd>
+          <dt>Телефони</dt><dd><a href="tel:+380977537144">097 753 71 44</a><br><a href="tel:+380678385661">067 838 56 61</a><br><a href="tel:+380432530825">0432 53 08 25</a></dd>
+        </dl>
+      </div>
+      <div class="mapcard">
+        <p class="big">Хмельницьке шосе, 2</p>
+        <p>Під'їжджайте на авто: забрати кілька коробок паперу простіше, ніж здається.</p>
+        <div class="hero__acts">
+          <a class="btn" href="https://www.google.com/maps/search/?api=1&query=%D0%92%D1%96%D0%BD%D0%BD%D0%B8%D1%86%D1%8F%2C+%D0%A5%D0%BC%D0%B5%D0%BB%D1%8C%D0%BD%D0%B8%D1%86%D1%8C%D0%BA%D0%B5+%D1%88%D0%BE%D1%81%D0%B5+2" target="_blank" rel="noopener">Прокласти маршрут</a>
+          <a class="btn" href="tel:+380977537144"><svg aria-hidden="true"><use href="#i-phone"/></svg>Подзвонити</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__in">
+    <a class="logo" href="#top" aria-label="Скрєпка, на початок">
+      <svg viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="16" fill="#7fb33c"/><use href="#paperclip" x="11" y="5" width="12" height="24" style="color:#1d2a4d"/></svg>
+      Скрєпка
+    </a>
+    <p>Демо-концепт редизайну сайту skrepka.vn.ua. Дизайн і розробка: <a href="https://konotop-site.vercel.app" target="_blank" rel="noopener">KONOTOP STUDIO</a>.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  const GOODS = {
+    paper:   [["Папір офісний А4", "пачка 500 арк.", "пач."], ["Папір А3", "пачка 500 арк.", "пач."], ["Стікери 76×76", "блок 100 арк.", "бл."], ["Блок для нотаток", "куб 9×9 см", "шт."]],
+    write:   [["Ручки кулькові сині", "упаковка 50 шт.", "уп."], ["Олівці графітні НВ", "упаковка 12 шт.", "уп."], ["Маркери текстові", "набір 4 кольори", "наб."], ["Коректор-ручка", "8 мл", "шт."]],
+    archive: [["Файли А4", "упаковка 100 шт.", "уп."], ["Папка-реєстратор", "корінець 75 мм", "шт."], ["Швидкозшивач", "картон, А4", "шт."], ["Короб архівний", "100 мм", "шт."]],
+    desk:    [["Скріпки 28 мм", "упаковка 100 шт.", "уп."], ["Степлер №24", "до 20 арк.", "шт."], ["Скоби №24/6", "1000 шт.", "уп."], ["Діркопробивач", "до 20 арк.", "шт."]],
+    school:  [["Зошит 12 арк.", "клітинка", "шт."], ["Зошит 48 арк.", "клітинка", "шт."], ["Фарби акварельні", "12 кольорів", "наб."], ["Обкладинки для зошитів", "упаковка 10 шт.", "уп."]],
+    home:    [["Рушники паперові", "рулон", "рул."], ["Туалетний папір", "упаковка 8 рул.", "уп."], ["Пакети для сміття 60 л", "рулон 20 шт.", "рул."], ["Засіб для миття посуду", "500 мл", "шт."]]
+  };
+  const cart = new Map();
+  const $ = s => document.querySelector(s);
+  const goods = $("#goods"), picked = $("#picked"), empty = $("#empty");
+  let current = "paper";
+
+  function renderGoods() {
+    goods.innerHTML = GOODS[current].map(([name, pack, unit]) => {
+      const n = cart.get(name)?.n || 0;
+      return `<li class="good"><div><b>${name}</b><span>${pack}</span></div>
+        <div class="qty" role="group" aria-label="${name}, кількість">
+          <button type="button" data-d="-1" data-name="${name}" data-unit="${unit}" aria-label="Менше: ${name}">−</button>
+          <output>${n}</output>
+          <button type="button" data-d="1" data-name="${name}" data-unit="${unit}" aria-label="Більше: ${name}">+</button>
+        </div></li>`;
+    }).join("");
+  }
+  function renderSheet() {
+    picked.innerHTML = [...cart].map(([name, { n, unit }]) => `<li><span>${name}</span><span>${n} ${unit}</span></li>`).join("");
+    empty.hidden = cart.size > 0;
+  }
+  function text() {
+    const who = $("#company").value.trim();
+    const lines = [...cart].map(([name, { n, unit }]) => `• ${name}: ${n} ${unit}`);
+    return `Заявка з сайту Скрєпка${who ? " від " + who : ""}:\n${lines.join("\n")}`;
+  }
+  function toast(msg) {
+    const t = $("#toast"); t.textContent = msg; t.classList.add("is-on");
+    clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("is-on"), 2400);
+  }
+  function selectTab(id) {
+    current = id;
+    document.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-selected", String(b.dataset.tab === id)));
+    renderGoods();
+  }
+
+  goods.addEventListener("click", e => {
+    const b = e.target.closest("button[data-d]"); if (!b) return;
+    const { name, unit } = b.dataset;
+    const n = Math.max(0, (cart.get(name)?.n || 0) + Number(b.dataset.d));
+    n ? cart.set(name, { n, unit }) : cart.delete(name);
+    b.parentElement.querySelector("output").textContent = n;
+    renderSheet();
+  });
+  document.querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => selectTab(b.dataset.tab)));
+  document.querySelectorAll(".index a[data-cat]").forEach(a => a.addEventListener("click", () => selectTab(a.dataset.cat)));
+
+  $("#send").addEventListener("click", e => {
+    if (!cart.size) { e.preventDefault(); toast("Додайте хоча б один товар"); return; }
+    $("#send").href = "viber://forward?text=" + encodeURIComponent(text());
+  });
+  $("#copy").addEventListener("click", async () => {
+    if (!cart.size) { toast("Додайте хоча б один товар"); return; }
+    try { await navigator.clipboard.writeText(text()); toast("Заявку скопійовано"); }
+    catch { toast("Не вдалося скопіювати, надішліть у Viber"); }
+  });
+
+  // open-now status, Kyiv time
+  const now = new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Kyiv" }));
+  const d = now.getDay(), h = now.getHours();
+  const open = d >= 1 && d <= 5 && h >= 9 && h < 18;
+  $("#dot").classList.toggle("is-open", open);
+  $("#status").textContent = open ? "Відчинено до 18:00" : "Зараз зачинено, працюємо Пн–Пт 9:00–18:00";
+
+  renderGoods(); renderSheet();
+})();
+</script>
+</body>
+</html>
