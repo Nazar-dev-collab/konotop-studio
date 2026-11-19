@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#11292c">
+<title>Сайт для IN PLUS: вартість</title>
+<meta name="description" content="Пропозиція KONOTOP STUDIO для агентства перекладів IN PLUS: сайт-візитка та сайт-каталог з калькулятором.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root { --bg: #f4f7f7; --paper: #fff; --ink: #11292c; --ink-2: #33484b; --muted: #5d7073; --line: #dbe4e4; --teal: #0f8a8d; --teal-deep: #0a6466; --teal-soft: #dcf0ef; --orange: #f2861e; --orange-soft: #fdebd8; --gutter: clamp(16px, 4vw, 48px); }
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 1.0625rem/1.55 "Onest", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 6px; }
+a { color: inherit; text-underline-offset: .2em; }
+h1, h2, h3 { margin: 0; line-height: 1.1; letter-spacing: -.025em; text-wrap: balance; }
+p { margin: 0; text-wrap: pretty; }
+.wrap { max-width: 1080px; margin-inline: auto; padding-inline: var(--gutter); }
+header { padding-block: clamp(36px, 6vw, 72px) clamp(28px, 4vw, 44px); }
+.back { display: inline-block; margin-bottom: 28px; color: var(--muted); font-size: .9375rem; }
+h1 { font-size: clamp(2rem, 3vw + 1rem, 3.5rem); font-weight: 800; max-width: 18ch; }
+.lead { margin-top: 18px; font-size: clamp(1.0625rem, .4vw + 1rem, 1.25rem); color: var(--ink-2); max-width: 58ch; }
+
+.plans { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 820px) { .plans { grid-template-columns: 1fr 1fr; } }
+.plan { display: flex; flex-direction: column; gap: 20px; padding: clamp(22px, 3vw, 34px); background: var(--paper); border: 1px solid var(--line); border-radius: 24px; }
+.plan--cat { background: var(--ink); color: #fff; border-color: var(--ink); }
+.plan__top { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+.plan h2 { font-size: 1.625rem; font-weight: 800; }
+.plan__for { margin-top: 6px; color: var(--muted); font-size: .9375rem; max-width: 34ch; }
+.plan--cat .plan__for { color: #a9c2c4; }
+.badge { flex: none; padding: 6px 10px; border-radius: 8px; background: var(--orange); color: var(--ink); font-weight: 700; font-size: .8125rem; }
+.price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 14px; }
+.price b { font-size: clamp(2.75rem, 4vw, 3.75rem); font-weight: 800; letter-spacing: -.035em; line-height: 1; }
+.price span { color: var(--muted); font-weight: 500; }
+.plan--cat .price span { color: #cfe0e1; }
+.term { font-weight: 600; font-size: .9375rem; color: var(--teal-deep); }
+.plan--cat .term { color: #7fd6d3; }
+.list { list-style: none; margin: 0; padding: 18px 0 0; border-top: 1px solid var(--line); display: grid; gap: 10px; }
+.plan--cat .list { border-color: #2c4649; }
+.list li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; font-size: .9875rem; }
+.list li::before { content: ""; width: 18px; height: 18px; margin-top: 3px; border-radius: 5px; background: var(--teal-soft); box-shadow: inset 0 0 0 5px var(--teal-soft), inset 0 0 0 9px var(--teal); }
+.plan--cat .list li::before { box-shadow: inset 0 0 0 5px #22403f, inset 0 0 0 9px var(--orange); background: #22403f; }
+.list li.plus { font-weight: 600; }
+.plan__demo { margin-top: auto; display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 20px; border-radius: 14px; border: 2px solid var(--ink); font-weight: 700; text-decoration: none; }
+.plan__demo:hover { background: var(--ink); color: #fff; }
+.plan--cat .plan__demo { background: var(--orange); border-color: var(--orange); color: var(--ink); }
+.plan--cat .plan__demo:hover { background: #ffa04a; border-color: #ffa04a; }
+
+section { padding-block: clamp(40px, 6vw, 72px) 0; }
+section h2 { font-size: clamp(1.5rem, 1.5vw + 1rem, 2.125rem); font-weight: 800; margin-bottom: 20px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 14px 12px 14px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+thead th { font-size: .9375rem; color: var(--muted); font-weight: 600; border-bottom: 2px solid var(--ink); }
+td:last-child, th:last-child { text-align: right; white-space: nowrap; font-weight: 700; padding-right: 0; }
+td small { display: block; color: var(--muted); font-size: .875rem; font-weight: 400; }
+.cmp td:nth-child(2), .cmp td:nth-child(3), .cmp th:nth-child(2) { text-align: center; }
+.cmp th:nth-child(2), .cmp th:nth-child(3) { width: 110px; }
+.cmp td:nth-child(2), .cmp td:nth-child(3) { font-weight: 700; color: var(--teal-deep); padding-right: 0; }
+.cmp th:last-child { text-align: center; }
+.cmp .no { color: var(--line); }
+
+.steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); counter-reset: s; }
+.steps li { padding: 20px; background: var(--paper); border: 1px solid var(--line); border-radius: 18px; counter-increment: s; }
+.steps li::before { content: counter(s); display: grid; place-items: center; width: 34px; height: 34px; margin-bottom: 14px; border-radius: 9px; background: var(--teal); color: #fff; font-weight: 800; }
+.steps li:nth-child(even)::before { background: var(--orange); color: var(--ink); }
+.steps b { display: block; margin-bottom: 4px; }
+.steps span { color: var(--ink-2); font-size: .9375rem; }
+
+.cta { margin-block: clamp(48px, 7vw, 88px) 0; padding: clamp(26px, 4vw, 44px); background: var(--ink); color: #fff; border-radius: 28px; display: grid; gap: 20px; }
+.cta h2 { color: #fff; margin: 0; }
+.cta p { color: #cfe0e1; max-width: 56ch; }
+.cta__row { display: flex; flex-wrap: wrap; gap: 12px; }
+.cta a { display: inline-flex; align-items: center; min-height: 52px; padding: 0 20px; border-radius: 14px; font-weight: 700; text-decoration: none; }
+.cta .a1 { background: var(--orange); color: var(--ink); }
+.cta .a2 { border: 2px solid #fff; }
+footer { padding: 28px 0 48px; color: var(--muted); font-size: .875rem; }
+</style>
+</head>
+<body>
+<header class="wrap">
+  <a class="back" href="./">Повернутися до демо</a>
+  <h1>Сайт для агентства перекладів IN PLUS</h1>
+  <p class="lead">Два варіанти, обидва вже можна відкрити в демо. Ціна фіксована й включає дизайн, розробку, адаптацію під телефон і запуск.</p>
+</header>
+
+<main class="wrap">
+  <div class="plans">
+    <article class="plan">
+      <div class="plan__top"><div><h2>Сайт-візитка</h2><p class="plan__for">Одна сторінка, щоб клієнт з Google чи Instagram одразу побачив послуги, ціни й написав у Viber.</p></div></div>
+      <div class="price"><b>$150</b><span>≈ 6 800 грн</span></div>
+      <p class="term">Запуск за 5–7 днів</p>
+      <ul class="list">
+        <li>Перший екран з анімованим табло з вашого логотипа</li>
+        <li>Послуги, ціни «від», етапи роботи, відгуки, питання</li>
+        <li>Кнопки Viber і дзвінка на кожному екрані</li>
+        <li>Адаптація під телефон і планшет</li>
+        <li>Базове SEO: заголовки, опис, превʼю для месенджерів</li>
+        <li>Підключення домену, хостинг перший рік безкоштовно</li>
+        <li>2 раунди правок</li>
+      </ul>
+      <a class="plan__demo" href="./?v=card">Дивитися демо візитки</a>
+    </article>
+
+    <article class="plan plan--cat">
+      <div class="plan__top"><div><h2>Сайт-каталог</h2><p class="plan__for">Каталог документів з цінами й калькулятор: клієнт сам рахує вартість і надсилає готове замовлення.</p></div><span class="badge">Рекомендуємо</span></div>
+      <div class="price"><b>$350</b><span>≈ 15 900 грн</span></div>
+      <p class="term">Запуск за 10–14 днів</p>
+      <ul class="list">
+        <li class="plus">Усе з візитки, плюс:</li>
+        <li>Каталог документів з категоріями, пошуком, цінами й термінами</li>
+        <li>Калькулятор: мова, сторінки, терміновість, нотаріус, апостиль</li>
+        <li>Замовлення одразу у Viber з готовим текстом</li>
+        <li>Сторінка мов з цінами за кожну</li>
+        <li>Окремі сторінки під пошук: «переклад диплома», «апостиль» тощо</li>
+        <li>Ціни можна змінювати самостійно в одному файлі</li>
+        <li>Аналітика: скільки людей зайшло й написало</li>
+        <li>3 раунди правок</li>
+      </ul>
+      <a class="plan__demo" href="./?v=catalog">Дивитися демо каталогу</a>
+    </article>
+  </div>
+
+  <section aria-labelledby="cmp-h">
+    <h2 id="cmp-h">Порівняння</h2>
+    <table class="cmp">
+      <thead><tr><th scope="col">Що є на сайті</th><th scope="col">Візитка</th><th scope="col">Каталог</th></tr></thead>
+      <tbody>
+        <tr><td>Послуги, ціни, контакти, відгуки</td><td>так</td><td>так</td></tr>
+        <tr><td>Кнопки Viber і дзвінка</td><td>так</td><td>так</td></tr>
+        <tr><td>Каталог документів з пошуком</td><td class="no">—</td><td>так</td></tr>
+        <tr><td>Калькулятор вартості</td><td class="no">—</td><td>так</td></tr>
+        <tr><td>Готове замовлення у Viber</td><td class="no">—</td><td>так</td></tr>
+        <tr><td>SEO-сторінки під окремі послуги</td><td class="no">—</td><td>так</td></tr>
+        <tr><td>Термін запуску</td><td>5–7 днів</td><td>10–14 днів</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section aria-labelledby="add-h">
+    <h2 id="add-h">За бажанням</h2>
+    <table>
+      <thead><tr><th scope="col">Послуга</th><th scope="col">Ціна</th></tr></thead>
+      <tbody>
+        <tr><td>Домен .com.ua або .com<small>реєстрація на ваше імʼя, оплата щороку</small></td><td>≈ 400–600 грн/рік</td></tr>
+        <tr><td>Англійська версія сайту</td><td>+$60</td></tr>
+        <tr><td>Онлайн-оплата карткою<small>LiqPay, Monobank або WayForPay</small></td><td>+$80</td></tr>
+        <tr><td>Google Business і Google Maps<small>картка компанії з адресою і відгуками</small></td><td>+$30</td></tr>
+        <tr><td>Підтримка після запуску<small>зміни цін, текстів, нові послуги</small></td><td>$20/міс</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section aria-labelledby="how-h">
+    <h2 id="how-h">Як працюємо</h2>
+    <ol class="steps">
+      <li><b>Обираєте варіант</b><span>Візитка чи каталог, і що змінити в демо.</span></li>
+      <li><b>Передоплата 50%</b><span>Надсилаєте ціни, адресу, графік і фото офісу, якщо є.</span></li>
+      <li><b>Показуємо готовий сайт</b><span>Робите правки, ми вносимо їх у той самий день.</span></li>
+      <li><b>Запуск на вашому домені</b><span>Решта 50% після запуску. Пояснимо, як міняти ціни.</span></li>
+    </ol>
+  </section>
+
+  <div class="cta">
+    <h2>Обговоримо?</h2>
+    <p>Напишіть, який варіант подобається і що змінити в демо. Демо вже налаштоване під IN PLUS, тож запуск буде швидким.</p>
+    <div class="cta__row">
+      <a class="a1" href="https://t.me/m_konotop" target="_blank" rel="noopener">Написати в Telegram</a>
+      <a class="a2" href="https://konotop-site.vercel.app" target="_blank" rel="noopener">Наші роботи</a>
+    </div>
+  </div>
+</main>
+
+<footer class="wrap"><p>KONOTOP STUDIO. Курс у гривнях орієнтовний, $1 ≈ 45,5 грн. Ціна дійсна 14 днів.</p></footer>
+</body>
+</html>
