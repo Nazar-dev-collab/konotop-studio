@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="uk" data-mode="card">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0f8a8d">
+<title>IN PLUS, агентство перекладів (демо)</title>
+<meta name="description" content="Демо-концепт сайту агентства перекладів IN PLUS: письмовий і нотаріальний переклад, апостиль, усний переклад. Розрахунок вартості у Viber.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* Concept: the logo's letter tiles become a split-flap board that keeps
+ * translating one word. That board is the only loud thing on the page;
+ * the rest is calm paperwork: clear lists, prices, one way to reach them. */
+:root {
+  color-scheme: light;
+  --bg: #f4f7f7;
+  --paper: #ffffff;
+  --ink: #11292c;
+  --ink-2: #33484b;
+  --muted: #5d7073;
+  --line: #dbe4e4;
+  --teal: #0f8a8d;
+  --teal-deep: #0a6466;
+  --teal-soft: #dcf0ef;
+  --orange: #f2861e;
+  --orange-deep: #b85a00;
+  --orange-soft: #fdebd8;
+
+  --font: "Onest", ui-sans-serif, system-ui, sans-serif;
+  --t-sm: .9375rem;
+  --t-md: 1.0625rem;
+  --t-lead: clamp(1.125rem, .4vw + 1rem, 1.3125rem);
+  --t-h2: clamp(1.75rem, 2vw + 1rem, 2.75rem);
+  --t-h1: clamp(2.25rem, 3.6vw + 1rem, 4.25rem);
+  --gutter: clamp(16px, 4vw, 56px);
+  --max: 1200px;
+  --ease: cubic-bezier(.23, 1, .32, 1);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+html { scroll-padding-top: 84px; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font); font-size: var(--t-md); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+::selection { background: var(--orange); color: #fff; }
+:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 6px; }
+a { color: inherit; text-underline-offset: .2em; }
+img, svg { display: block; }
+h1, h2, h3 { margin: 0; line-height: 1.1; letter-spacing: -.025em; text-wrap: balance; }
+p { margin: 0; text-wrap: pretty; }
+.wrap { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.skip { position: absolute; left: 12px; top: -80px; z-index: 100; padding: 12px 16px; border-radius: 10px; background: var(--ink); color: #fff; }
+.skip:focus { top: 12px; }
+
+/* mode switching */
+html[data-mode="card"] .only-cat, html[data-mode="catalog"] .only-card { display: none !important; }
+
+/* buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 22px; border-radius: 14px; border: 2px solid var(--ink); background: transparent; color: var(--ink); font: 700 1rem/1 var(--font); text-decoration: none; cursor: pointer; transition: transform .2s var(--ease), background-color .2s, color .2s; }
+.btn svg { width: 20px; height: 20px; flex: none; }
+.btn:active { transform: scale(.97); }
+.btn--viber { background: var(--teal); border-color: var(--teal); color: #fff; }
+.btn--viber:hover { background: var(--teal-deep); border-color: var(--teal-deep); }
+.btn--ghost:hover { background: var(--ink); color: #fff; }
+.btn--orange { background: var(--orange); border-color: var(--orange); color: var(--ink); }
+.btn--orange:hover { background: #ffa04a; border-color: #ffa04a; }
+
+/* nav */
+.nav { position: sticky; top: 0; z-index: 40; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid transparent; transition: border-color .2s; }
+.nav.is-stuck { border-bottom-color: var(--line); }
+.nav__in { display: flex; align-items: center; gap: 24px; height: 72px; }
+.logo { display: flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 800; letter-spacing: -.02em; }
+.logo__mark { width: 40px; height: 40px; flex: none; }
+.logo__txt { line-height: 1.05; font-size: 1.125rem; }
+.logo__txt small { display: block; font-size: .75rem; font-weight: 500; color: var(--muted); letter-spacing: 0; }
+.nav__links { display: flex; gap: 26px; margin-left: auto; list-style: none; padding: 0; margin-block: 0; }
+.nav__links a { text-decoration: none; font-weight: 500; color: var(--ink-2); font-size: var(--t-sm); }
+.nav__links a:hover { color: var(--teal); }
+.nav__phone { font-weight: 700; text-decoration: none; white-space: nowrap; }
+.nav__cta { min-height: 44px; padding: 0 16px; font-size: .9375rem; }
+@media (max-width: 960px) { .nav__links { display: none; } .nav__phone { margin-left: auto; } }
+@media (max-width: 520px) { .nav__phone { display: none; } .nav__cta { margin-left: auto; } .logo__txt small { display: none; } }
+
+/* hero */
+.hero { padding-block: clamp(36px, 6vw, 84px) clamp(48px, 7vw, 96px); }
+.hero__grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(36px, 5vw, 56px); }
+.hero__title { font-size: var(--t-h1); font-weight: 800; max-width: 15ch; }
+.hero__lead { margin-top: 22px; font-size: var(--t-lead); color: var(--ink-2); max-width: 56ch; }
+.hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.hero__facts { display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 34px 0 0; padding: 0; list-style: none; color: var(--ink-2); font-size: var(--t-sm); }
+.hero__facts b { color: var(--ink); font-size: 1.25rem; display: block; letter-spacing: -.02em; }
+
+/* the board */
+.board { container-type: inline-size; position: relative; padding: clamp(22px, 3vw, 36px) clamp(16px, 3vw, 36px) clamp(26px, 3.4vw, 40px); background: var(--paper); border-radius: 28px; border: 1px solid var(--line); }
+.board__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: var(--t-sm); color: var(--muted); }
+.board__pair { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; color: var(--ink); }
+.board__pair svg { width: 18px; height: 18px; color: var(--orange); }
+.board__pause { border: 1px solid var(--line); background: none; border-radius: 999px; padding: 6px 12px; font: 500 .8125rem var(--font); color: var(--muted); cursor: pointer; }
+.board__pause:hover { color: var(--ink); border-color: var(--ink-2); }
+.tiles { --tile: min(64px, calc(100cqi / 12.2)); display: flex; justify-content: center; gap: calc(var(--tile) * .1); margin-top: 26px; padding-bottom: calc(var(--tile) * .42); perspective: 900px; }
+.tile { position: relative; width: var(--tile); height: calc(var(--tile) * 1.12); }
+.tile:nth-child(even) { transform: translateY(calc(var(--tile) * .42)); }
+.tile__face { position: absolute; inset: 0; display: grid; place-items: center; border-radius: calc(var(--tile) * .12); font-weight: 800; font-size: calc(var(--tile) * .6); line-height: 1; color: #fff; backface-visibility: hidden; transform-style: preserve-3d; transition: background-color .3s; }
+.tile:nth-child(4n+1) .tile__face, .tile:nth-child(4n+4) .tile__face { background: var(--teal); }
+.tile:nth-child(4n+2) .tile__face, .tile:nth-child(4n+3) .tile__face { background: var(--orange); }
+.tile.is-blank .tile__face { background: transparent !important; box-shadow: inset 0 0 0 2px var(--line); }
+.tile.is-flip .tile__face { animation: flip .5s var(--ease); }
+@keyframes flip { 0% { transform: rotateX(0); } 45% { transform: rotateX(90deg); } 55% { transform: rotateX(-90deg); } 100% { transform: rotateX(0); } }
+.board__foot { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 8px; }
+.lang-chip { border: 1px solid var(--line); background: var(--bg); border-radius: 999px; padding: 6px 12px; font: 500 .8125rem var(--font); color: var(--ink-2); cursor: pointer; }
+.lang-chip[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+@media (min-width: 1000px) {
+  .hero__grid { grid-template-columns: minmax(0, .95fr) minmax(0, 1.15fr); align-items: center; }
+}
+
+/* sections */
+.sec { padding-block: clamp(56px, 8vw, 112px); }
+.sec--paper { background: var(--paper); border-block: 1px solid var(--line); }
+.sec__head { display: grid; gap: 14px; max-width: 760px; margin-bottom: clamp(32px, 4vw, 52px); }
+.sec__head h2 { font-size: var(--t-h2); font-weight: 800; }
+.sec__head p { font-size: var(--t-lead); color: var(--ink-2); max-width: 60ch; }
+
+/* services (card mode) */
+.svc { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); border-top: 2px solid var(--ink); }
+.svc__item { display: grid; grid-template-columns: 52px 1fr; gap: 6px 18px; padding: 26px 24px 28px 0; border-bottom: 1px solid var(--line); }
+.svc__ic { grid-row: span 3; width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: var(--teal-soft); color: var(--teal-deep); }
+.svc__item:nth-child(even) .svc__ic { background: var(--orange-soft); color: var(--orange-deep); }
+.svc__ic svg { width: 24px; height: 24px; }
+.svc__item h3 { font-size: 1.25rem; font-weight: 700; }
+.svc__item p { color: var(--ink-2); font-size: var(--t-sm); max-width: 44ch; }
+.svc__price { font-weight: 700; color: var(--teal-deep); font-size: var(--t-sm); margin-top: 4px; }
+
+/* steps */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 16px; list-style: none; padding: 0; margin: 0; counter-reset: s; }
+.step { position: relative; padding: 26px 22px 26px; background: var(--bg); border-radius: 20px; counter-increment: s; }
+.step::before { content: counter(s); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; background: var(--teal); color: #fff; font-weight: 800; margin-bottom: 18px; }
+.step:nth-child(even)::before { background: var(--orange); color: var(--ink); }
+.step h3 { font-size: 1.125rem; font-weight: 700; margin-bottom: 6px; }
+.step p { color: var(--ink-2); font-size: var(--t-sm); }
+
+/* price table (card mode) */
+.ptable { width: 100%; border-collapse: collapse; font-size: var(--t-md); }
+.ptable th, .ptable td { text-align: left; padding: 16px 12px 16px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.ptable thead th { font-size: var(--t-sm); font-weight: 600; color: var(--muted); border-bottom: 2px solid var(--ink); }
+.ptable td:last-child, .ptable th:last-child { text-align: right; padding-right: 0; white-space: nowrap; font-weight: 700; }
+.ptable td small { display: block; color: var(--muted); font-size: .875rem; }
+.note { margin-top: 18px; color: var(--muted); font-size: var(--t-sm); }
+
+/* languages */
+.langs { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; margin: 0; }
+.langs li { display: inline-flex; align-items: baseline; gap: 8px; padding: 10px 16px; border-radius: 12px; background: var(--paper); border: 1px solid var(--line); font-weight: 600; }
+.langs li span { color: var(--muted); font-weight: 500; font-size: .875rem; }
+
+/* catalogue */
+.cat__bar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 24px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--paper); font: 600 .9375rem var(--font); color: var(--ink-2); cursor: pointer; }
+.chip:hover { border-color: var(--ink-2); }
+.chip[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
+.search { position: relative; margin-left: auto; flex: 1 1 240px; max-width: 320px; }
+.search input { width: 100%; min-height: 44px; padding: 0 14px 0 42px; border-radius: 12px; border: 1px solid var(--line); background: var(--paper); font: 500 16px var(--font); color: var(--ink); }
+.search svg { position: absolute; left: 14px; top: 50%; translate: 0 -50%; width: 18px; height: 18px; color: var(--muted); }
+@media (max-width: 640px) { .search { max-width: none; margin-left: 0; } }
+.docs { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 14px; }
+.doc { display: flex; flex-direction: column; gap: 12px; padding: 22px; background: var(--paper); border: 1px solid var(--line); border-radius: 18px; }
+.doc__top { display: flex; justify-content: space-between; gap: 12px; align-items: start; }
+.doc h3 { font-size: 1.0625rem; font-weight: 700; letter-spacing: -.01em; line-height: 1.25; }
+.doc__tag { flex: none; font-size: .75rem; font-weight: 600; padding: 4px 8px; border-radius: 6px; background: var(--teal-soft); color: var(--teal-deep); }
+.doc__tag[data-c="edu"] { background: var(--orange-soft); color: var(--orange-deep); }
+.doc__tag[data-c="biz"] { background: #e6e9f7; color: #3a4a9a; }
+.doc__tag[data-c="med"] { background: #fbe3e6; color: #a3283a; }
+.doc p { color: var(--muted); font-size: .875rem; }
+.doc__bot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 6px; }
+.doc__price { font-weight: 800; font-size: 1.125rem; }
+.doc__price small { font-weight: 500; color: var(--muted); font-size: .8125rem; }
+.doc__add { min-height: 40px; padding: 0 14px; border-radius: 10px; border: 2px solid var(--teal); background: none; color: var(--teal-deep); font: 700 .875rem var(--font); cursor: pointer; }
+.doc__add:hover { background: var(--teal); color: #fff; }
+.doc__add[aria-pressed="true"] { background: var(--teal); color: #fff; }
+.empty { padding: 40px 0; color: var(--ink-2); }
+.empty button { font: inherit; color: var(--teal-deep); background: none; border: 0; text-decoration: underline; cursor: pointer; padding: 0; }
+
+/* calculator */
+.calc { display: grid; gap: 20px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 900px) { .calc { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); align-items: start; } }
+.calc__form { display: grid; gap: 22px; padding: clamp(20px, 3vw, 32px); background: var(--bg); border-radius: 24px; }
+.field { display: grid; gap: 8px; }
+.field > label, .field > legend, .field__l { font-weight: 600; font-size: var(--t-sm); }
+fieldset.field { border: 0; padding: 0; margin: 0; }
+.field select, .field input[type="text"], .field input[type="tel"] { width: 100%; min-height: 48px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--paper); font: 500 16px var(--font); color: var(--ink); }
+.seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 4px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+.seg label { position: relative; }
+.seg input { position: absolute; opacity: 0; inset: 0; }
+.seg span { display: grid; place-items: center; text-align: center; min-height: 46px; padding: 4px 6px; border-radius: 10px; font-weight: 600; font-size: .875rem; line-height: 1.2; cursor: pointer; }
+.seg span small { display: block; font-weight: 500; color: var(--muted); font-size: .75rem; }
+.seg input:checked + span { background: var(--ink); color: #fff; }
+.seg input:checked + span small { color: #c8d6d7; }
+.seg input:focus-visible + span { outline: 3px solid var(--orange); outline-offset: 2px; }
+.stepper { display: flex; align-items: center; gap: 10px; }
+.stepper button { width: 48px; height: 48px; border-radius: 12px; border: 1px solid var(--line); background: var(--paper); font: 700 1.25rem var(--font); color: var(--ink); cursor: pointer; }
+.stepper output { min-width: 3ch; text-align: center; font-weight: 800; font-size: 1.25rem; }
+.checks { display: grid; gap: 10px; }
+.check { display: flex; gap: 12px; align-items: flex-start; padding: 14px; border-radius: 14px; background: var(--paper); border: 1px solid var(--line); cursor: pointer; }
+.check input { width: 20px; height: 20px; margin: 2px 0 0; accent-color: var(--teal); flex: none; }
+.check b { display: block; font-size: var(--t-sm); }
+.check span { color: var(--muted); font-size: .875rem; }
+.picked { display: flex; flex-wrap: wrap; gap: 8px; }
+.picked:empty::before { content: "Оберіть документи в каталозі вище або просто вкажіть кількість сторінок."; color: var(--muted); font-size: .875rem; }
+.picked button { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 8px; border: 0; background: var(--teal-soft); color: var(--teal-deep); font: 600 .8125rem var(--font); cursor: pointer; }
+.picked button::after { content: "×"; font-size: 1rem; line-height: 1; }
+
+.total { position: sticky; top: 92px; padding: clamp(22px, 3vw, 32px); background: var(--ink); color: #fff; border-radius: 24px; }
+.total__l { color: #a9c2c4; font-size: var(--t-sm); }
+.total__sum { font-size: clamp(2.5rem, 4vw, 3.5rem); font-weight: 800; letter-spacing: -.03em; line-height: 1.1; margin: 6px 0 4px; font-variant-numeric: tabular-nums; }
+.total__term { color: #cfe0e1; }
+.total__rows { list-style: none; padding: 0; margin: 22px 0; display: grid; gap: 8px; border-top: 1px solid #2c4649; padding-top: 18px; font-size: var(--t-sm); }
+.total__rows li { display: flex; justify-content: space-between; gap: 12px; color: #cfe0e1; }
+.total__rows li b { color: #fff; font-variant-numeric: tabular-nums; }
+.total .btn { width: 100%; }
+.total .btn + .btn { margin-top: 10px; }
+.total .btn--ghost { border-color: #fff; color: #fff; }
+.total .btn--ghost:hover { background: #fff; color: var(--ink); }
+.total__small { margin-top: 14px; font-size: .8125rem; color: #a9c2c4; }
+
+/* reviews */
+.reviews { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 16px; }
+.rev { margin: 0; padding: 24px; background: var(--paper); border: 1px solid var(--line); border-radius: 20px; display: flex; flex-direction: column; gap: 16px; }
+.rev blockquote { margin: 0; font-size: 1.0625rem; }
+.rev figcaption { margin-top: auto; color: var(--muted); font-size: var(--t-sm); }
+.rev figcaption b { color: var(--ink); display: block; }
+
+/* faq */
+.faq { border-top: 2px solid var(--ink); max-width: 860px; }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq summary { display: flex; justify-content: space-between; gap: 16px; padding: 20px 0; font-weight: 700; font-size: 1.125rem; cursor: pointer; list-style: none; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; flex: none; width: 28px; height: 28px; display: grid; place-items: center; border-radius: 8px; background: var(--teal-soft); color: var(--teal-deep); font-weight: 700; transition: rotate .25s var(--ease); }
+.faq details[open] summary::after { rotate: 45deg; }
+.faq details p { padding: 0 0 22px; color: var(--ink-2); max-width: 66ch; }
+
+/* contacts */
+.contact { display: grid; gap: clamp(28px, 4vw, 48px); grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 900px) { .contact { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); } }
+.contact h2 { font-size: var(--t-h2); font-weight: 800; }
+.contact__lead { margin-top: 14px; font-size: var(--t-lead); color: #cfe0e1; max-width: 46ch; }
+.contact__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.contact .btn--ghost { border-color: #fff; color: #fff; }
+.contact .btn--ghost:hover { background: #fff; color: var(--ink); }
+.dl { margin: 0; display: grid; gap: 0; border-top: 1px solid #2c4649; }
+.dl div { display: grid; grid-template-columns: 120px 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px solid #2c4649; }
+.dl dt { color: #a9c2c4; font-size: var(--t-sm); }
+.dl dd { margin: 0; font-weight: 600; }
+.dl a { text-decoration: none; }
+.dl a:hover { text-decoration: underline; }
+.sec--ink { background: var(--ink); color: #fff; }
+
+footer { padding: 28px 0 120px; color: var(--muted); font-size: .875rem; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
+/* demo switcher */
+.demo { position: fixed; z-index: 60; left: 50%; bottom: max(14px, env(safe-area-inset-bottom)); translate: -50% 0; display: flex; align-items: center; gap: 6px; padding: 6px; background: var(--ink); color: #fff; border-radius: 999px; box-shadow: 0 18px 40px -12px rgba(17, 41, 44, .55); max-width: calc(100vw - 24px); }
+.demo__l { padding: 0 6px 0 10px; font-size: .75rem; color: #a9c2c4; white-space: nowrap; }
+.demo__seg { display: flex; background: #22403f; border-radius: 999px; padding: 3px; }
+.demo__seg button { border: 0; background: none; color: #cfe0e1; font: 600 .875rem var(--font); padding: 8px 14px; border-radius: 999px; cursor: pointer; white-space: nowrap; }
+.demo__seg button[aria-pressed="true"] { background: #fff; color: var(--ink); }
+.demo__price { padding: 8px 14px; border-radius: 999px; background: var(--orange); color: var(--ink); font-weight: 700; font-size: .875rem; text-decoration: none; white-space: nowrap; }
+@media (max-width: 480px) { .demo__l { display: none; } .demo__seg button { padding: 8px 11px; } .demo__price { padding: 8px 11px; } }
+
+.toast { position: fixed; z-index: 70; left: 50%; bottom: 84px; translate: -50% 12px; opacity: 0; pointer-events: none; padding: 12px 18px; background: var(--paper); color: var(--ink); border: 1px solid var(--line); border-radius: 12px; font-weight: 600; font-size: var(--t-sm); box-shadow: 0 16px 36px -16px rgba(17,41,44,.45); transition: opacity .25s, translate .25s var(--ease); max-width: calc(100vw - 32px); text-align: center; }
+.toast.is-on { opacity: 1; translate: -50% 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Перейти до змісту</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-viber" viewBox="0 0 24 24"><path d="M12 3c5 0 8.5 2.6 8.5 7.6S17 18 12 18c-.8 0-1.6-.1-2.3-.2L6 21v-4.2C4.3 15.4 3.5 13.3 3.5 10.6 3.5 5.6 7 3 12 3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M9.5 8.5c.6 2.3 2 3.9 4.5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8h14l-4-4M20 16H6l4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h8l4 4v14H6z M14 3v4h4 M9 12h6M9 16h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-stamp" viewBox="0 0 24 24"><path d="M9 4h6v5l2 3H7l2-3z M5 15h14v3H5z M7 21h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-case" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M9 7V4h6v3M3 13h18" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="logo" viewBox="0 0 40 40"><rect x="1" y="1" width="18" height="18" rx="2" fill="#0f8a8d"/><rect x="21" y="6" width="18" height="18" rx="2" fill="#f2861e"/><rect x="1" y="20" width="18" height="18" rx="2" fill="#f2861e"/><rect x="21" y="25" width="18" height="14" rx="2" fill="#0f8a8d"/><g fill="#fff" font-family="Onest, sans-serif" font-weight="800" font-size="11" text-anchor="middle"><text x="10" y="14">P</text><text x="30" y="19">L</text><text x="10" y="33">S</text><text x="30" y="36">U</text></g></symbol>
+</svg>
+
+<header class="nav" id="nav">
+  <div class="wrap nav__in">
+    <a class="logo" href="#top" aria-label="IN PLUS, на початок сторінки">
+      <svg class="logo__mark" aria-hidden="true"><use href="#logo"/></svg>
+      <span class="logo__txt">IN PLUS<small>агентство перекладів</small></span>
+    </a>
+    <ul class="nav__links only-card">
+      <li><a href="#services">Послуги</a></li>
+      <li><a href="#how">Як працюємо</a></li>
+      <li><a href="#prices">Ціни</a></li>
+      <li><a href="#faq">Питання</a></li>
+      <li><a href="#contacts">Контакти</a></li>
+    </ul>
+    <ul class="nav__links only-cat">
+      <li><a href="#catalog">Каталог документів</a></li>
+      <li><a href="#calc">Калькулятор</a></li>
+      <li><a href="#languages">Мови</a></li>
+      <li><a href="#faq">Питання</a></li>
+      <li><a href="#contacts">Контакти</a></li>
+    </ul>
+    <a class="nav__phone" href="tel:+380663770943">066 377 09 43</a>
+    <a class="btn btn--viber nav__cta" href="viber://chat?number=%2B380663770943"><svg aria-hidden="true"><use href="#i-viber"/></svg>Viber</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top">
+    <div class="wrap hero__grid">
+      <div>
+        <h1 class="hero__title">Перекладаємо документи, які приймають з першого разу</h1>
+        <p class="hero__lead">Письмовий і нотаріальний переклад, апостиль, усний переклад. Надішліть фото документа у Viber, і за 15 хвилин скажемо ціну та термін.</p>
+        <div class="hero__actions">
+          <a class="btn btn--viber" href="viber://chat?number=%2B380663770943"><svg aria-hidden="true"><use href="#i-viber"/></svg>Надіслати фото у Viber</a>
+          <a class="btn btn--ghost only-card" href="#prices">Подивитися ціни</a>
+          <a class="btn btn--ghost only-cat" href="#calc">Порахувати вартість</a>
+        </div>
+        <ul class="hero__facts">
+          <li><b>від 250 грн</b>за сторінку</li>
+          <li><b>1 день</b>на стандартний документ</li>
+          <li><b>30+ мов</b>з носіями та присяжними</li>
+        </ul>
+      </div>
+
+      <div class="board" aria-label="Слово «переклад» різними мовами">
+        <div class="board__head">
+          <span class="board__pair"><span>українська</span><svg aria-hidden="true"><use href="#i-swap"/></svg><span id="board-lang">English</span></span>
+          <button class="board__pause" id="board-pause" type="button" aria-pressed="false">Пауза</button>
+        </div>
+        <div class="tiles" id="tiles" aria-live="off"></div>
+        <p class="sr-only" id="board-sr"></p>
+        <div class="board__foot" id="board-chips"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CARD MODE ===== -->
+  <section class="sec sec--paper only-card" id="services">
+    <div class="wrap">
+      <div class="sec__head">
+        <h2>Що ми робимо</h2>
+        <p>Беремо документ повністю на себе: перекладаємо, завіряємо, ставимо апостиль і віддаємо готовий пакет.</p>
+      </div>
+      <div class="svc">
+        <div class="svc__item"><span class="svc__ic"><svg aria-hidden="true"><use href="#i-doc"/></svg></span><h3>Письмовий переклад</h3><p>Паспорти, дипломи, довідки, договори, медичні висновки. Зберігаємо формат і печатки оригіналу.</p><span class="svc__price">від 250 грн за сторінку</span></div>
+        <div class="svc__item"><span class="svc__ic"><svg aria-hidden="true"><use href="#i-stamp"/></svg></span><h3>Нотаріальне засвідчення</h3><p>Нотаріус засвідчує підпис перекладача. Потрібно для посольств, ДМС, судів і вишів за кордоном.</p><span class="svc__price">від 350 грн за документ</span></div>
+        <div class="svc__item"><span class="svc__ic"><svg aria-hidden="true"><use href="#i-globe"/></svg></span><h3>Апостиль і легалізація</h3><p>Подаємо документи в Мін'юст, МОН чи МЗС за вас і стежимо за строками.</p><span class="svc__price">від 900 грн</span></div>
+        <div class="svc__item"><span class="svc__ic"><svg aria-hidden="true"><use href="#i-mic"/></svg></span><h3>Усний переклад</h3><p>Супровід у нотаріуса, на переговорах, онлайн-зустрічах і співбесідах у посольстві.</p><span class="svc__price">від 600 грн за годину</span></div>
+        <div class="svc__item"><span class="svc__ic"><svg aria-hidden="true"><use href="#i-case"/></svg></span><h3>Для бізнесу</h3><p>Статути, контракти, тендерна документація, інструкції. Договір, рахунок і знижки на обсяг.</p><span class="svc__price">ціна після оцінки</span></div>
+        <div class="svc__item"><span class="svc__ic"><svg aria-hidden="true"><use href="#i-check"/></svg></span><h3>Термінові замовлення</h3><p>Свідоцтво чи довідку перекладемо за кілька годин, якщо документ потрібен сьогодні.</p><span class="svc__price">+50% до вартості</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec only-card" id="prices">
+    <div class="wrap">
+      <div class="sec__head">
+        <h2>Ціни</h2>
+        <p>Сторінка перекладу — 1 800 знаків з пробілами. Типові документи рахуємо за фіксованою ціною.</p>
+      </div>
+      <table class="ptable">
+        <thead><tr><th scope="col">Мова</th><th scope="col">Термін</th><th scope="col">За сторінку</th></tr></thead>
+        <tbody>
+          <tr><td>Англійська, польська, німецька<small>найчастіші замовлення</small></td><td>1 день</td><td>від 250 грн</td></tr>
+          <tr><td>Французька, іспанська, італійська, чеська</td><td>1–2 дні</td><td>від 320 грн</td></tr>
+          <tr><td>Литовська, румунська, турецька, португальська</td><td>2 дні</td><td>від 380 грн</td></tr>
+          <tr><td>Китайська, арабська, японська, іврит</td><td>2–3 дні</td><td>від 550 грн</td></tr>
+          <tr><td>Нотаріальне засвідчення<small>за один документ</small></td><td>того ж дня</td><td>від 350 грн</td></tr>
+        </tbody>
+      </table>
+      <p class="note">Точну суму назвемо, коли побачимо документ. Надсилайте фото у Viber: <a href="viber://chat?number=%2B380663770943">066 377 09 43</a>.</p>
+    </div>
+  </section>
+
+  <!-- ===== CATALOG MODE ===== -->
+  <section class="sec sec--paper only-cat" id="catalog">
+    <div class="wrap">
+      <div class="sec__head">
+        <h2>Каталог документів</h2>
+        <p>Знайдіть свій документ, подивіться ціну й термін і додайте в розрахунок. Ціни вказані за переклад на англійську, польську чи німецьку.</p>
+      </div>
+      <div class="cat__bar">
+        <div class="chips" id="cat-chips" role="group" aria-label="Категорія документів"></div>
+        <label class="search"><span class="sr-only">Пошук документа</span><svg aria-hidden="true"><use href="#i-search"/></svg><input id="cat-search" type="search" placeholder="Паспорт, диплом, довідка…" autocomplete="off"></label>
+      </div>
+      <div class="docs" id="docs"></div>
+    </div>
+  </section>
+
+  <section class="sec only-cat" id="calc">
+    <div class="wrap">
+      <div class="sec__head">
+        <h2>Калькулятор вартості</h2>
+        <p>Попередня ціна за хвилину. Остаточну підтвердить менеджер, коли побачить документ.</p>
+      </div>
+      <div class="calc">
+        <form class="calc__form" id="calc-form">
+          <div class="field">
+            <span class="field__l">Обрані документи</span>
+            <div class="picked" id="picked"></div>
+          </div>
+          <div class="field">
+            <label for="c-lang">Мова перекладу</label>
+            <select id="c-lang"></select>
+          </div>
+          <div class="field">
+            <span class="field__l" id="pages-l">Інші сторінки тексту (1 800 знаків)</span>
+            <div class="stepper" role="group" aria-labelledby="pages-l">
+              <button type="button" id="pg-minus" aria-label="Менше сторінок">−</button>
+              <output id="pg-out" aria-live="polite">0</output>
+              <button type="button" id="pg-plus" aria-label="Більше сторінок">+</button>
+            </div>
+          </div>
+          <fieldset class="field">
+            <legend>Термін</legend>
+            <div class="seg">
+              <label><input type="radio" name="urg" value="1" checked><span>Звичайний<small>1–3 дні</small></span></label>
+              <label><input type="radio" name="urg" value="1.5"><span>Терміново<small>+50%</small></span></label>
+              <label><input type="radio" name="urg" value="2"><span>Сьогодні<small>+100%</small></span></label>
+            </div>
+          </fieldset>
+          <div class="checks">
+            <label class="check"><input type="checkbox" id="c-not" checked><span><b>Нотаріальне засвідчення</b><span>350 грн за кожен документ</span></span></label>
+            <label class="check"><input type="checkbox" id="c-apo"><span><b>Апостиль</b><span>900 грн за документ, 5–10 робочих днів</span></span></label>
+            <label class="check"><input type="checkbox" id="c-del"><span><b>Доставка Новою поштою</b><span>за тарифом перевізника</span></span></label>
+          </div>
+        </form>
+
+        <aside class="total" aria-labelledby="total-l">
+          <p class="total__l" id="total-l">Попередня вартість</p>
+          <p class="total__sum" id="t-sum" aria-live="polite">0 грн</p>
+          <p class="total__term" id="t-term">Додайте документ, щоб побачити термін</p>
+          <ul class="total__rows" id="t-rows"></ul>
+          <a class="btn btn--orange" id="t-send" href="#"><svg aria-hidden="true"><use href="#i-viber"/></svg>Надіслати замовлення у Viber</a>
+          <a class="btn btn--ghost" href="tel:+380663770943"><svg aria-hidden="true"><use href="#i-phone"/></svg>Подзвонити</a>
+          <p class="total__small">Текст замовлення скопіюється автоматично: вставте його в чат і додайте фото документа.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--paper only-cat" id="languages">
+    <div class="wrap">
+      <div class="sec__head">
+        <h2>Мови</h2>
+        <p>Ціна за сторінку при перекладі з української чи на українську.</p>
+      </div>
+      <ul class="langs" id="langs"></ul>
+    </div>
+  </section>
+
+  <!-- ===== SHARED ===== -->
+  <section class="sec sec--paper only-card" id="how">
+    <div class="wrap">
+      <div class="sec__head">
+        <h2>Як це працює</h2>
+        <p>Можна жодного разу не приходити в офіс.</p>
+      </div>
+      <ol class="steps">
+        <li class="step"><h3>Надсилаєте фото</h3><p>У Viber чи на пошту. Підійде фото з телефона, головне, щоб читалися печатки.</p></li>
+        <li class="step"><h3>Отримуєте ціну</h3><p>За 15 хвилин у робочий час: вартість, термін і що потрібно для нотаріуса.</p></li>
+        <li class="step"><h3>Ми перекладаємо</h3><p>Перекладач і редактор звіряють імена й дати з закордонним паспортом.</p></li>
+        <li class="step"><h3>Забираєте готове</h3><p>В офісі або Новою поштою. Скан надсилаємо одразу, як документ готовий.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="reviews">
+    <div class="wrap">
+      <div class="sec__head"><h2>Відгуки</h2></div>
+      <div class="reviews">
+        <figure class="rev"><blockquote>Переклали диплом і додаток для вступу в Польщі за день, ще й підказали, що потрібен апостиль. Університет прийняв без питань.</blockquote><figcaption><b>Олена</b>диплом, польська</figcaption></figure>
+        <figure class="rev"><blockquote>Потрібен був переклад свідоцтв на дитину для посольства в суботу. Відповіли ввечері, документи забрала зранку.</blockquote><figcaption><b>Ірина</b>свідоцтва, німецька</figcaption></figure>
+        <figure class="rev"><blockquote>Працюємо з IN PLUS по контрактах з постачальниками. Тримають термінологію з попередніх договорів, рахунки вчасно.</blockquote><figcaption><b>Андрій</b>договори, англійська</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--paper" id="faq">
+    <div class="wrap">
+      <div class="sec__head"><h2>Часті питання</h2></div>
+      <div class="faq">
+        <details><summary>Чи потрібно приносити оригінал?</summary><p>Для простого перекладу вистачить фото. Для нотаріального засвідчення нотаріус підшиває переклад до оригіналу або нотаріальної копії, тому оригінал знадобиться. Скажемо заздалегідь, що саме принести.</p></details>
+        <details><summary>Як рахується сторінка?</summary><p>Одна сторінка — 1 800 знаків з пробілами в готовому перекладі. Типові документи (паспорт, свідоцтво, довідка) мають фіксовану ціну незалежно від кількості знаків.</p></details>
+        <details><summary>Ви робите апостиль?</summary><p>Так. Подаємо документи до Мін'юсту, МОН або МЗС залежно від типу документа і країни. Звичайний термін 5–10 робочих днів.</p></details>
+        <details><summary>Чи можна оплатити карткою?</summary><p>Так: переказом на картку, за рахунком для ФОП і компаній або готівкою в офісі.</p></details>
+        <details><summary>Як написати транслітерацію імені?</summary><p>Звіряємо з закордонним паспортом. Якщо його немає, робимо за офіційною таблицею транслітерації й узгоджуємо з вами до здачі.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--ink" id="contacts">
+    <div class="wrap contact">
+      <div>
+        <h2>Надішліть документ, ми порахуємо</h2>
+        <p class="contact__lead">Відповідаємо у Viber протягом 15 хвилин у робочий час. Можна просто подзвонити.</p>
+        <div class="contact__actions">
+          <a class="btn btn--orange" href="viber://chat?number=%2B380663770943"><svg aria-hidden="true"><use href="#i-viber"/></svg>Написати у Viber</a>
+          <a class="btn btn--ghost" href="tel:+380663770943"><svg aria-hidden="true"><use href="#i-phone"/></svg>066 377 09 43</a>
+        </div>
+      </div>
+      <dl class="dl">
+        <div><dt>Телефон</dt><dd><a href="tel:+380663770943">+380 66 377 09 43</a></dd></div>
+        <div><dt>Viber</dt><dd><a href="viber://chat?number=%2B380663770943">+380 66 377 09 43</a></dd></div>
+        <div><dt>Графік</dt><dd>Пн–Пт 9:00–18:00<br>Сб 10:00–14:00</dd></div>
+        <div><dt>Офіс</dt><dd>Адресу офісу додамо після узгодження</dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© IN PLUS, агентство перекладів</p>
+    <p>Демо-концепт: тексти, ціни й відгуки умовні. Дизайн і розробка <a href="https://konotop-site.vercel.app" target="_blank" rel="noopener">KONOTOP STUDIO</a>.</p>
+  </div>
+</footer>
+
+<div class="demo" role="group" aria-label="Варіант сайту">
+  <span class="demo__l">Демо:</span>
+  <div class="demo__seg">
+    <button type="button" data-mode="card" aria-pressed="true">Візитка</button>
+    <button type="button" data-mode="catalog" aria-pressed="false">Каталог</button>
+  </div>
+  <a class="demo__price" href="price.html">Ціна сайту</a>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
