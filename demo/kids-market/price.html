@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1c2554">
+<title>Сайт для KIDS Market: вартість</title>
+<meta name="description" content="Пропозиція KONOTOP STUDIO для магазину дитячих товарів KIDS Market: сайт-візитка та сайт-каталог з відкладанням товарів у Viber.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+:root { --sky: #eef3ff; --paper: #fff; --ink: #1c2554; --ink-2: #444d78; --muted: #646c93; --line: #d9e2f5; --red: #ef4b3f; --red-d: #b8322a; --yellow: #ffc22e; --yellow-d: #d49a0a; --green: #1fa463; --green-d: #137a47; --green-s: #d8f3e5; --blue: #2f7bf5; --display: "Unbounded", system-ui, sans-serif; --gutter: clamp(16px, 4vw, 48px); }
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
+body { margin: 0; background: var(--sky); color: var(--ink); font: 400 1.0625rem/1.55 "Golos Text", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 8px; }
+a { color: inherit; text-underline-offset: .2em; }
+h1, h2, h3 { margin: 0; line-height: 1.12; text-wrap: balance; }
+h1, h2 { font-family: var(--display); font-weight: 700; letter-spacing: -.02em; }
+p { margin: 0; text-wrap: pretty; }
+.wrap { max-width: 1080px; margin-inline: auto; padding-inline: var(--gutter); }
+header { padding-block: clamp(36px, 6vw, 72px) clamp(28px, 4vw, 44px); }
+.back { display: inline-block; margin-bottom: 28px; color: var(--muted); font-size: .9375rem; }
+h1 { font-size: clamp(1.75rem, 2.6vw + 1rem, 3rem); max-width: 20ch; }
+.lead { margin-top: 18px; font-size: clamp(1.0625rem, .4vw + 1rem, 1.25rem); color: var(--ink-2); max-width: 58ch; }
+.start { display: inline-flex; align-items: center; gap: 12px; margin-top: 22px; padding: 10px 16px 10px 10px; background: var(--paper); border-radius: 14px; font-weight: 600; font-size: .9375rem; }
+.start i { display: grid; place-items: center; min-width: 36px; height: 36px; padding-inline: 8px; border-radius: 9px; background: var(--yellow); box-shadow: 3px 4px 0 var(--yellow-d); font: 800 .875rem/1 var(--display); font-style: normal; rotate: -4deg; }
+
+.plans { display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 820px) { .plans { grid-template-columns: 1fr 1fr; } }
+.plan { display: flex; flex-direction: column; gap: 18px; padding: clamp(22px, 3vw, 34px); background: var(--paper); border-radius: 26px; }
+.plan--cat { background: var(--ink); color: #fff; }
+.plan__top { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+.plan h2 { font-size: 1.5rem; }
+.plan__for { margin-top: 8px; color: var(--muted); font-size: .9375rem; max-width: 36ch; }
+.plan--cat .plan__for { color: #b8bfe3; }
+.badge { flex: none; padding: 6px 10px; border-radius: 8px; background: var(--yellow); color: var(--ink); font-weight: 700; font-size: .8125rem; }
+.price { display: grid; gap: 4px; }
+.price s { color: var(--muted); font-weight: 500; }
+.plan--cat .price s { color: #9aa3d3; }
+.price b { font: 800 clamp(2.5rem, 4vw, 3.5rem)/1 var(--display); letter-spacing: -.03em; }
+.term { font-weight: 600; font-size: .9375rem; color: var(--green-d); }
+.plan--cat .term { color: #7fe0ae; }
+.list { list-style: none; margin: 0; padding: 18px 0 0; border-top: 1px solid var(--line); display: grid; gap: 10px; }
+.plan--cat .list { border-color: #343e72; }
+.list li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; font-size: .96875rem; }
+.list li::before { content: ""; width: 16px; height: 16px; margin-top: 4px; border-radius: 4px; background: var(--green); box-shadow: 2px 3px 0 var(--green-d); }
+.plan--cat .list li::before { background: var(--yellow); box-shadow: 2px 3px 0 var(--yellow-d); }
+.list li.plus { font-weight: 600; }
+.plan__demo { margin-top: auto; display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 20px; border-radius: 14px; border: 2px solid var(--ink); font-weight: 700; text-decoration: none; }
+.plan__demo:hover { background: var(--ink); color: #fff; }
+.plan--cat .plan__demo { background: var(--yellow); border-color: var(--yellow); color: var(--ink); }
+.plan--cat .plan__demo:hover { background: #ffd35f; border-color: #ffd35f; }
+
+section { padding-block: clamp(40px, 6vw, 72px) 0; }
+section h2 { font-size: clamp(1.375rem, 1.4vw + 1rem, 2rem); margin-bottom: 20px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 14px 12px 14px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+thead th { font-size: .9375rem; color: var(--muted); font-weight: 600; border-bottom: 2px solid var(--ink); }
+td:last-child, th:last-child { text-align: right; white-space: nowrap; font-weight: 700; padding-right: 0; }
+td small { display: block; color: var(--muted); font-size: .875rem; font-weight: 400; }
+.cmp td:nth-child(2), .cmp td:nth-child(3), .cmp th:nth-child(2), .cmp th:last-child { text-align: center; }
+.cmp th:nth-child(2), .cmp th:nth-child(3) { width: 104px; }
+.cmp td:nth-child(2), .cmp td:nth-child(3) { font-weight: 700; color: var(--green-d); padding-right: 0; }
+.cmp .no { color: #b3bbd6; }
+
+.steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); counter-reset: s; }
+.steps li { padding: 20px; background: var(--paper); border-radius: 20px; counter-increment: s; }
+.steps li::before { content: counter(s); display: grid; place-items: center; width: 38px; height: 38px; margin-bottom: 14px; border-radius: 9px; background: var(--red); box-shadow: 3px 4px 0 var(--red-d); color: #fff; font: 800 1.125rem/1 var(--display); }
+.steps li:nth-child(2)::before { background: var(--yellow); box-shadow: 3px 4px 0 var(--yellow-d); color: var(--ink); }
+.steps li:nth-child(3)::before { background: var(--green); box-shadow: 3px 4px 0 var(--green-d); }
+.steps li:nth-child(4)::before { background: var(--blue); box-shadow: 3px 4px 0 #1d58bd; }
+.steps b { display: block; margin-bottom: 4px; }
+.steps span { color: var(--ink-2); font-size: .9375rem; }
+
+.cta { margin-block: clamp(48px, 7vw, 88px) 0; padding: clamp(26px, 4vw, 44px); background: var(--ink); color: #fff; border-radius: 28px; display: grid; gap: 20px; }
+.cta h2 { color: #fff; margin: 0; }
+.cta p { color: #c3c9e8; max-width: 56ch; }
+.cta__row { display: flex; flex-wrap: wrap; gap: 12px; }
+.cta a { display: inline-flex; align-items: center; min-height: 52px; padding: 0 20px; border-radius: 14px; font-weight: 700; text-decoration: none; }
+.cta .a1 { background: var(--yellow); color: var(--ink); }
+.cta .a2 { border: 2px solid #fff; }
+footer { padding: 28px 0 48px; color: var(--muted); font-size: .875rem; }
+</style>
+</head>
+<body>
+<header class="wrap">
+  <a class="back" href="./">Повернутися до демо</a>
+  <h1>Сайт для магазину KIDS Market</h1>
+  <p class="lead">Два варіанти, обидва вже можна відкрити в демо. Ціна фіксована й включає дизайн, розробку, адаптацію під телефон і запуск.</p>
+  <p class="start"><i aria-hidden="true">−35%</i>Стартова ціна для перших магазинів у Кропивницькому</p>
+</header>
+
+<main class="wrap">
+  <div class="plans">
+    <article class="plan">
+      <div class="plan__top"><div><h2>Сайт-візитка</h2><p class="plan__for">Одна сторінка, щоб батьки з Google чи Instagram побачили, що є в магазині, де він і як подзвонити.</p></div></div>
+      <div class="price"><s>6 000 грн</s><b>3 900 грн</b></div>
+      <p class="term">Запуск за 3–5 днів</p>
+      <ul class="list">
+        <li>Перший екран з кубиками KIDS, які перевертаються</li>
+        <li>Асортимент, подарунки за віком, бренди, графік</li>
+        <li>Кнопки дзвінка й Viber на кожному екрані</li>
+        <li>Маршрут до магазину в Google Maps</li>
+        <li>Адаптація під телефон і планшет</li>
+        <li>Базове SEO: заголовки, опис, превʼю для месенджерів</li>
+        <li>Підключення домену, хостинг безкоштовний</li>
+        <li>2 раунди правок</li>
+      </ul>
+      <a class="plan__demo" href="./?v=card">Дивитися демо візитки</a>
+    </article>
+
+    <article class="plan plan--cat">
+      <div class="plan__top"><div><h2>Сайт-каталог</h2><p class="plan__for">Товари з цінами й фільтрами за віком: покупець відкладає потрібне й надсилає список у Viber.</p></div><span class="badge">Рекомендую</span></div>
+      <div class="price"><s>14 000 грн</s><b>8 900 грн</b></div>
+      <p class="term">Запуск за 7–10 днів</p>
+      <ul class="list">
+        <li class="plus">Усе з візитки, плюс:</li>
+        <li>Каталог до 100 товарів: внесу сам з ваших фото й цін</li>
+        <li>Пошук, категорії й фільтр за віком дитини</li>
+        <li>Кнопка «Відкласти» й готовий список у Viber</li>
+        <li>Ціни й наявність можна міняти в одному файлі</li>
+        <li>Аналітика: скільки людей зайшло й написало</li>
+        <li>3 раунди правок</li>
+      </ul>
+      <a class="plan__demo" href="./?v=catalog">Дивитися демо каталогу</a>
+    </article>
+  </div>
+
+  <section aria-labelledby="cmp-h">
+    <h2 id="cmp-h">Порівняння</h2>
+    <table class="cmp">
+      <thead><tr><th scope="col">Що є на сайті</th><th scope="col">Візитка</th><th scope="col">Каталог</th></tr></thead>
+      <tbody>
+        <tr><td>Асортимент, графік, адреса, маршрут</td><td>так</td><td>так</td></tr>
+        <tr><td>Кнопки дзвінка й Viber</td><td>так</td><td>так</td></tr>
+        <tr><td>Подарунки за віком</td><td>так</td><td>так</td></tr>
+        <tr><td>Товари з цінами й пошуком</td><td class="no">—</td><td>так</td></tr>
+        <tr><td>Відкладання товарів у Viber</td><td class="no">—</td><td>так</td></tr>
+        <tr><td>Термін запуску</td><td>3–5 днів</td><td>7–10 днів</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section aria-labelledby="add-h">
+    <h2 id="add-h">За бажанням</h2>
+    <table>
+      <thead><tr><th scope="col">Послуга</th><th scope="col">Ціна</th></tr></thead>
+      <tbody>
+        <tr><td>Домен .com.ua<small>реєстрація на ваше імʼя, оплата щороку</small></td><td>≈ 400–600 грн/рік</td></tr>
+        <tr><td>Google Maps і Google Business<small>картка магазину з адресою, фото й відгуками</small></td><td>+600 грн</td></tr>
+        <tr><td>Додаткові товари в каталог<small>понад 100 позицій</small></td><td>5 грн/товар</td></tr>
+        <tr><td>Онлайн-оплата карткою<small>Monobank, LiqPay або WayForPay</small></td><td>+2 500 грн</td></tr>
+        <tr><td>Підтримка після запуску<small>нові товари, ціни, акції</small></td><td>500 грн/міс</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section aria-labelledby="how-h">
+    <h2 id="how-h">Як працюємо</h2>
+    <ol class="steps">
+      <li><b>Обираєте варіант</b><span>Візитка чи каталог, і що змінити в демо.</span></li>
+      <li><b>Передоплата 50%</b><span>Надсилаєте графік, фото товарів і ціни.</span></li>
+      <li><b>Показую готовий сайт</b><span>Робите правки, вношу їх у той самий день.</span></li>
+      <li><b>Запуск на вашому домені</b><span>Решта 50% після запуску. Покажу, як міняти ціни.</span></li>
+    </ol>
+  </section>
+
+  <div class="cta">
+    <h2>Обговоримо?</h2>
+    <p>Напишіть, який варіант подобається і що змінити. Я теж з Кропивницького, тож можу заїхати в магазин і все показати на місці.</p>
+    <div class="cta__row">
+      <a class="a1" href="https://t.me/m_konotop" target="_blank" rel="noopener">Написати в Telegram</a>
+      <a class="a2" href="https://konotop-site.vercel.app" target="_blank" rel="noopener">Мої роботи</a>
+    </div>
+  </div>
+</main>
+
+<footer class="wrap"><p>KONOTOP STUDIO. Ціна дійсна 14 днів.</p></footer>
+</body>
+</html>
